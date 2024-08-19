@@ -9,3 +9,4 @@
 目前进度：开始界面的UI基本完成，下一步是生成地图部分，此部分较难，预计会花费大量时间
 
 完整的项目地址：目前采用Plastic SCM进行版本控制，不过Plastic hub将于年底关闭服务，未来将托管在团结云平台
+/main@DontStarve@tj_dytsss@cloud.cn

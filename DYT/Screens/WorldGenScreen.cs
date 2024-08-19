@@ -284,7 +284,7 @@ namespace DYT.Screens
             {
                 if (worlddata == "")
                 {
-                    DebugPrint.Print("RESTARTING GENERATION");
+                    DebugPrint.print("RESTARTING GENERATION");
                     done = false;
                     worlddata = null;
                     TheSim.GenerateNewWorld(genparam, modparam, worlddata =>

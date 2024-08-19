@@ -276,9 +276,9 @@ public class SaveIndex
     
     private void print_flags(DLCSupport.DLCTable dlcFlags)
     {
-        DebugPrint.Print("REIGN_OF_GIANTS ", dlcFlags.REIGN_OF_GIANTS);
-        DebugPrint.Print("CAPY_DLC " + dlcFlags.CAPY_DLC);
-        DebugPrint.Print("PORKLAND_DLC " + dlcFlags.PORKLAND_DLC);
+        DebugPrint.print("REIGN_OF_GIANTS ", dlcFlags.REIGN_OF_GIANTS);
+        DebugPrint.print("CAPY_DLC " + dlcFlags.CAPY_DLC);
+        DebugPrint.print("PORKLAND_DLC " + dlcFlags.PORKLAND_DLC);
     }
     public DLCSupport.DLCTable VerifyDLCFlags(int? slot = null)
     {
@@ -289,7 +289,7 @@ public class SaveIndex
         {
             if (dlcFlags.PORKLAND_DLC && (dlcFlags.REIGN_OF_GIANTS || dlcFlags.CAPY_DLC))
             {
-                DebugPrint.Print($"SLOT DLC FLAG ERROR, FIXING SLOT", slot);
+                DebugPrint.print($"SLOT DLC FLAG ERROR, FIXING SLOT", slot);
 
                 dlcFlags.CAPY_DLC = false;
                 dlcFlags.REIGN_OF_GIANTS = false;
@@ -300,7 +300,7 @@ public class SaveIndex
             }
             else if (dlcFlags.CAPY_DLC && dlcFlags.REIGN_OF_GIANTS)
             {
-                DebugPrint.Print("SLOT DLC FLAG ERROR, FIXING");
+                DebugPrint.print("SLOT DLC FLAG ERROR, FIXING");
 
                 dlcFlags.REIGN_OF_GIANTS = false;
                 data.slotList[slot.GetValueOrDefault(current_slot)].dlc = dlcFlags;
@@ -381,7 +381,7 @@ public class SaveIndex
         slot.save_id = GenerateSaveID(current_slot);
         slot.dlc = dlc == null ? DLCSupport.NO_DLC_TABLE : dlc;
         slot.mods = ModManager.GetEnabledModNames();
-        DebugPrint.Print("SaveIndex:StartSurvivalMode!:",
+        DebugPrint.print("SaveIndex:StartSurvivalMode!:",
             "ROG", slot.dlc.REIGN_OF_GIANTS, "SW", slot.dlc.CAPY_DLC, "HAM", slot.dlc.PORKLAND_DLC);
 
         slot.modes = new Modes();

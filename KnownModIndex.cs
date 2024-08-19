@@ -145,7 +145,7 @@ public class KnownModIndex
         startingup = false;
         string filename = $"boot_{GetModIndexName()}";
         MainFunctions.SavePersistentString(filename, "done", false, callback);
-        DebugPrint.Print("ModIndex: Load sequence finished successfully.\n");
+        DebugPrint.print("ModIndex: Load sequence finished successfully.\n");
     }
 
     public static bool WasLoadBad()

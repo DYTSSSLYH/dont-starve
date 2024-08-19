@@ -74,7 +74,7 @@ namespace DYT
             {
                 if (MainFunctions.Settings.last_reset_action == "FRONTEND")
                 {
-                    DebugPrint.Print("\tFE assets already loaded");
+                    DebugPrint.print("\tFE assets already loaded");
                     DLCSupport.RegisterAllDLC();
                     foreach (string file in PrefabList.PREFABFILES)
                     {
@@ -107,7 +107,7 @@ namespace DYT
             {
                 if (MainFunctions.Settings.last_asset_set == "BACKEND")
                 {
-                    DebugPrint.Print("\tBE assets already loaded");
+                    DebugPrint.print("\tBE assets already loaded");
                     DLCSupport.RegisterAllDLC();
                     foreach (string file in PrefabList.PREFABFILES)
                     {
@@ -117,9 +117,9 @@ namespace DYT
                 }
                 else
                 {
-                    DebugPrint.Print("\tUnload FE");
+                    DebugPrint.print("\tUnload FE");
                     TheSim.UnloadPrefabs(Constant.FRONTEND_PREFABS);
-                    DebugPrint.Print("\tUnload FE done");
+                    DebugPrint.print("\tUnload FE done");
                     StartCoroutine(KeepAlive());
                     
                     DLCSupport.RegisterAllDLC();
@@ -131,7 +131,7 @@ namespace DYT
                     ModManager.RegisterPrefabs();
                     StartCoroutine(KeepAlive());
                     
-                    DebugPrint.Print("\tLoad BE");
+                    DebugPrint.print("\tLoad BE");
                     TheSim.LoadPrefabs(Constant.BACKEND_PREFABS);
                     StartCoroutine(KeepAlive());
                     TheSim.LoadPrefabs(PrefabList.PREFABFILES);
@@ -219,7 +219,7 @@ namespace DYT
             if (savedata.StartsWith("error"))
             {
                 // TODO
-                DebugPrint.Print("Worldgen had an error, displaying...");
+                DebugPrint.print("Worldgen had an error, displaying...");
             }
             else
             {
@@ -289,10 +289,10 @@ namespace DYT
         private void LoadSlot(int slot, object playerevent)
         {
             Main.TheFrontEnd.ClearScreens();
-            DebugPrint.Print($"Loading slot {slot}");
+            DebugPrint.print($"Loading slot {slot}");
             if (SaveGameIndex.HasWorld(slot, SaveGameIndex.GetCurrentMode(slot)))
             {
-                DebugPrint.Print("Load Slot: Has World");
+                DebugPrint.print("Load Slot: Has World");
                 SaveGameIndex.SetCurrentIndex(slot);
                 LoadAssets("BACKEND");
                 DoLoadWorld(slot,
@@ -300,7 +300,7 @@ namespace DYT
             }
             else
             {
-                DebugPrint.Print("Load Slot: Has no World");
+                DebugPrint.print("Load Slot: Has no World");
                 if ((SaveGameIndex.GetCurrentMode(slot) == "survival" ||
                      SaveGameIndex.GetCurrentMode(slot) == "survival" ||
                      SaveGameIndex.GetCurrentMode(slot) == "survival")
@@ -309,7 +309,7 @@ namespace DYT
                 }
                 else
                 {
-                    DebugPrint.Print("Load Slot: ... generating new world");
+                    DebugPrint.print("Load Slot: ... generating new world");
                     DoGenerateWorld(slot, null, playerevent);
                 }
             }

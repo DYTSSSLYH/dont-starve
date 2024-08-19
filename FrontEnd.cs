@@ -586,7 +586,7 @@ public class FrontEnd : MonoBehaviour
     {
         if (displayingerror == false)
         {
-            DebugPrint.Print("SCRIPT ERROR! Showing error screen");
+            DebugPrint.print("SCRIPT ERROR! Showing error screen");
             
             ShowScreen(screen);
             overlayroot.Hide();

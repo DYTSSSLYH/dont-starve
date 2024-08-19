@@ -67,10 +67,10 @@ public class LanguageTranslator
         if (dbFile != null) File.AppendAllText(dbFile, $"Translator: Loading PO file: {fileName}\n");
 
         string file = Util.resolvefilepath(fileName);
-        DebugPrint.Print($"Translator:LoadPOFile - loading file: {file}");
+        DebugPrint.print($"Translator:LoadPOFile - loading file: {file}");
         if (!File.Exists(file))
         {
-            DebugPrint.Print($"Translator:LoadPOFile - Specified language file {file} not found.");
+            DebugPrint.print($"Translator:LoadPOFile - Specified language file {file} not found.");
             return;
         }
 

@@ -42,7 +42,7 @@ public class ModUtil
 
     private static void initprint(string modName, params object[] objects)
     {
-        if (KnownModIndex.IsModInitPrintEnabled()) DebugPrint.Print(ModInfoname(modName), objects);
+        if (KnownModIndex.IsModInitPrintEnabled()) DebugPrint.print(ModInfoname(modName), objects);
     }
     
     public static void InsertPostInitFunctions(ModManager.Environment env)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace DYT
 {
@@ -182,7 +183,7 @@ namespace DYT
             APP_VERSION = Application.version;
         }
 
-        private void Start()
+        private void Start1()
         {
             TheConfig.Init();
         
@@ -213,7 +214,7 @@ namespace DYT
             VERBOSITY_LEVEL = Constant.VERBOSITY.WARNING;
 
             float SEED = TheSim.GetRealTime();
-            DebugPrint.Print("Sim Seed = ", SEED);
+            DebugPrint.print("Sim Seed = ", SEED);
             // math.randomseed(SEED)
         
             // instantiate the mixer

@@ -79,7 +79,7 @@ public class Morgue
         }
         else
         {
-            DebugPrint.Print($"PlayerDeaths loaded {GetSaveName()}", str.Length);
+            DebugPrint.print($"PlayerDeaths loaded {GetSaveName()}", str.Length);
 
             persistData = JsonConvert.DeserializeObject<List<Data>>(str);
             Sort();

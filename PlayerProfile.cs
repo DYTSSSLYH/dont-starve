@@ -185,7 +185,7 @@ public class PlayerProfile
         if (setting == null) return true;
         else
         {
-            DebugPrint.Print("FOUND THE NEW DATA", setting);
+            DebugPrint.print("FOUND THE NEW DATA", setting);
             return setting == "true";
         }
     }
@@ -330,7 +330,7 @@ public class PlayerProfile
                 bool bloom_enabled = GetBloomEnabled();
                 bool distortion_enabled = GetDistortionEnabled();
                 
-                DebugPrint.Print("bloom_enabled", bloom_enabled);
+                DebugPrint.print("bloom_enabled", bloom_enabled);
             }
 
             // old save data will not have the controls section so create it

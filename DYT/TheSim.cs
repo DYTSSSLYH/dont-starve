@@ -89,6 +89,10 @@ namespace DYT
             _useUnicode = useUnicode;
         }
 
+        public static long getrealtime()
+        {
+            return DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        }
         public static int GetRealTime()
         {
             return (int)Time.unscaledTime * 1000;

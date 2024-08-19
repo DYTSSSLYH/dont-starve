@@ -26,7 +26,7 @@ public class DebugPrint
 
     // this wraps print in code that shows what line number it is coming from,
     // and pushes it out to all of the print loggers
-    public static void Print(params object[] objectArray)
+    public static void print(params object[] objectArray)
     {
         string str = "";
         str = packstring(objectArray);

@@ -45,7 +45,7 @@ namespace DYT
 
         public static void Print(Constant.VERBOSITY msgVerbosity, params object[] objectArray)
         {
-            if (msgVerbosity <= Main.VERBOSITY_LEVEL) DebugPrint.Print(objectArray);
+            if (msgVerbosity <= Main.VERBOSITY_LEVEL) DebugPrint.print(objectArray);
         }
 
 
@@ -337,7 +337,7 @@ namespace DYT
         {
             if (!Main.TheFrontEnd)
             {
-                DebugPrint.Print(
+                DebugPrint.print(
                     "Error error! We tried displaying an error but TheFrontEnd isn't ready yet...");
                 PendingErrors.Add(error);
                 return;
@@ -346,7 +346,7 @@ namespace DYT
             SetPause(true, "DisplayError");
             if (Main.TheFrontEnd.IsDisplayingError()) return;
         
-            DebugPrint.Print(error); //Failsafe since sometimes the error screen is no shown
+            DebugPrint.print(error); //Failsafe since sometimes the error screen is no shown
 
             List<string> modNames = ModManager.GetEnabledModNames();
 

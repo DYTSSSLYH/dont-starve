@@ -1,4 +1,6 @@
-﻿public class RecipeCategory : Recipe
+﻿using DYT;
+
+public class RecipeCategory : Recipe
 {
     public Constant.RecipeTab subcategory;
     public bool skipCategoryCheck;

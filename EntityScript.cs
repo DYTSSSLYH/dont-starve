@@ -89,7 +89,7 @@ public class EntityScript : MonoBehaviour
 
     public void AddComponent(string name, MonoBehaviour monoBehaviour)
     {
-        if (components.ContainsKey(name)) DebugPrint.Print($"component {name} already exists in prefab!");
+        if (components.ContainsKey(name)) DebugPrint.print($"component {name} already exists in prefab!");
         Assert.IsNotNull(monoBehaviour, $"component {name} does not exist!");
         
         components.Add(name, monoBehaviour);
@@ -106,7 +106,7 @@ public class EntityScript : MonoBehaviour
         {
             pendingtasks.Remove(task);
         }
-        else DebugPrint.Print("   NOT FOUND");
+        else DebugPrint.print("   NOT FOUND");
     }
 
     public Periodic DoTaskInTime(float time, Action fn, params object[] array)

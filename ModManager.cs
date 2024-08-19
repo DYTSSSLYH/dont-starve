@@ -161,7 +161,7 @@ public class ModManager
     {
         if (!KnownModIndex.IsModCompatibleWithMode(modname)) return;
         
-        DebugPrint.Print($"Mod: {ModUtil.ModInfoname(modname)}", $"Loading {mainfile}");
+        DebugPrint.print($"Mod: {ModUtil.ModInfoname(modname)}", $"Loading {mainfile}");
 
         GameObject.Instantiate(Resources.Load<GameObject>($"Mods/{modname}/{mainfile}"));
     }
@@ -184,7 +184,7 @@ public class ModManager
             {
                 KnownModIndex.DisableBecauseBad(failedMod.name);
                 GetMod(failedMod.name).modinfo.failed = true;
-                DebugPrint.Print(
+                DebugPrint.print(
                     $"Disabling {ModUtil.ModInfoname(failedMod.name)} because it had an error."
                 );
             }
@@ -275,7 +275,7 @@ public class ModManager
     {
         foreach (string modname in loadedprefabs)
         {
-            DebugPrint.Print($"unloading prefabs for mod {ModUtil.ModInfoname(modname)}");
+            DebugPrint.print($"unloading prefabs for mod {ModUtil.ModInfoname(modname)}");
             TheSim.UnloadPrefabs(new List<string>{modname});
         }
     }
