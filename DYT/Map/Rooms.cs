@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DYT.Map.rooms;
 using UnityEngine;
 
 namespace DYT.Map
@@ -8,10 +9,14 @@ namespace DYT.Map
 	{
 		public Color colour;
 		public int value;
+		public List<string> tags;
 	        
 		public class Contents
 		{
 			public Dictionary<string, Func<float>> countprefabs;
+			public Dictionary<string, Func<int>> countstaticlayouts;
+			public float distributepercent;
+			public Dictionary<string, float> distributeprefabs;
 		}
 		public Contents contents;
 	}
@@ -29,8 +34,8 @@ namespace DYT.Map
 	    static Rooms()
 	    {
 			// -- "Special" rooms
-			// require("map/rooms/test")
-			// require("map/rooms/pigs")
+			new TestRooms();
+			new PigsRooms();
 			// require("map/rooms/merms")
 			// require("map/rooms/chess")
 			// require("map/rooms/spider")
@@ -97,7 +102,6 @@ namespace DYT.Map
 			// ------------------------------------------------------------------------------------
 			// -- EXIT ROOM -----------------------------------------------------------------------
 			// ------------------------------------------------------------------------------------
-		    
 		    AddRoom("Exit", new Room
 		    {
 			    colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
