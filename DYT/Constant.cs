@@ -302,6 +302,55 @@ namespace DYT
 				WALL_STONEEYE = 162,
 				WALL_STONEEYE_GLOW = 163;
 		}
+    
+		public class Tech
+		{
+			public int SCIENCE = 0, MAGIC = 0, ANCIENT = 0, OBSIDIAN = 0, HOME = 0, CITY = 0, LOST = 0;
+		}
+		public class TECH
+		{
+			public static Tech
+				NONE = new() { SCIENCE = 0, MAGIC = 0, ANCIENT = 0, OBSIDIAN = 0, LOST = 0 },
+				SCIENCE_ONE = new() { SCIENCE = 1 },
+				SCIENCE_TWO = new() { SCIENCE = 2 },
+				SCIENCE_THREE = new() { SCIENCE = 3 },
+				// Magic starts at level 2 so it's not teased from the start.
+				MAGIC_TWO = new() { MAGIC = 2 },
+				MAGIC_THREE = new() { MAGIC = 3 },
+				ANCIENT_TWO = new() { ANCIENT = 2 },
+				ANCIENT_THREE = new() { ANCIENT = 3 },
+				ANCIENT_FOUR = new() { ANCIENT = 4 },
+				OBSIDIAN_TWO = new() { OBSIDIAN = 2 },
+				HOME_TWO = new() { HOME = 2 },
+				CITY = new() { CITY = 2 },
+
+				LOST = new() { LOST = 10 };
+		}
+    
+		public class CHARACTER_INGREDIENT
+		{
+			// NOTE: Value is used as key for NAME string and inventory image
+			public static string
+				HEALTH = "decrease_health",
+				MAX_HEALTH = "half_health",
+				SANITY = "decrease_sanity",
+				MAX_SANITY = "half_sanity";
+		}
+
+		// Character ingredient amounts must be multiples of 5
+		public static int CHARACTER_INGREDIENT_SEG = 5;
+		
+		// See cell_data.h
+		public class NODE_INTERNAL_CONNECTION_TYPE
+		{
+			public static int
+				EdgeCentroid = 0,
+				EdgeSite = 1,
+				EdgeEdgeDirect = 2,
+				EdgeEdgeLeft = 3,
+				EdgeEdgeRight = 4,
+				EdgeData = 5;
+		} 
 		
 		public class CA_SEED_MODE
 		{
@@ -394,44 +443,7 @@ namespace DYT
 			INFO = 2,
 			DEBUG = 3
 		}
-    
-		public class Tech
-		{
-			public int SCIENCE = 0, MAGIC = 0, ANCIENT = 0, OBSIDIAN = 0, HOME = 0, CITY = 0, LOST = 0;
-		}
-		public class TECH
-		{
-			public static Tech
-				NONE = new() { SCIENCE = 0, MAGIC = 0, ANCIENT = 0, OBSIDIAN = 0, LOST = 0 },
-				SCIENCE_ONE = new() { SCIENCE = 1 },
-				SCIENCE_TWO = new() { SCIENCE = 2 },
-				SCIENCE_THREE = new() { SCIENCE = 3 },
-				// Magic starts at level 2 so it's not teased from the start.
-				MAGIC_TWO = new() { MAGIC = 2 },
-				MAGIC_THREE = new() { MAGIC = 3 },
-				ANCIENT_TWO = new() { ANCIENT = 2 },
-				ANCIENT_THREE = new() { ANCIENT = 3 },
-				ANCIENT_FOUR = new() { ANCIENT = 4 },
-				OBSIDIAN_TWO = new() { OBSIDIAN = 2 },
-				HOME_TWO = new() { HOME = 2 },
-				CITY = new() { CITY = 2 },
-
-				LOST = new() { LOST = 10 };
-		}
-    
-		public class CHARACTER_INGREDIENT
-		{
-			// NOTE: Value is used as key for NAME string and inventory image
-			public static string
-				HEALTH = "decrease_health",
-				MAX_HEALTH = "half_health",
-				SANITY = "decrease_sanity",
-				MAX_SANITY = "half_sanity";
-		}
-
-		// Character ingredient amounts must be multiples of 5
-		public static int CHARACTER_INGREDIENT_SEG = 5;
-
+		
 		public enum RenderQuality
 		{
 			Low = 0,

@@ -10,6 +10,8 @@ namespace DYT.Map
 		public Color colour;
 		public int value;
 		public List<string> tags;
+		public RoomFunctions.Runca custom_tiles;
+		public int internal_type;
 	        
 		public class Contents
 		{
@@ -17,6 +19,7 @@ namespace DYT.Map
 			public Dictionary<string, Func<int>> countstaticlayouts;
 			public float distributepercent;
 			public Dictionary<string, float> distributeprefabs;
+			public Dictionary<string, Func<string>> prefabdata;
 		}
 		public Contents contents;
 	}
@@ -36,18 +39,15 @@ namespace DYT.Map
 			// -- "Special" rooms
 			new TestRooms();
 			new PigsRooms();
-			// require("map/rooms/merms")
-			// require("map/rooms/chess")
-			// require("map/rooms/spider")
-			// require("map/rooms/walrus")
-			// require("map/rooms/wormhole")
-			// require("map/rooms/beefalo")
-			// require("map/rooms/graveyard")
-			// require("map/rooms/tallbird")
-			// require("map/rooms/bee")
-			// require("map/rooms/mandrake")
-			//
-			// require("map/rooms/caves")
+			new SpiderRooms();
+			new WalrusRooms();
+			new BeefaloRooms();
+			new GraveyardRooms();
+			new TallbirdRooms();
+			new BeeRooms();
+			new MandrakeRooms();
+
+			new CavesRooms();
 			// require("map/rooms/ruins")
 			//
 			// require("map/rooms/blockers")
