@@ -9,6 +9,7 @@ namespace DYT.Map
 	{
 		public Color colour;
 		public int value;
+		public string type;
 		public List<string> tags;
 		public RoomFunctions.Runca custom_tiles;
 		public int internal_type;
@@ -25,7 +26,22 @@ namespace DYT.Map
 	}
     public class Rooms
     {
-        public static void MakeSetpieceBlockerRoom(object blocker_name){}
+	    public static Room MakeSetpieceBlockerRoom(string blocker_name)
+	    {
+		    return new Room
+		    {
+			    colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+			    value = Constant.GROUND.IMPASSABLE,
+			    tags = { "ForceConnected", "RoadPoison" },
+			    contents =
+			    {
+				    countstaticlayouts =
+				    {
+					    [blocker_name] = () => 1
+				    }
+			    }
+		    };
+	    }
 
         public static Dictionary<string, Room> rooms = new();
         public static void AddRoom(string name, Room data)
