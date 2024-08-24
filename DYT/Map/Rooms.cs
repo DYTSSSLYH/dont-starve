@@ -19,7 +19,12 @@ namespace DYT.Map
 			public Dictionary<string, Func<float>> countprefabs;
 			public Dictionary<string, Func<int>> countstaticlayouts;
 			public float distributepercent;
-			public Dictionary<string, float> distributeprefabs;
+			public class DistributePrefab
+			{
+				public int weight;
+				public List<string> prefabs;
+			}
+			public Dictionary<string, object> distributeprefabs;
 			public Dictionary<string, Func<string>> prefabdata;
 		}
 		public Contents contents;
@@ -52,53 +57,62 @@ namespace DYT.Map
 
 	    static Rooms()
 	    {
-			// -- "Special" rooms
-			new TestRooms();
-			new PigsRooms();
-			new SpiderRooms();
-			new WalrusRooms();
-			new BeefaloRooms();
-			new GraveyardRooms();
-			new TallbirdRooms();
-			new BeeRooms();
-			new MandrakeRooms();
+		    #region "Special" rooms
 
-			new CavesRooms();
-			// require("map/rooms/ruins")
-			//
-			// require("map/rooms/blockers")
-			// require("map/rooms/starts")
-			//
-			// -- "Background" rooms
-			//
-			// require("map/rooms/terrain_dirt")
-			// require("map/rooms/terrain_forest")
-			// require("map/rooms/terrain_grass")
-			// require("map/rooms/terrain_impassable")
-			// require("map/rooms/terrain_marsh")
-			// require("map/rooms/terrain_noise")
-			// require("map/rooms/terrain_rocky")
-			// require("map/rooms/terrain_savanna")
-			//
-			// require("map/rooms/terrain_sinkhole")
-			// require("map/rooms/terrain_fungus")
-			// require("map/rooms/terrain_cave")
-			// require("map/rooms/terrain_mazes")
-			//
-			// -- SW ROOMS
-			// require("map/rooms/terrain_beach")
-			// require("map/rooms/terrain_island")
-			// require("map/rooms/terrain_jungle")
-			// require("map/rooms/terrain_ocean")
-			// require("map/rooms/terrain_tidalmarsh")
-			// require("map/rooms/terrain_magmafield")
-			// require("map/rooms/terrain_meadow")
-			// require("map/rooms/terrain_mangrove")
-			// require("map/rooms/shipwrecked_rooms")
-			// require("map/rooms/water_content")
-			// require("map/rooms/volcano")
-			//
-			// --PORKLAND ROOMS
+		    new TestRooms();
+		    new PigsRooms();
+		    new SpiderRooms();
+		    new WalrusRooms();
+		    new BeefaloRooms();
+		    new GraveyardRooms();
+		    new TallbirdRooms();
+		    new BeeRooms();
+		    new MandrakeRooms();
+
+		    new CavesRooms();
+		    new RuinsRooms();
+
+		    new BlockersRooms();
+		    new StartsRooms();
+
+		    #endregion
+
+		    #region "Background" rooms
+
+		    new TerrainDirtRooms();
+		    new TerrainForestRooms();
+		    // require("map/rooms/terrain_grass")
+		    // require("map/rooms/terrain_impassable")
+		    // require("map/rooms/terrain_marsh")
+		    // require("map/rooms/terrain_noise")
+		    // require("map/rooms/terrain_rocky")
+		    // require("map/rooms/terrain_savanna")
+		    
+		    // require("map/rooms/terrain_sinkhole")
+		    // require("map/rooms/terrain_fungus")
+		    // require("map/rooms/terrain_cave")
+		    // require("map/rooms/terrain_mazes")
+
+		    #endregion
+
+		    #region SW ROOMS
+
+		    // require("map/rooms/terrain_beach")
+		    // require("map/rooms/terrain_island")
+		    // require("map/rooms/terrain_jungle")
+		    // require("map/rooms/terrain_ocean")
+		    // require("map/rooms/terrain_tidalmarsh")
+		    // require("map/rooms/terrain_magmafield")
+		    // require("map/rooms/terrain_meadow")
+		    // require("map/rooms/terrain_mangrove")
+		    // require("map/rooms/shipwrecked_rooms")
+		    // require("map/rooms/water_content")
+		    // require("map/rooms/volcano")
+
+		    #endregion
+
+			#region PORKLAND ROOMS
+
 			// require("map/rooms/terrain_rainforest")
 			// require("map/rooms/terrain_deeprainforest")
 			// require("map/rooms/terrain_cultivated")
@@ -110,10 +124,15 @@ namespace DYT.Map
 			// require("map/rooms/terrain_pinacle")
 			//
 			// require("map/rooms/terrain_impassable")
-			//
-			//
-			// -- DLC ROOMS?
+
+			#endregion
+
+
+			#region DLC ROOMS?
+			
 			// require("map/rooms/DLCrooms")
+
+			#endregion
 
 			// ------------------------------------------------------------------------------------
 			// -- EXIT ROOM -----------------------------------------------------------------------
