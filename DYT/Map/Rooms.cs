@@ -81,17 +81,17 @@ namespace DYT.Map
 
 		    new TerrainDirtRooms();
 		    new TerrainForestRooms();
-		    // require("map/rooms/terrain_grass")
-		    // require("map/rooms/terrain_impassable")
-		    // require("map/rooms/terrain_marsh")
-		    // require("map/rooms/terrain_noise")
-		    // require("map/rooms/terrain_rocky")
-		    // require("map/rooms/terrain_savanna")
-		    
-		    // require("map/rooms/terrain_sinkhole")
-		    // require("map/rooms/terrain_fungus")
-		    // require("map/rooms/terrain_cave")
-		    // require("map/rooms/terrain_mazes")
+		    new TerrainGrassRoom();
+		    new TerrainImpassableRoom();
+		    new TerrainMarshRoom();
+		    new TerrainNoiseRoom();
+		    new TerrainRockyRoom();
+		    new TerrainSavannaRoom();
+
+		    new TerrainSinkholeRoom();
+		    new TerrainFungusRoom();
+		    new TerrainCaveRoom();
+		    new TerrainMazesRoom();
 
 		    #endregion
 
