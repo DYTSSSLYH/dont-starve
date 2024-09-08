@@ -48,7 +48,7 @@ namespace DYT.Map
 		    };
 	    }
 
-        public static Dictionary<string, Room> rooms = new();
+        public static readonly Dictionary<string, Room> rooms = new();
         public static void AddRoom(string name, Room data)
         {
             rooms.Add(name, data);
