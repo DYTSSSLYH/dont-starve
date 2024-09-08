@@ -1,0 +1,32 @@
+﻿^([^/-]*)--
+$1//--
+
+([^\.])AddTask\(\"(\S+)\"\,\s*\{
+$1Tasks.AddTask("$2",new Task{
+
+((LOCKS\.)|(KEYS\.))\S+
+
+([^\d])\.(\d+)
+$10.$2
+
+(\d+)\.(\d+)([^\df])
+$1.$2f$3
+
+\[\"([\S\=&&[^\"\=]]+)([\s=])
+["$1"]$2
+
+========================================
+
+([^\.])RUNCA
+$1RoomFunctions.RUNCA
+
+(\s+)\{tile
+$1new RoomFunctions.Translate{tile
+
+math\.random
+new Random().Next
+
+function\s*\(\)\s*return\s*(.+)\s*end
+()=>$1
+
+()=>

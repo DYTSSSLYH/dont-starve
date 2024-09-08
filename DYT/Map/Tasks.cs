@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using DYT.Map.tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -65,9 +66,14 @@ namespace DYT.Map
                 parameters = JsonConvert.DeserializeObject<JObject>(Main.GEN_PARAMETERS);
 
             if (parameters != null && parameters["level_type"].Value<string>() == "porkland")
+                new PorklandTasks();
+            else if (parameters["ROGEnabled"].Value<bool>() ||
+                     parameters["level_type"].Value<string>() == "shipwrecked" ||
+                     parameters["level_type"].Value<string>() == "volcano")
             {
-                
+                new PorklandTasks();
             }
+            else new PorklandTasks();
         }
 
         

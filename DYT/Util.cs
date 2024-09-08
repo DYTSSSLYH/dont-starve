@@ -20,6 +20,21 @@ namespace DYT
         
             return result;
         }
+        
+        //-- merge two array-style tables, only allowing each value once
+        public static List<T> ArrayUnion<T>(params List<T>[] listArray)
+        {
+            List<T> result = new();
+            foreach (List<T> list in listArray)
+            {
+                foreach (T item in list)
+                {
+                    if (result.Contains(item)) continue;
+                    else result.Add(item);
+                }
+            }
+            return result;
+        }
 
         public static float GetRandomWithVariance(float baseval, float randomval)
         {
