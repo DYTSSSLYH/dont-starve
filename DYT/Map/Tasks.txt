@@ -1,10 +1,5 @@
-﻿^([^/-]*)--
+﻿^([^\n/-]*)--
 $1//--
-
-([^\.])AddTask\(\"(\S+)\"\,\s*\{
-$1Tasks.AddTask("$2",new Task{
-
-((LOCKS\.)|(KEYS\.))\S+
 
 ([^\d])\.(\d+)
 $10.$2
@@ -12,19 +7,40 @@ $10.$2
 (\d+)\.(\d+)([^\df])
 $1.$2f$3
 
+========================================
+
+([^\.])SIZE_VARIATION
+$1Tasks.SIZE_VARIATION
+
+blockersets
+BlockerSets
+
+([^\.])ArrayUnion
+$1Util.ArrayUnion
+
+([^\n\.]*)(AddTask\(".+",)\s*\{
+$1Tasks.$2new Task{
+
+((LOCKS\.)|(KEYS\.))([^,}&&\S]+)
+"$4"
+
+(locks|keys_given|entrance_room)\s*=\s*"(.+)"
+$1={"$2"}
+
+========================================
+
+math\.random
+WorldGenMain.random.Next
+
 \[\"([\S\=&&[^\"\=]]+)([\s=])
 ["$1"]$2
 
-========================================
 
 ([^\.])RUNCA
 $1RoomFunctions.RUNCA
 
 (\s+)\{tile
 $1new RoomFunctions.Translate{tile
-
-math\.random
-new Random().Next
 
 function\s*\(\)\s*return\s*(.+)\s*end
 ()=>$1

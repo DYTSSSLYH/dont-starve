@@ -71,7 +71,7 @@ namespace DYT.Map
                      parameters["level_type"].Value<string>() == "shipwrecked" ||
                      parameters["level_type"].Value<string>() == "volcano")
             {
-                new PorklandTasks();
+                new SwTasks();
             }
             else new PorklandTasks();
         }
