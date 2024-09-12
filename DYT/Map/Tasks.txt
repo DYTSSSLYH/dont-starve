@@ -27,8 +27,8 @@ $1Tasks.$2new Task{
 (locks|keys_given|entrance_room)\s*=\s*"(.+)"
 $1={"$2"}
 
-room_choices\s*=\s*\{\s*([^\s{])
-room_choices=new Dictionary<string, int>{$1
+room_choices\s*=\s*(\{\s*[^\s{])
+room_choices=new Dictionary<string, int>$1
 
 room_choices\s*=\s*\{(\s*)\{
 room_choices=new List<Dictionary<string, int>>{$1{

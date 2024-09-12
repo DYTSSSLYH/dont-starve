@@ -1024,6 +1024,38 @@ namespace DYT.Map
 			
 			new DLCTasks();
 			new IslandTasks();
+			new VolcanoTasks();
+
+			//------------------------------------------------------------
+	        //-- TEST TASKS
+	        //------------------------------------------------------------
+
+	        Tasks.AddTask("TEST_TASK", new Task
+	        {
+		        locks = { "NONE" },
+		        keys_given = { "LIGHT" },
+		        room_choices = new Dictionary<string, int>
+		        {
+			        ["BGCaveRoom"] = 1,
+		        },
+		        room_bg = Constant.GROUND.SINKHOLE,
+		        background_room = "BGSinkholeRoom",
+		        colour = { r = 1, g = 0.7f, b = 1, a = 1 },
+	        });
+
+	        Tasks.AddTask("TEST_TASK1", new Task
+	        {
+		        locks = { "LIGHT" },
+		        keys_given = { "CAVE" },
+		        room_choices = new Dictionary<string, int>
+		        {
+			        ["CaveRoom"] = 3,
+			        ["BatCaveRoom"] = 1,
+		        },
+		        room_bg = Constant.GROUND.CAVE,
+		        background_room = "BGCaveRoom",
+		        colour = { r = 1, g = 0.6f, b = 1, a = 1 },
+	        });
         }
     }
 }
