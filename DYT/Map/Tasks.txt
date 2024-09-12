@@ -27,22 +27,19 @@ $1Tasks.$2new Task{
 (locks|keys_given|entrance_room)\s*=\s*"(.+)"
 $1={"$2"}
 
+room_choices\s*=\s*\{\s*([^\s{])
+room_choices=new Dictionary<string, int>{$1
+
+room_choices\s*=\s*\{(\s*)\{
+room_choices=new List<Dictionary<string, int>>{$1{
+new()
+
 ========================================
 
 math\.random
 WorldGenMain.random.Next
 
-\[\"([\S\=&&[^\"\=]]+)([\s=])
-["$1"]$2
-
-
-([^\.])RUNCA
-$1RoomFunctions.RUNCA
-
-(\s+)\{tile
-$1new RoomFunctions.Translate{tile
-
-function\s*\(\)\s*return\s*(.+)\s*end
-()=>$1
+(background_room)\s*=\s*(\{.+},)
+$1=new List<string>$2
 
 ()=>

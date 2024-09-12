@@ -22,7 +22,7 @@ namespace DYT.Map
             {
                 locks = {"NONE"},
                 keys_given = {"PICKAXE"},
-                room_choices =
+                room_choices=new Dictionary<string, int>
                 {
                     ["Graveyard"] = 1, 
                     ["BeefalowPlain"] = 1, 		
@@ -45,7 +45,7 @@ namespace DYT.Map
                     ["Marsh"] = 1, 
                     ["DeepForest"] = 1, 
                     ["Clearing"] = 1,
-                    ["BurntForest"] = 1,
+                    ["BurntForest"] = 1
                 },
                 room_bg = Constant.GROUND.GRASS,
                 background_room = "BGGrass",

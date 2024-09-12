@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DYT.Map.tasks
 {
@@ -10,8 +11,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "NONE" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_plains_base"] = 2,
 		        },
 		        room_bg = Constant.GROUND.PLAINS,
@@ -23,8 +23,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_painted_base"] = new Random().Next(2, 3),
 			        ["BG_battleground_base"] = new Random().Next(0, 1),
 			        ["battleground_ribs"] = 1,
@@ -39,8 +38,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["plains_tallgrass"] = new Random().Next(2, 3),
 			        ["plains_pogs"] = 1,
 		        },
@@ -52,8 +50,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_rainforest_base"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.PLAINS,
@@ -64,8 +61,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["rainforest_ruins"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.PLAINS,
@@ -76,8 +72,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["plains_ruins"] = new Random().Next(2, 3),
 			        ["plains_pogs"] = new Random().Next(0, 1),
 		        },
@@ -90,8 +85,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "CIVILIZATION_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["cultivated_base_1"] = new Random().Next(3, 5),
 			        ["piko_land"] = new Random().Next(2, 3),
 		        },
@@ -104,8 +98,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_2", "JUNGLE_DEPTH_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_rainforest_base"] = new Random().Next(2, 3),
 			        ["BG_deeprainforest_base"] = 1,
 			        ["deeprainforest_spider_monkey_nest"] = new Random().Next(1, 2),
@@ -128,8 +121,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "CIVILIZATION_1" },
 		        keys_given = { "CIVILIZATION_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["suburb_base_1"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.SUBURB,
@@ -140,8 +132,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "CIVILIZATION_2" },
 		        keys_given = { "ISLAND_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["city_base_1"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.SUBURB,
@@ -152,8 +143,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_3" },
 		        keys_given = { "JUNGLE_DEPTH_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_gas"] = new Random().Next(3, 4),
 			        ["deeprainforest_gas_flytrap_grove"] = new Random().Next(2),
 		        },
@@ -172,8 +162,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "CIVILIZATION_1" },
 		        keys_given = { "JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_rainforest_base"] = new Random().Next(2, 3),
 			        ["plains_tallgrass"] = new Random().Next(1, 2),
 			        ["plains_pogs"] = new Random().Next(0, 2),
@@ -193,8 +182,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["rainforest_lillypond"] = new Random().Next(3, 5),
 		        },
 		        room_bg = Constant.GROUND.RAINFOREST,
@@ -205,8 +193,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["rainforest_lillypond"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.RAINFOREST,
@@ -217,8 +204,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_2" },
 		        keys_given = { "JUNGLE_DEPTH_2", "JUNGLE_DEPTH_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_anthill"] = 1,
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
@@ -229,8 +215,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_1" },
 		        keys_given = { "JUNGLE_DEPTH_2", "JUNGLE_DEPTH_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_deeprainforest_base"] = new Random().Next(1, 2),
 			        ["deeprainforest_spider_monkey_nest"] = new Random().Next(1, 2),
 			        ["deeprainforest_fireflygrove"] = new Random().Next(0, 2),
@@ -252,8 +237,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "JUNGLE_DEPTH_3" },
 		        keys_given = { "NONE" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_ruins_entrance"] = 1,
 		        },
 		        set_pieces =
@@ -271,8 +255,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "ISLAND_2" },
 		        keys_given = { "LAND_DIVIDE_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["ForceDisconnectedRoom"] = 5, //--20, 
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
@@ -294,7 +277,7 @@ namespace DYT.Map.tasks
 						LOCKS.RUINS_EXIT_1,
 					},
 					keys_given={"LAND_DIVIDE_1"},
-					room_choices={ 
+					room_choices=new Dictionary<string, int>{ 
 						["ForceDisconnectedRoom"] = 1, 
 					},  
 					room_bg=Constant.GROUND.DEEPRAINFOREST,
@@ -310,8 +293,7 @@ namespace DYT.Map.tasks
 		        locks = { "LAND_DIVIDE_1" },
 		        keys_given = { "OTHER_JUNGLE_DEPTH_2" },
 		        //--	entrance_room = "ForceDisconnectedRoom",   --  THIS IS HOW THEY ARE ON SEPARATE ISLANDS
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_deeprainforest_base"] = new Random().Next(2, 4),
 			        ["deeprainforest_fireflygrove"] = new Random().Next(0, 1),
 			        ["deeprainforest_flytrap_grove"] = new Random().Next(1, 2),
@@ -334,8 +316,7 @@ namespace DYT.Map.tasks
 		        locks = { "OTHER_JUNGLE_DEPTH_2" },
 		        keys_given = { "NONE" },
 		        //--	entrance_room = "ForceDisconnectedRoom",   --  THIS IS HOW THEY ARE ON SEPARATE ISLANDS
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_mandrakeman"] = 1,
 		        },
 		        set_pieces =
@@ -352,8 +333,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "OTHER_JUNGLE_DEPTH_2" },
 		        keys_given = { "OTHER_JUNGLE_DEPTH_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_plains_base"] = new Random().Next(1, 2),
 			        ["plains_tallgrass"] = new Random().Next(1, 2),
 			        ["plains_pogs"] = new Random().Next(1, 2),
@@ -367,8 +347,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "OTHER_JUNGLE_DEPTH_1" },
 		        keys_given = { "OTHER_CIVILIZATION_1" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["cultivated_base_2"] = new Random().Next(1, 3),
 		        },
 		        room_bg = Constant.GROUND.FIELDS,
@@ -380,8 +359,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "OTHER_CIVILIZATION_1" },
 		        keys_given = { "OTHER_CIVILIZATION_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["suburb_base_2"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.SUBURB,
@@ -393,8 +371,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "OTHER_CIVILIZATION_2" },
 		        keys_given = { "ISLAND_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["city_base_2"] = new Random().Next(2, 3),
 		        },
 		        room_bg = Constant.GROUND.SUBURB,
@@ -406,8 +383,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "ISLAND_3" },
 		        keys_given = { "LAND_DIVIDE_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["ForceDisconnectedRoom"] = 5, //--20, 
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
@@ -421,8 +397,7 @@ namespace DYT.Map.tasks
 		        locks = { "LAND_DIVIDE_2" },
 		        keys_given = { "LOST_JUNGLE_DEPTH_2" },
 //--		entrance_room = "ForceDisconnectedRoom", --  THIS IS HOW THEY ARE ON SEPARATE ISLANDS
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_deeprainforest_base"] = new Random().Next(2, 4),
 			        ["deeprainforest_flytrap_grove"] = new Random().Next(2, 3),
 		        },
@@ -444,8 +419,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "LOST_JUNGLE_DEPTH_2" },
 		        keys_given = { "ISLAND_4" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_plains_base"] = new Random().Next(1, 4),
 			        ["rainforest_lillypond"] = new Random().Next(2, 4),
 		        },
@@ -469,8 +443,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "ISLAND_4" },
 		        keys_given = { "LAND_DIVIDE_3" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["ForceDisconnectedRoom"] = 20,
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
@@ -483,8 +456,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "LAND_DIVIDE_3" },
 		        keys_given = { "PINACLE" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["BG_pinacle_base"] = 1,
 		        },
 		        set_pieces =
@@ -501,8 +473,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "PINACLE" },
 		        keys_given = { "LAND_DIVIDE_4" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["ForceDisconnectedRoom"] = 20,
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
@@ -518,8 +489,7 @@ namespace DYT.Map.tasks
 		        locks = { "LAND_DIVIDE_4" },
 		        keys_given = { "WILD_JUNGLE_DEPTH_1" },
 //--		entrance_room = "ForceDisconnectedRoom", --  THIS IS HOW THEY ARE ON SEPARATE ISLANDS
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_base_nobatcave"] = new Random().Next(2, 4),
 			        ["deeprainforest_flytrap_grove"] = new Random().Next(2, 3),
 		        },
@@ -536,8 +506,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "WILD_JUNGLE_DEPTH_1" },
 		        keys_given = { "WILD_JUNGLE_DEPTH_2" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["plains_base_nobatcave"] = new Random().Next(3, 4),
 			        ["rainforest_lillypond"] = new Random().Next(3, 4),
 			        ["painted_base_nobatcave"] = new Random().Next(3, 4),
@@ -551,8 +520,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "WILD_JUNGLE_DEPTH_2" },
 		        keys_given = { "ISLAND_5" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["deeprainforest_flytrap_grove"] = new Random().Next(4, 5),
 		        },
 		        set_pieces =
@@ -568,8 +536,7 @@ namespace DYT.Map.tasks
 	        {
 		        locks = { "ISLAND_5" },
 		        keys_given = { "LAND_DIVIDE_5" },
-		        room_choices =
-		        {
+		        room_choices=new Dictionary<string, int>{
 			        ["ForceDisconnectedRoom"] = 20,
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,

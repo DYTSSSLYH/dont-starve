@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.tasks
+﻿using System.Collections.Generic;
+
+namespace DYT.Map.tasks
 {
     public class MaxwellTasks
     {
@@ -8,8 +10,7 @@
             {
                 locks = { "PIGKING" },
                 keys_given = { "WOOD" },
-                room_choices =
-                {
+                room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle1"] = 1,
                     ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
                 },
@@ -21,8 +22,7 @@
             {
                 locks = { "PIGKING" },
                 keys_given = { "WOOD" },
-                room_choices =
-                {
+                room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle2"] = 1,
                     ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
                 },
@@ -34,8 +34,7 @@
             {
                 locks = { "PIGKING" },
                 keys_given = { "WOOD" },
-                room_choices =
-                {
+                room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle3"] = 1,
                     ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
                 },
@@ -48,8 +47,7 @@
             {
                 locks = { "NONE" },
                 keys_given = { "NONE" },
-                room_choices =
-                {
+                room_choices=new Dictionary<string, int>{
                     ["MaxHome"] = 1,
                 },
                 room_bg = Constant.GROUND.IMPASSABLE,
