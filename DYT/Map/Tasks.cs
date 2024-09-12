@@ -62,8 +62,8 @@ namespace DYT.Map
             
             JObject parameters = null;
             
-            if (!string.IsNullOrWhiteSpace(Main.GEN_PARAMETERS))
-                parameters = JsonConvert.DeserializeObject<JObject>(Main.GEN_PARAMETERS);
+            if (!string.IsNullOrWhiteSpace(WorldGenMain.GEN_PARAMETERS))
+                parameters = JsonConvert.DeserializeObject<JObject>(WorldGenMain.GEN_PARAMETERS);
 
             if (parameters != null && parameters["level_type"].Value<string>() == "porkland")
                 new PorklandTasks();
@@ -73,7 +73,7 @@ namespace DYT.Map
             {
                 new SwTasks();
             }
-            else new PorklandTasks();
+            else new StandardTasks();
         }
 
         

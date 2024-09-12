@@ -38,9 +38,9 @@ namespace DYT.Map.rooms
 
 			//-- Nothing to see here buddy... keep scrolling...
 	        List<string> tree_prefabs = new(){ "evergreen" };
-	        if (!string.IsNullOrWhiteSpace(Main.GEN_PARAMETERS))
+	        if (!string.IsNullOrWhiteSpace(WorldGenMain.GEN_PARAMETERS))
 	        {
-		        JObject parameters = JsonConvert.DeserializeObject<JObject>(Main.GEN_PARAMETERS);
+		        JObject parameters = JsonConvert.DeserializeObject<JObject>(WorldGenMain.GEN_PARAMETERS);
 		        if (parameters["ROGEnabled"].Value<bool>() ||
 		            parameters["level_type"].Value<string>() == "shipwrecked" ||
 		            parameters["level_type"].Value<string>() == "volcano")

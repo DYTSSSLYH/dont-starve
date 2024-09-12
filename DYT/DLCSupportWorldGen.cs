@@ -29,7 +29,7 @@ namespace DYT
             DLC_LIST[1] = REIGN_OF_GIANTS;
             DLC_LIST[2] = CAPY_DLC;
 
-            JObject parameters = JsonConvert.DeserializeObject<JObject>(Main.GEN_PARAMETERS);
+            JObject parameters = JsonConvert.DeserializeObject<JObject>(WorldGenMain.GEN_PARAMETERS);
             SetDLCEnabled(parameters["DLCEnabled"].Value<bool[]>());
             
             Debug.Log($"DLC(RoG) enabled : {IsDLCEnabled(REIGN_OF_GIANTS)}");

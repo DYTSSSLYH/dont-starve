@@ -260,7 +260,7 @@ namespace DYT
         // TODO: GenerateNewWorld
         public static void GenerateNewWorld(string genparam, string modparam, Action<string> handler)
         {
-            Main.GEN_PARAMETERS = genparam;
+            WorldGenMain.GEN_PARAMETERS = genparam;
             handler("123");
         }
 

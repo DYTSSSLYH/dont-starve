@@ -5,6 +5,8 @@ namespace DYT
 {
     public class WorldGenMain
     {
+        public static string GEN_PARAMETERS;
+        
         public static long SEED = TheSim.getrealtime();
         public static bool DEBUGSIGNS_ENABLED = false;
         public static Random random = new((int)SEED);
@@ -41,8 +43,16 @@ namespace DYT
             DebugPrint.print("worldgen_main.lua MAIN = 2");
             
             DebugPrint.print("SEED = ", SEED);
+            
+            LoadParametersAndGenerate(false);
         }
         
-        public void GenerateNew(){}
+        
+        public static void GenerateNew(){}
+
+        private static void LoadParametersAndGenerate(bool debug)
+        {
+            DebugPrint.print("LoadParametersAndGenerate", "GEN_PARAMETERS", GEN_PARAMETERS);
+        }
     }
 }
