@@ -32,7 +32,7 @@ public class PlayerProfile
         public bool? autoSave { get; set; }
         public bool hamletClicked { get; set; }
 
-        public List<string> unlockedCharacterList { get; set; } = new();
+        public List<string> unlocked_characters { get; set; } = new();
         public List<Level>[] customPresets { get; set; } = {new(), new(), new(), new()};
     }
     
@@ -46,7 +46,7 @@ public class PlayerProfile
     {
         persistData.xp = 0;
         persistData.unlockedWorldGen = new object();
-        persistData.unlockedCharacterList = new List<string>();
+        persistData.unlocked_characters = new List<string>();
         persistData.characterInthrone = "maxwell";
         persistData.sawDisplayAdjustmentPopup = false;
         persistData.device_caps_a = 0;
@@ -243,7 +243,7 @@ public class PlayerProfile
     
     public bool IsCharacterUnlocked(string character)
     {
-        if (persistData.unlockedCharacterList.Contains(character)) return true;
+        if (persistData.unlocked_characters.Contains(character)) return true;
 
         if (!DLCSupport.GetOfficialCharacterList().Contains(character)) return true;
 
@@ -251,11 +251,11 @@ public class PlayerProfile
     }
     public List<string> GetUnlockedCharacters()
     {
-        return persistData.unlockedCharacterList;
+        return persistData.unlocked_characters;
     }
     public void UnlockCharacter(string character)
     {
-        persistData.unlockedCharacterList.Add(character);
+        persistData.unlocked_characters.Add(character);
     }
     
     #endregion

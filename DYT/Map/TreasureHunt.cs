@@ -14,690 +14,689 @@ namespace DYT.Map
             public string loot;
             public int tier;
         }
-        private static Dictionary<string, List<Treasure>> internaltreasure =
-            new Dictionary<string, List<Treasure>>
+        private static Dictionary<string, List<Treasure>> internaltreasure = new()
+        {
             {
+                "TestTreasure", new List<Treasure>
                 {
-                    "TestTreasure", new List<Treasure>
+                    new()
                     {
-                        new Treasure
-                        {
-                            //Set piece with the treasure prefab
-                            treasure_set_piece = "BuriedTreasureLayout",
+                        //Set piece with the treasure prefab
+                        treasure_set_piece = "BuriedTreasureLayout",
 
-                            //The treasure prefab itself. If treasure_set_piece is set this is the prefab
-                            //inside the set piece. If treasure_set_piece is not set this prefab will be spawned
-                            //during worldgen
-                            treasure_prefab = "buriedtreasure",
+                        //The treasure prefab itself. If treasure_set_piece is set this is the prefab
+                        //inside the set piece. If treasure_set_piece is not set this prefab will be spawned
+                        //during worldgen
+                        treasure_prefab = "buriedtreasure",
 
-                            //Set piece with the map prefab, only for the first stage in multi stage treasures
-                            map_set_piece = "TreasureHunterBoon",
+                        //Set piece with the map prefab, only for the first stage in multi stage treasures
+                        map_set_piece = "TreasureHunterBoon",
 
-                            //currently unused
-                            map_prefab = "messagebottle",
+                        //currently unused
+                        map_prefab = "messagebottle",
 
-                            //Reference to the loot table for the treasure when it is dug up
-                            loot = "snaketrap"
-                        }
-                    }
-                },
-                {
-                    "PirateBank", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "10dubloons",
-                        }
-                    }
-                },
-
-                {
-                    "SuperTelescope", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "SuperTelescope",
-                        }
-                    }
-                },
-
-                {
-                    "WoodlegsKey1", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "WoodlegsKey1",
-                        }
-                    }
-                },
-
-                {
-                    "WoodlegsKey2", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "WoodlegsKey2",
-                        }
-                    }
-                },
-
-                {
-                    "WoodlegsKey3", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "WoodlegsKey3",
-                        }
-                    }
-                },
-
-                {
-                    "PiratePeanuts", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "1dubloon",
-                        }
-                    }
-                },
-
-                {
-                    "minerhat", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "minerhat",
-                        }
-                    }
-                },
-
-                {
-                    "RandomGem", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "gems",
-                        }
-                    }
-                },
-
-
-                {
-                    "DubloonsGem", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "dubloonsandgem",
-                        }
-                    }
-                },
-
-
-                {
-                    "SeamansCarePackage", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "seamanscarepackage",
-                        }
-                    }
-                },
-
-                {
-                    "ChickenOfTheSea", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "ChickenOfTheSea",
-                        }
-                    }
-                },
-
-                {
-                    "BootyInDaBooty", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "BootyInDaBooty",
-                        }
-                    }
-                },
-
-                {
-                    "OneTrueEarring", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "OneTrueEarring",
-                        }
-                    }
-                },
-
-                {
-                    "PegLeg", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "PegLeg",
-                        }
-                    }
-                },
-
-                {
-                    "VolcanoStaff", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "VolcanoStaff",
-                        }
-                    }
-                },
-
-                {
-                    "Gladiator", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Gladiator",
-                        }
-                    }
-                },
-
-                {
-                    "FancyHandyMan", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "FancyHandyMan",
-                        }
-                    }
-                },
-
-                {
-                    "LobsterMan", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "LobsterMan",
-                        }
-                    }
-                },
-
-                {
-                    "Compass", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Compass",
-                        }
-                    }
-                },
-
-                {
-                    "Scientist", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Scientist",
-                        }
-                    }
-                },
-
-                {
-                    "Alchemist", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Alchemist",
-                        }
-                    }
-                },
-
-                {
-                    "Shaman", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Shaman",
-                        }
-                    }
-                },
-
-                {
-                    "FireBrand", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "FireBrand",
-                        }
-                    }
-                },
-
-                {
-                    "SailorsDelight", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "SailorsDelight",
-                        }
-                    }
-                },
-
-                {
-                    "WarShip", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "WarShip",
-                        }
-                    }
-                },
-
-                {
-                    "Desperado", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Desperado",
-                        }
-                    }
-                },
-
-                {
-                    "JewelThief", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "JewelThief",
-                        }
-                    }
-                },
-
-                {
-                    "AntiqueWarrior", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "AntiqueWarrior",
-                        }
-                    }
-                },
-
-                {
-                    "Yaar", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Yaar",
-                        }
-                    }
-                },
-
-                {
-                    "GdayMate", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "GdayMate",
-                        }
-                    }
-                },
-
-                {
-                    "ToxicAvenger", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "ToxicAvenger",
-                        }
-                    }
-                },
-
-                {
-                    "MadBomber", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "MadBomber",
-                        }
-                    }
-                },
-
-                {
-                    "FancyAdventurer", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "FancyAdventurer",
-                        }
-                    }
-                },
-
-                {
-                    "ThunderBall", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "ThunderBall",
-                        }
-                    }
-                },
-
-                {
-                    "TombRaider", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "TombRaider",
-                        }
-                    }
-                },
-
-                {
-                    "SteamPunk", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "SteamPunk",
-                        }
-                    }
-                },
-
-                {
-                    "CapNCrunch", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "CapNCrunch",
-                        }
-                    }
-                },
-
-                {
-                    "AyeAyeCapn", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "AyeAyeCapn",
-                        }
-                    }
-                },
-
-                {
-                    "BreakWind", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "BreakWind",
-                        }
-                    }
-                },
-
-                {
-                    "Diviner", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "Diviner",
-                        }
-                    }
-                },
-
-                {
-                    "GoesComesAround", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "GoesComesAround",
-                        }
-                    }
-                },
-
-                {
-                    "GoldGoldGold", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "GoldGoldGold",
-                        }
-                    }
-                },
-
-                {
-                    "FirePoker", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "FirePoker",
-                        }
-                    }
-                },
-
-                {
-                    "DeadmansTreasure", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "RockSkull",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "DeadmansTreasure",
-                        }
-                    }
-                },
-
-                {
-                    "TestMultiStage", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "1dubloon",
-                        },
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "1dubloon",
-                        },
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "gems",
-                        },
-                    }
-                },
-
-                {
-                    "SeaPackageQuest", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "1dubloon",
-                        },
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "dubloonsandgem",
-                        },
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "seamanscarepackage",
-                        },
-                    }
-                },
-
-                {
-                    "TierQuest", new List<Treasure>
-                    {
-                        new Treasure
-                        {
-                            treasure_set_piece = "BuriedTreasureLayout",
-                            treasure_prefab = "buriedtreasure",
-                            map_prefab = "messagebottle",
-                            loot = "seamanscarepackage",
-                        },
-                        new Treasure
-                        {
-                            tier = 1,
-                        },
-                        new Treasure
-                        {
-                            tier = 2,
-                        },
-                        new Treasure
-                        {
-                            tier = 2,
-                        },
-                        new Treasure
-                        {
-                            tier = 3,
-                        },
+                        //Reference to the loot table for the treasure when it is dug up
+                        loot = "snaketrap"
                     }
                 }
-            };
+            },
+            {
+                "PirateBank", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "10dubloons",
+                    }
+                }
+            },
+
+            {
+                "SuperTelescope", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "SuperTelescope",
+                    }
+                }
+            },
+
+            {
+                "WoodlegsKey1", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "WoodlegsKey1",
+                    }
+                }
+            },
+
+            {
+                "WoodlegsKey2", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "WoodlegsKey2",
+                    }
+                }
+            },
+
+            {
+                "WoodlegsKey3", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "WoodlegsKey3",
+                    }
+                }
+            },
+
+            {
+                "PiratePeanuts", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "1dubloon",
+                    }
+                }
+            },
+
+            {
+                "minerhat", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "minerhat",
+                    }
+                }
+            },
+
+            {
+                "RandomGem", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "gems",
+                    }
+                }
+            },
+
+
+            {
+                "DubloonsGem", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "dubloonsandgem",
+                    }
+                }
+            },
+
+
+            {
+                "SeamansCarePackage", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "seamanscarepackage",
+                    }
+                }
+            },
+
+            {
+                "ChickenOfTheSea", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "ChickenOfTheSea",
+                    }
+                }
+            },
+
+            {
+                "BootyInDaBooty", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "BootyInDaBooty",
+                    }
+                }
+            },
+
+            {
+                "OneTrueEarring", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "OneTrueEarring",
+                    }
+                }
+            },
+
+            {
+                "PegLeg", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "PegLeg",
+                    }
+                }
+            },
+
+            {
+                "VolcanoStaff", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "VolcanoStaff",
+                    }
+                }
+            },
+
+            {
+                "Gladiator", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Gladiator",
+                    }
+                }
+            },
+
+            {
+                "FancyHandyMan", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "FancyHandyMan",
+                    }
+                }
+            },
+
+            {
+                "LobsterMan", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "LobsterMan",
+                    }
+                }
+            },
+
+            {
+                "Compass", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Compass",
+                    }
+                }
+            },
+
+            {
+                "Scientist", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Scientist",
+                    }
+                }
+            },
+
+            {
+                "Alchemist", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Alchemist",
+                    }
+                }
+            },
+
+            {
+                "Shaman", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Shaman",
+                    }
+                }
+            },
+
+            {
+                "FireBrand", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "FireBrand",
+                    }
+                }
+            },
+
+            {
+                "SailorsDelight", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "SailorsDelight",
+                    }
+                }
+            },
+
+            {
+                "WarShip", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "WarShip",
+                    }
+                }
+            },
+
+            {
+                "Desperado", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Desperado",
+                    }
+                }
+            },
+
+            {
+                "JewelThief", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "JewelThief",
+                    }
+                }
+            },
+
+            {
+                "AntiqueWarrior", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "AntiqueWarrior",
+                    }
+                }
+            },
+
+            {
+                "Yaar", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Yaar",
+                    }
+                }
+            },
+
+            {
+                "GdayMate", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "GdayMate",
+                    }
+                }
+            },
+
+            {
+                "ToxicAvenger", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "ToxicAvenger",
+                    }
+                }
+            },
+
+            {
+                "MadBomber", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "MadBomber",
+                    }
+                }
+            },
+
+            {
+                "FancyAdventurer", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "FancyAdventurer",
+                    }
+                }
+            },
+
+            {
+                "ThunderBall", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "ThunderBall",
+                    }
+                }
+            },
+
+            {
+                "TombRaider", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "TombRaider",
+                    }
+                }
+            },
+
+            {
+                "SteamPunk", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "SteamPunk",
+                    }
+                }
+            },
+
+            {
+                "CapNCrunch", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "CapNCrunch",
+                    }
+                }
+            },
+
+            {
+                "AyeAyeCapn", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "AyeAyeCapn",
+                    }
+                }
+            },
+
+            {
+                "BreakWind", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "BreakWind",
+                    }
+                }
+            },
+
+            {
+                "Diviner", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "Diviner",
+                    }
+                }
+            },
+
+            {
+                "GoesComesAround", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "GoesComesAround",
+                    }
+                }
+            },
+
+            {
+                "GoldGoldGold", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "GoldGoldGold",
+                    }
+                }
+            },
+
+            {
+                "FirePoker", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "FirePoker",
+                    }
+                }
+            },
+
+            {
+                "DeadmansTreasure", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "RockSkull",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "DeadmansTreasure",
+                    }
+                }
+            },
+
+            {
+                "TestMultiStage", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "1dubloon",
+                    },
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "1dubloon",
+                    },
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "gems",
+                    },
+                }
+            },
+
+            {
+                "SeaPackageQuest", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "1dubloon",
+                    },
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "dubloonsandgem",
+                    },
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "seamanscarepackage",
+                    },
+                }
+            },
+
+            {
+                "TierQuest", new List<Treasure>
+                {
+                    new Treasure
+                    {
+                        treasure_set_piece = "BuriedTreasureLayout",
+                        treasure_prefab = "buriedtreasure",
+                        map_prefab = "messagebottle",
+                        loot = "seamanscarepackage",
+                    },
+                    new Treasure
+                    {
+                        tier = 1,
+                    },
+                    new Treasure
+                    {
+                        tier = 2,
+                    },
+                    new Treasure
+                    {
+                        tier = 2,
+                    },
+                    new Treasure
+                    {
+                        tier = 3,
+                    },
+                }
+            }
+        };
 
         public class TreasureLoot
         {
@@ -743,7 +742,7 @@ namespace DYT.Map
             // custom_lootfn = function(lootlist) end
             public Action<object> custom_lootfn;
         }
-        private static Dictionary<string, TreasureLoot> internalloot = new Dictionary<string, TreasureLoot>
+        private static Dictionary<string, TreasureLoot> internalloot = new()
         {
             {
                 "snaketrap", new TreasureLoot
@@ -2699,10 +2698,19 @@ namespace DYT.Map
             #endregion
         };
 
-        private static Dictionary<string, List<Treasure>> TreasureList =
-            new Dictionary<string, List<Treasure>>();
-        private static Dictionary<string, TreasureLoot> TreasureLootList =
-            new Dictionary<string, TreasureLoot>();
+        private static Dictionary<string, List<Treasure>> TreasureList = new();
+        private static Dictionary<string, TreasureLoot> TreasureLootList = new();
+
+
+        static TreasureHunt()
+        {
+            foreach (string name in internaltreasure.Keys) AddTreasure(name, internaltreasure[name]);
+            
+            foreach (string name in internalloot.Keys) AddTreasureLoot(name, internalloot[name]);
+
+            new SpawnUtil();
+        }
+        
 
         public static void AddTreasure(string name, List<Treasure> data)
         {
@@ -2712,16 +2720,6 @@ namespace DYT.Map
         public static void AddTreasureLoot(string name, TreasureLoot data)
         {
             TreasureLootList.Add(name, data);
-        }
-
-
-        public static void Init()
-        {
-            foreach (string name in internaltreasure.Keys) AddTreasure(name, internaltreasure[name]);
-            
-            foreach (string name in internalloot.Keys) AddTreasureLoot(name, internalloot[name]);
-            
-            SpawnUtil.Init();
         }
     }
 }

@@ -10,16 +10,6 @@ using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class GenParameters
-    {
-        public string level_type;
-        public CustomScreen.ChangedOption world_gen_choices;
-        public int? current_level;
-        public int adventure_progress;
-        public PlayerProfile.Data profiledata;
-        public DLCSupport.DLCTable DLCEnabled;
-        public bool ROGEnabled;
-    }
     public class ModData
     {
         public KnownModIndex.CachedData index;
@@ -172,16 +162,13 @@ namespace DYT.Screens
             {
                 gen_parameters.profiledata = new PlayerProfile.Data
                 {
-                    unlockedCharacterList = new List<string>()
+                    unlocked_characters = new List<string>()
                 };
             }
 
-            DLCSupport.DLCTable DLCEnabledTable = new();
-            FieldInfo[] fieldInfos = typeof(DLCSupport.DLCTable).GetFields();
-            for (int i = 0; i < DLCSupport.DLC_LIST.Count; i++)
-            {
-                fieldInfos[i].SetValue(DLCEnabledTable, DLCSupport.IsDLCEnabled(i));
-            }
+            bool[] DLCEnabledTable = new bool[DLCSupport.DLC_LIST.Count + 1];
+            foreach (int dlcIndex in DLCSupport.DLC_LIST)
+                DLCEnabledTable[dlcIndex] = DLCSupport.IsDLCEnabled(dlcIndex);
             gen_parameters.DLCEnabled = DLCEnabledTable;
 
             // In case we are generating a world from SW and the player doesn't have ROG installed

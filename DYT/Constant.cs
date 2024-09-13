@@ -6,6 +6,12 @@ namespace DYT
 {
 	public class Constant
 	{
+		public const float PI = 3.14159f;
+		public static float DEGREES = PI / 180;
+		public static float RADIANS = 180 / PI;
+		public static float FRAMES = 1 / 30f;
+		public static int TILE_SCALE = 4;
+		
 		public static int
 			ANCHOR_MIDDLE = 0,
 			ANCHOR_LEFT = 1,

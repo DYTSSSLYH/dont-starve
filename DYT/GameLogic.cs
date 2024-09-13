@@ -384,7 +384,7 @@ namespace DYT
         
         public void Init()
         {
-            TreasureHunt.Init();
+            new TreasureHunt();
             
             // Always on broadcasting widget
             if (Main.PLATFORM == "WIN32_STEAM" || Main.PLATFORM == "WIN32")
