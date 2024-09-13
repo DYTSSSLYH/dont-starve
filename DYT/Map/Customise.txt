@@ -1,0 +1,51 @@
+﻿^([^\n/-]*)--
+$1//--
+
+([^\d])\.(\d+)
+$10.$2
+
+(\d+)\.(\d+)([^\df])
+$1.$2f$3
+
+========================================
+
+([^n\)\s]\s*)\{\s*text
+$1new SpinnerOption{text
+
+STRINGS
+Strings
+
+\.\.
++
+
+nil
+null
+
+([^\.])ArrayUnion
+$1Util.ArrayUnion
+
+([^\n\.]*)(AddTask\(".+",)\s*\{
+$1Tasks.$2new Task{
+
+((LOCKS\.)|(KEYS\.))([^,}&&\S]+)
+"$4"
+
+(locks|keys_given|entrance_room)\s*=\s*"(.+)"
+$1={"$2"}
+
+room_choices\s*=\s*(\{\s*[^\s{])
+room_choices=new Dictionary<string, int>$1
+
+room_choices\s*=\s*\{(\s*)\{
+room_choices=new List<Dictionary<string, int>>{$1{
+new()
+
+========================================
+
+math\.random
+WorldGenMain.random.Next
+
+(background_room)\s*=\s*(\{.+},)
+$1=new List<string>$2
+
+()=>

@@ -55,21 +55,21 @@ public class OptionsScreen : MonoBehaviour
     private Spinner renderJungleCanopySpinner;
     private Spinner renderJungleVinesSpinner;
     
-    private List<Spinner.SpinnerOption> enableDisableOptionList = new List<Spinner.SpinnerOption>
+    private List<SpinnerOption> enableDisableOptionList = new List<SpinnerOption>
     {
-        new Spinner.SpinnerOption("Disabled", false),
-        new Spinner.SpinnerOption("Enabled", true)
+        new SpinnerOption("Disabled", false),
+        new SpinnerOption("Enabled", true)
     };
-    private List<Spinner.SpinnerOption> enableScreenFlashOptionList = new List<Spinner.SpinnerOption>
+    private List<SpinnerOption> enableScreenFlashOptionList = new List<SpinnerOption>
     {
-        new Spinner.SpinnerOption("Default", 1),
-        new Spinner.SpinnerOption("Dim", 2),
-        new Spinner.SpinnerOption("Dimmest", 3)
+        new SpinnerOption("Default", 1),
+        new SpinnerOption("Dim", 2),
+        new SpinnerOption("Dimmest", 3)
     };
-    private List<Spinner.SpinnerOption> integratedBackpackOptionList = new List<Spinner.SpinnerOption>
+    private List<SpinnerOption> integratedBackpackOptionList = new List<SpinnerOption>
     {
-        new Spinner.SpinnerOption("Separated", false),
-        new Spinner.SpinnerOption("Integrated", true)
+        new SpinnerOption("Separated", false),
+        new SpinnerOption("Integrated", true)
     };
 
     private class Options : ICloneable
@@ -312,11 +312,11 @@ public class OptionsScreen : MonoBehaviour
             UpdateMenu();
         };
 
-        dynamicLoadingLevelSpinner.SetOptions(new List<Spinner.SpinnerOption>
+        dynamicLoadingLevelSpinner.SetOptions(new List<SpinnerOption>
         {
-            new Spinner.SpinnerOption("Disabled", 0),
-            new Spinner.SpinnerOption("Some", 1),
-            new Spinner.SpinnerOption("All", 2)
+            new SpinnerOption("Disabled", 0),
+            new SpinnerOption("Some", 1),
+            new SpinnerOption("All", 2)
         });
         dynamicLoadingLevelSpinner.onChanged += (spinner, data) =>
         {
@@ -398,18 +398,18 @@ public class OptionsScreen : MonoBehaviour
             refreshRateSpinner.Disable();
         }
     }
-    private List<Spinner.SpinnerOption> GetDisplays()
+    private List<SpinnerOption> GetDisplays()
     {
-        return new List<Spinner.SpinnerOption>
+        return new List<SpinnerOption>
         {
-            new Spinner.SpinnerOption(Screen.width + " × " + Screen.height, 0)
+            new SpinnerOption(Screen.width + " × " + Screen.height, 0)
         };
     }
     private void UpdateRefreshRatesSpinner()
     {
         int currentRefreshRate = _working.refreshRate;
 
-        List<Spinner.SpinnerOption> refreshRateList = GetRefreshRates(_working.display, _working.modeIndex);
+        List<SpinnerOption> refreshRateList = GetRefreshRates(_working.display, _working.modeIndex);
         refreshRateSpinner.SetOptions(refreshRateList);
         refreshRateSpinner.SetSelectedIndex(0);
 
@@ -422,18 +422,18 @@ public class OptionsScreen : MonoBehaviour
             }
         }
     }
-    private List<Spinner.SpinnerOption> GetDisplayModes(int displayId)
+    private List<SpinnerOption> GetDisplayModes(int displayId)
     {
-        List<Spinner.SpinnerOption> spinnerOptions = new List<Spinner.SpinnerOption>();
-        spinnerOptions.Add(new Spinner.SpinnerOption(Screen.width + " × " + Screen.height, 0));
+        List<SpinnerOption> spinnerOptions = new List<SpinnerOption>();
+        spinnerOptions.Add(new SpinnerOption(Screen.width + " × " + Screen.height, 0));
         return spinnerOptions;
     }
-    private List<Spinner.SpinnerOption> GetRefreshRates(int displayId, int modeIndex)
+    private List<SpinnerOption> GetRefreshRates(int displayId, int modeIndex)
     {
-        return new List<Spinner.SpinnerOption>
+        return new List<SpinnerOption>
         {
-            new Spinner.SpinnerOption("60", 60),
-            new Spinner.SpinnerOption("90", 90)
+            new SpinnerOption("60", 60),
+            new SpinnerOption("90", 90)
         };
     }
     private void ApplyVolume()
@@ -509,7 +509,7 @@ public class OptionsScreen : MonoBehaviour
             UpdateMenu();
         };
 
-        List<Spinner.SpinnerOption> refreshRates = GetRefreshRates(_working.display, _working.modeIndex);
+        List<SpinnerOption> refreshRates = GetRefreshRates(_working.display, _working.modeIndex);
         refreshRateSpinner.SetOptions(refreshRates);
         refreshRateSpinner.SetTextColor(Color.black);
         refreshRateSpinner.onChanged += (_, data) =>

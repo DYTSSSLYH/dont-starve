@@ -828,6 +828,124 @@ namespace DYT
                     },
                 };
             }
+            
+            public class SANDBOXMENU
+            {
+                public static string
+                    TITLE = "World Customization",
+                    TITLEDETAIL = "",
+
+                    EASY = "Not Easy",
+                    MEDIUM = "Quite Difficult",
+                    HARD = "Overly Taxing",
+
+                    GENERATE = "OK",
+                    MAINMENU = "Cancel",
+
+                    CHOICEMONSTERS = "Monsters",
+                    CHOICEANIMALS = "Animals",
+                    CHOICERESOURCES = "Resources",
+                    CHOICEFOOD = "Food",
+                    CHOICECOOKED = "Prepared Food",
+                    CHOICEAMTDAY = "Amount of Day",
+                    CHOICEMISC = "World",
+
+                    DAY = "Day",
+                    NIGHT = "Night",
+                    DUSK = "Dusk",
+
+                    SLIDEVERYSHORT = "Very Short",
+                    SLIDESHORT = "Short",
+                    SLIDELONG = "Long",
+                    SLIDEVERYLONG = "Very Long",
+                    SLIDEALL = "Only",
+
+                    SLIDEDEFAULT = "默认",
+
+                    SLIDENEVER = "无",
+                    SLIDEVERYRARE = "Much Less",
+                    SLIDERARE = "较少",
+                    SLIDEOFTEN = "较多",
+                    SLIDEALWAYS = "很多",
+
+                    SLIDEVERYSLOW = "Very Slow",
+                    SLIDESLOW = "Slow",
+                    SLIDEFAST = "Fast",
+                    SLIDEVERYFAST = "Very Fast",
+
+                    DEFAULT = "Autumn or Spring",
+                    SUMMER = "Summer",
+                    WINTER = "Winter",
+                    SPRING = "Spring",
+                    AUTUMN = "Autumn",
+                    MILD = "Mild",
+                    WET = "Hurricane",
+                    GREEN = "Monsoon",
+                    DRY = "Dry",
+                    RANDOM = "Random",
+                    BOTH = "Both",
+                    ALLSEASONS = "All Seasons",
+                    CLASSIC = "Autumn, Winter",
+                    DLC = "Spring, Summer",
+                    EXTREMETEMPS = "Summer, Winter",
+                    STATICTEMPS = "Autumn, Spring",
+                    EXCLUDE = "No",
+
+
+                    TEMPERATE = "Temperate",
+                    HUMID = "Humid",
+                    LUSH = "Lush",
+
+                    SLIDESMALL = "Default",
+                    SLIDESMEDIUM = "Medium",
+                    SLIDESLARGE = "Large",
+                    SLIDESHUGE = "Huge",
+
+                    SLIDEVERYSIMPLE = "Very Simple",
+                    SLIDESIMPLE = "Simple",
+                    SLIDECOMPLEX = "Complex",
+                    SLIDEVERYCOMPLEX = "Very Complex",
+
+                    BRANCHINGMOST = "Most",
+                    BRANCHINGANY = "Default",
+                    BRANCHINGLEAST = "Least",
+                    BRANCHINGNEVER = "Never",
+
+                    LOOPNEVER = "Never",
+                    LOOPRANDOM = "Default",
+                    LOOPALWAYS = "Always",
+
+                    USEPRESET = "Preset";
+
+                public static List<string>
+                    CHAPTERS = new()
+                    {
+                        "Chapter 1 of 5",
+                        "Chapter 2 of 5",
+                        "Chapter 3 of 5",
+                        "Chapter 4 of 5",
+                        "Chapter 5 of 5",
+                        "Epilogue",
+                    },
+                    ADVENTURELEVELS = new()
+                    {
+                        "A Cold Reception",
+                        "The King of Winter",
+                        "The Game is Afoot",
+                        "Archipelago",
+                        "Two Worlds",
+                        "Darkness",
+
+                        "Checkmate",
+                    };
+                public static string
+                    NONE = "None",
+                    NONEAVAILABLE = "None Available",
+                    MODIFYTASKS = "Modify Tasks",
+
+                    YES = "Yes",
+                    NO = "No";
+            }
         }
     
     

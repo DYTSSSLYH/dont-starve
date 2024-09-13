@@ -65,8 +65,10 @@ namespace DYT
         {
             //--print("Generate New map", debug, parameters.gen_type,
             //"type: "..parameters.level_type, parameters.current_level, parameters.world_gen_choices)
-
             new ForestMap();
+            
+            
+            
             return null;
         }
 

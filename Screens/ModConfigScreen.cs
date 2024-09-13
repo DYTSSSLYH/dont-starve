@@ -61,11 +61,11 @@ public class ModConfigScreen : MonoBehaviour
         {
             GameObject option = Instantiate(optionPrefab, _main);
             Spinner spinner = option.GetComponent<Spinner>();
-            List<Spinner.SpinnerOption> spinnerOptionList = new List<Spinner.SpinnerOption>();
+            List<SpinnerOption> spinnerOptionList = new List<SpinnerOption>();
             for (int j = 0; j < _configOptionList[i].optionList.Count; j++)
             {
                 KnownModIndex.Option configOption = _configOptionList[i].optionList[j];
-                spinnerOptionList.Add(new Spinner.SpinnerOption(configOption.description, j));
+                spinnerOptionList.Add(new SpinnerOption(configOption.description, j));
             }
             spinner.SetOptions(spinnerOptionList);
             int index = _configOptionList[i].currentIndex != -1

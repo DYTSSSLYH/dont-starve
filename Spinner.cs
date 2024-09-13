@@ -5,6 +5,27 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public class SpinnerOption
+{
+    public string text;
+    public object data;
+    public Dictionary<string, object> otherInfoDictionary { get; }
+
+    public SpinnerOption(){}
+    public SpinnerOption(string text, object data)
+    {
+        this.text = text;
+        this.data = data;
+    }
+        
+    public SpinnerOption(string text, object data, Dictionary<string, object> otherInfoDictionary)
+    {
+        this.text = text;
+        this.data = data;
+        this.otherInfoDictionary = otherInfoDictionary;
+    }
+}
+
 public class Spinner : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Action<object, object> onChanged { get; set; }
@@ -26,26 +47,6 @@ public class Spinner : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     protected int selectedIndex;                                                                             
     
-    public class SpinnerOption
-    {
-        public string text { get; }
-        public object data { get; }
-        public Dictionary<string, object> otherInfoDictionary { get; }
-
-        
-        public SpinnerOption(string text, object data)
-        {
-            this.text = text;
-            this.data = data;
-        }
-        
-        public SpinnerOption(string text, object data, Dictionary<string, object> otherInfoDictionary)
-        {
-            this.text = text;
-            this.data = data;
-            this.otherInfoDictionary = otherInfoDictionary;
-        }
-    }
     private List<SpinnerOption> optionList;
     
     private Color _textColor;

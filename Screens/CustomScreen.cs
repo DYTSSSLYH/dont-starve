@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using DYT;
+using DYT.Map;
 using DYT.Screens;
 using DYT.Tools;
 using DYT.Widgets;
@@ -16,12 +17,12 @@ public class CustomScreen : MonoBehaviour
     public Action<ChangedOption> saveHandler { get; set; }
     public class ChangedOption
     {
-        public Spinner.SpinnerOption preset { get; }
+        public SpinnerOption preset { get; }
         public Dictionary<string, string> optionList { get; }
         public bool ROGEnabled;
 
         public ChangedOption(){}
-        public ChangedOption(Spinner.SpinnerOption preset, Dictionary<string, string> optionList)
+        public ChangedOption(SpinnerOption preset, Dictionary<string, string> optionList)
         {
             this.preset = preset;
             this.optionList = optionList;
@@ -52,11 +53,11 @@ public class CustomScreen : MonoBehaviour
         public string atlas { get; }
         public string image { get; }
         public string defaultValue { get; }
-        public List<Spinner.SpinnerOption> spinnerOptionList { get; }
+        public List<SpinnerOption> spinnerOptionList { get; }
 
 
         public SettingOption(string name, string atlas, string image, string defaultValue,
-            List<Spinner.SpinnerOption> spinnerOptionList)
+            List<SpinnerOption> spinnerOptionList)
         {
             this.name = name;
             this.atlas = atlas;
@@ -69,7 +70,7 @@ public class CustomScreen : MonoBehaviour
     
     private int _defaultPresetNum;
     private List<Level> _customPresetList;
-    private List<Spinner.SpinnerOption> _presetList;
+    private List<SpinnerOption> _presetList;
     
     private bool _presetDirty;
     private ChangedOption _nowChangedOption;
@@ -173,7 +174,7 @@ public class CustomScreen : MonoBehaviour
     }
     private void LoadPreset(object presetId)
     {
-        foreach (Spinner.SpinnerOption preset in _presetList)
+        foreach (SpinnerOption preset in _presetList)
         {
             if (preset.data == presetId)
             {
@@ -200,24 +201,24 @@ public class CustomScreen : MonoBehaviour
         
         #region 设置选项setting_option初始化
         
-        Custom custom = new CustomiseBase();
+        Customise custom = new CustomiseBase();
         if (world == DLCSupport.MAIN_GAME) custom = new CustomiseBase();
         else if (world == DLCSupport.REIGN_OF_GIANTS) custom = new CustomiseRog();
         else if (world == DLCSupport.CAPY_DLC) custom = new CustomSw();
-        else if (world == DLCSupport.PORKLAND_DLC) custom = new CustomPork();
+        else if (world == DLCSupport.PORKLAND_DLC) custom = new CustomisePork();
 
         _settingOptionList = new List<SettingOption>();
-        foreach (string groupName in custom.group.Keys)
+        foreach (string groupName in custom.GROUP.Keys)
         {
-            Custom.CustomiseGroup group = custom.group[groupName];
-            Dictionary<string,Custom.CustomiseItem> itemDictionary = group.itemDictionary;
+            CustomiseGroup group = custom.GROUP[groupName];
+            Dictionary<string,CustomiseItem> itemDictionary = group.items;
             foreach (string itemName in itemDictionary.Keys)
             {
-                Custom.CustomiseItem item = itemDictionary[itemName];
+                CustomiseItem item = itemDictionary[itemName];
                 
                 _settingOptionList.Add(new SettingOption(itemName,
                     item.atlas == null ? "Images/customisation" : item.atlas, item.image, item.value,
-                    item.spinnerOptionList == null ? group.spinnerOptionList : item.spinnerOptionList));
+                    item.spinner == null ? group.desc : item.spinner));
             }
         }
         
@@ -225,7 +226,7 @@ public class CustomScreen : MonoBehaviour
 
         #region 预设preset相关操作
         
-        _presetList = new List<Spinner.SpinnerOption>();
+        _presetList = new List<SpinnerOption>();
         
         List<Level> levelPresetList = new List<Level>();
         if (world == DLCSupport.MAIN_GAME) levelPresetList = Levels.sandboxLevels;
@@ -235,7 +236,7 @@ public class CustomScreen : MonoBehaviour
         _defaultPresetNum = levelPresetList.Count;
         foreach (Level levelPreset in levelPresetList)
         {
-            _presetList.Add(new Spinner.SpinnerOption(levelPreset.name, levelPreset.id,
+            _presetList.Add(new SpinnerOption(levelPreset.name, levelPreset.id,
                 new Dictionary<string, object> {
                     {"description", levelPreset.description},
                     {"overrides", levelPreset.overrides}
@@ -246,7 +247,7 @@ public class CustomScreen : MonoBehaviour
         _customPresetList = GameLogic.Profile.GetWorldCustomizationPresets(world);
         foreach (Level customPreset in _customPresetList)
         {
-            _presetList.Add(new Spinner.SpinnerOption(customPreset.name, customPreset.id,
+            _presetList.Add(new SpinnerOption(customPreset.name, customPreset.id,
                 new Dictionary<string, object> {
                     {"description", customPreset.description},
                     {"overrides", customPreset.overrides}
@@ -420,7 +421,7 @@ public class CustomScreen : MonoBehaviour
             GameLogic.Profile.AddWorldCustomizationPreset(world, preset, existedCustomPresetNum);
             GameLogic.Profile.Save(null);
 
-            Spinner.SpinnerOption presetSpinnerOption = new Spinner.SpinnerOption(presetName, presetId,
+            SpinnerOption presetSpinnerOption = new SpinnerOption(presetName, presetId,
                 new Dictionary<string, object> {
                     {"description", presetDescription},
                     {"overrides", _nowChangedOption.optionList},
