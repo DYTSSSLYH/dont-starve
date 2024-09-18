@@ -7,7 +7,7 @@ namespace DYT
     public class Main : MonoBehaviour
     {
         public GameObject scriptErrorScreen;
-    
+
         public static string packagePath = Application.dataPath + "/";
         public static string PLATFORM = "WIN32_STEAM";
         public static string BRANCH = "release";
@@ -191,7 +191,7 @@ namespace DYT
         
             Language.Init();
         
-            Strings.Init();
+            STRINGS.Init();
         
             Actions.Init();
         

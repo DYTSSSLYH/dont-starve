@@ -1,0 +1,45 @@
+﻿^([^\n/-]*)--
+$1//--
+
+([^\d])\.(\d+)
+$10.$2
+
+(\d+)\.(\d+)([^\df])
+$1.$2f$3
+
+========================================
+
+([^\n\.]*)(AddLevel\(.+,)\s*\{
+$1Levels.$2new Level{
+
+([^\.])SIZE_VARIATION
+$1Tasks.SIZE_VARIATION
+
+blockersets
+BlockerSets
+
+([^\.])ArrayUnion
+$1Util.ArrayUnion
+
+((LOCKS\.)|(KEYS\.))([^,}&&\S]+)
+"$4"
+
+(locks|keys_given|entrance_room)\s*=\s*"(.+)"
+$1={"$2"}
+
+room_choices\s*=\s*(\{\s*[^\s{])
+room_choices=new Dictionary<string, int>$1
+
+room_choices\s*=\s*\{(\s*)\{
+room_choices=new List<Dictionary<string, int>>{$1{
+new()
+
+========================================
+
+math\.random
+Random.Range
+
+(background_room)\s*=\s*(\{.+},)
+$1=new List<string>$2
+
+()=>

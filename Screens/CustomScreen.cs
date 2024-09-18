@@ -115,9 +115,9 @@ public class CustomScreen : MonoBehaviour
             Image image = option.Find("Image").GetComponent<Image>();
             image.sprite = ResourcesTool.LoadSprite(nowSettingOption.atlas, nowSettingOption.image);
             string upperCaseName = nowSettingOption.name.ToUpper();
-            Type type = typeof(Strings.NAMES);
+            Type type = typeof(STRINGS.NAMES);
             FieldInfo fieldInfo = type.GetField(upperCaseName);
-            Type type1 = typeof(Strings.UI.CustomScreen.NAMES);
+            Type type1 = typeof(STRINGS.UI.CustomScreen.NAMES);
             FieldInfo fieldInfo1 = type1.GetField(upperCaseName);
             string tooltip = (string)(fieldInfo != null ? fieldInfo.GetValue(null) :
                 fieldInfo1 != null ? fieldInfo1.GetValue(null) : nowSettingOption.name);

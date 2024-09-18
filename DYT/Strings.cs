@@ -13,7 +13,7 @@ To add a new language:
 */
 namespace DYT
 {
-    public class Strings
+    public class STRINGS
     {
         // ACTION MOUSEOVER TEXT
         public class ACTIONS

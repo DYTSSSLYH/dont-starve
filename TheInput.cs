@@ -150,7 +150,7 @@ public static class TheInput
         bool hasControl = TheInputProxy.GetLocalizedControl(deviceId, controlId, use_default_mapping.Value,
             out List<InputBinding> inputs);
         string text = "";
-        if (!hasControl) text = Strings.UI.CONTROLSSCREEN.INPUTS[6][1];
+        if (!hasControl) text = STRINGS.UI.CONTROLSSCREEN.INPUTS[6][1];
         else
         {
             // concatenate the inputs
@@ -167,7 +167,7 @@ public static class TheInput
     {
         if (ControllerAttached()) return false;
         string localized = GetLocalizedControl(0, controlId);
-        List<string> stringtable = Strings.UI.CONTROLSSCREEN.INPUTS[1];
+        List<string> stringtable = STRINGS.UI.CONTROLSSCREEN.INPUTS[1];
         return localized == stringtable[1003] || localized == stringtable[1004];
     }
 }

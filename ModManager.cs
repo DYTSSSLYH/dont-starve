@@ -335,34 +335,34 @@ public class ModManager
 
         if (!string.IsNullOrWhiteSpace(oldmodnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.OLDMODS} {oldmodnames}\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.OLDMODS} {oldmodnames}\n";
         }
         if (!string.IsNullOrWhiteSpace(failedmodnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.FAILEDMODS} {failedmodnames}\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.FAILEDMODS} {failedmodnames}\n";
         }
         if (!string.IsNullOrWhiteSpace(oldmodnames) || !string.IsNullOrWhiteSpace(failedmodnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.OLDORFAILEDMODS}\n\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.OLDORFAILEDMODS}\n\n";
         }
 
         if (!string.IsNullOrWhiteSpace(newmodnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.NEWMODDETAIL} {newmodnames}\n" +
-                         $"{Strings.UI.MAINSCREEN.NEWMODDETAIL2}\n\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.NEWMODDETAIL} {newmodnames}\n" +
+                         $"{STRINGS.UI.MAINSCREEN.NEWMODDETAIL2}\n\n";
         }
         if (!string.IsNullOrWhiteSpace(modnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.MODDETAIL} {modnames}\n\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.MODDETAIL} {modnames}\n\n";
         }
         if (!string.IsNullOrWhiteSpace(newmodnames) || !string.IsNullOrWhiteSpace(modnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.MODDETAIL2}\n\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.MODDETAIL2}\n\n";
         }
         
         if (!string.IsNullOrWhiteSpace(forcemodnames))
         {
-            moddetail += $"{Strings.UI.MAINSCREEN.FORCEMODDETAIL} {forcemodnames}\n\n";
+            moddetail += $"{STRINGS.UI.MAINSCREEN.FORCEMODDETAIL} {forcemodnames}\n\n";
         }
         
         if ((!string.IsNullOrWhiteSpace(modnames) || !string.IsNullOrWhiteSpace(newmodnames)

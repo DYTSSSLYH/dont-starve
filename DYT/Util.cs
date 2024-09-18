@@ -35,6 +35,23 @@ namespace DYT
             }
             return result;
         }
+        
+        //-- merge two map-style tables, overwriting duplicate keys with the latter map's value
+        public static Dictionary<string, T> MergeMaps<T>(params Dictionary<string, T>[] mapArray)
+        {
+            Dictionary<string, T> result = new();
+            
+            foreach (Dictionary<string,T> map in mapArray)
+            {
+                foreach ((string key, T value) in map)
+                {
+                    result.TryAdd(key, value);
+                    result[key] = value;
+                }
+            }
+            
+            return result;
+        }
 
         public static float GetRandomWithVariance(float baseval, float randomval)
         {
@@ -74,6 +91,27 @@ namespace DYT
 
         
         #region MEMREPORT
+
+        public static string weighted_random_choice(Dictionary<string, int> choices)
+        {
+            int weighted_total(Dictionary<string, int> choices)
+            {
+                int total = 0;
+                foreach (int weight in choices.Values) total += weight;
+                return total;
+            }
+
+            int threshold = Random.Range(0, weighted_total(choices));
+            string last_choice = null;
+            foreach ((string choice, int weight) in choices)
+            {
+                threshold -= weight;
+                if (threshold <= 0) return choice;
+                last_choice = choice;
+            }
+            return last_choice;
+        }
+        
         #endregion
         
         

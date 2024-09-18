@@ -36,50 +36,50 @@ namespace DYT.Map
         protected static List<SpinnerOption> freqency_descriptions_ps4_exceptions;
         protected static List<SpinnerOption> day_descriptions = new()
         {
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
 
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDELONG+" "+Strings.UI.SANDBOXMENU.DAY, data = "longday" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDELONG+" "+Strings.UI.SANDBOXMENU.DUSK, data = "longdusk" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDELONG+" "+Strings.UI.SANDBOXMENU.NIGHT, data = "longnight" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDELONG+" "+STRINGS.UI.SANDBOXMENU.DAY, data = "longday" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDELONG+" "+STRINGS.UI.SANDBOXMENU.DUSK, data = "longdusk" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDELONG+" "+STRINGS.UI.SANDBOXMENU.NIGHT, data = "longnight" },
 
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.EXCLUDE+" "+Strings.UI.SANDBOXMENU.DAY, data = "noday" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.EXCLUDE+" "+Strings.UI.SANDBOXMENU.DUSK, data = "nodusk" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.EXCLUDE+" "+Strings.UI.SANDBOXMENU.NIGHT, data = "nonight" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.EXCLUDE+" "+STRINGS.UI.SANDBOXMENU.DAY, data = "noday" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.EXCLUDE+" "+STRINGS.UI.SANDBOXMENU.DUSK, data = "nodusk" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.EXCLUDE+" "+STRINGS.UI.SANDBOXMENU.NIGHT, data = "nonight" },
 
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDEALL+" "+Strings.UI.SANDBOXMENU.DAY, data = "onlyday" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDEALL+" "+Strings.UI.SANDBOXMENU.DUSK, data = "onlydusk" },
-	        new SpinnerOption{ text = Strings.UI.SANDBOXMENU.SLIDEALL+" "+Strings.UI.SANDBOXMENU.NIGHT, data = "onlynight" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDEALL+" "+STRINGS.UI.SANDBOXMENU.DAY, data = "onlyday" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDEALL+" "+STRINGS.UI.SANDBOXMENU.DUSK, data = "onlydusk" },
+	        new SpinnerOption{ text = STRINGS.UI.SANDBOXMENU.SLIDEALL+" "+STRINGS.UI.SANDBOXMENU.NIGHT, data = "onlynight" },
         };
         protected static List<SpinnerOption> season_length_descriptions = new()
         {
 
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDENEVER, data = "noseason" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDEVERYSHORT, data = "veryshortseason" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDESHORT, data = "shortseason" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDELONG, data = "longseason" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.SLIDEVERYLONG, data = "verylongseason" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.RANDOM, data = "random" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDENEVER, data = "noseason" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDEVERYSHORT, data = "veryshortseason" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDESHORT, data = "shortseason" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDELONG, data = "longseason" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.SLIDEVERYLONG, data = "verylongseason" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.RANDOM, data = "random" },
         };
         protected static List<SpinnerOption> season_start_descriptions = new()
         {
 	        new SpinnerOption
 	        {
-		        text = Strings.UI.SANDBOXMENU.TEMPERATE, data = "temperate"
+		        text = STRINGS.UI.SANDBOXMENU.TEMPERATE, data = "temperate"
 	        }, //-- 	image = "season_start_autumn.tex" },
 	        new SpinnerOption
-		        { text = Strings.UI.SANDBOXMENU.HUMID, data = "humid" }, //-- 	image = "season_start_winter.tex" },
+		        { text = STRINGS.UI.SANDBOXMENU.HUMID, data = "humid" }, //-- 	image = "season_start_winter.tex" },
 	        new SpinnerOption
-		        { text = Strings.UI.SANDBOXMENU.LUSH, data = "lush" }, //-- 	image = "season_start_spring.tex" },	
+		        { text = STRINGS.UI.SANDBOXMENU.LUSH, data = "lush" }, //-- 	image = "season_start_spring.tex" },	
 	        new SpinnerOption
-		        { text = Strings.UI.SANDBOXMENU.RANDOM, data = "random" }, //-- 	image = "season_start_summer.tex" },
+		        { text = STRINGS.UI.SANDBOXMENU.RANDOM, data = "random" }, //-- 	image = "season_start_summer.tex" },
         };
         protected static List<SpinnerOption> size_descriptions;
         //-- TODO: Read this from the tasks.lua
         protected static List<SpinnerOption> yesno_descriptions = new()
         {
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.YES, data = "default" },
-	        new SpinnerOption { text = Strings.UI.SANDBOXMENU.NO, data = "never" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.YES, data = "default" },
+	        new SpinnerOption { text = STRINGS.UI.SANDBOXMENU.NO, data = "never" },
         };
 
         public Dictionary<string, CustomiseGroup> GROUP = new()
@@ -88,7 +88,7 @@ namespace DYT.Map
 	        {
 		        //-- These guys come after you	
 		        order = 5,
-		        text = Strings.UI.SANDBOXMENU.CHOICEMONSTERS,
+		        text = STRINGS.UI.SANDBOXMENU.CHOICEMONSTERS,
 		        desc = freqency_descriptions,
 		        enable = false,
 		        items =
@@ -145,7 +145,7 @@ namespace DYT.Map
 	        {
 		        //-- These guys live and let live
 		        order = 4,
-		        text = Strings.UI.SANDBOXMENU.CHOICEANIMALS,
+		        text = STRINGS.UI.SANDBOXMENU.CHOICEANIMALS,
 		        desc = freqency_descriptions,
 		        enable = false,
 		        items =
@@ -178,7 +178,7 @@ namespace DYT.Map
 	        ["resources"] =
 	        {
 		        order = 2,
-		        text = Strings.UI.SANDBOXMENU.CHOICERESOURCES,
+		        text = STRINGS.UI.SANDBOXMENU.CHOICERESOURCES,
 		        desc = freqency_descriptions,
 		        enable = false,
 		        items =
@@ -251,7 +251,7 @@ namespace DYT.Map
 	        ["unprepared"] =
 	        {
 		        order = 3,
-		        text = Strings.UI.SANDBOXMENU.CHOICEFOOD,
+		        text = STRINGS.UI.SANDBOXMENU.CHOICEFOOD,
 		        desc = freqency_descriptions,
 		        enable = true,
 		        items =
@@ -267,7 +267,7 @@ namespace DYT.Map
 	        ["misc"] =
 	        {
 		        order = 1,
-		        text = Strings.UI.SANDBOXMENU.CHOICEMISC,
+		        text = STRINGS.UI.SANDBOXMENU.CHOICEMISC,
 		        desc = null,
 		        enable = true,
 		        items =
@@ -418,28 +418,28 @@ namespace DYT.Map
             {
                 freqency_descriptions = new List<SpinnerOption>
                 {
-                    new(){ text = Strings.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
-                    new(){ text = Strings.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
-                    new(){ text = Strings.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
-                    new(){ text = Strings.UI.SANDBOXMENU.SLIDEOFTEN, data = "often" },
-                    new(){ text = Strings.UI.SANDBOXMENU.SLIDEALWAYS, data = "always" },
+                    new(){ text = STRINGS.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
+                    new(){ text = STRINGS.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
+                    new(){ text = STRINGS.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
+                    new(){ text = STRINGS.UI.SANDBOXMENU.SLIDEOFTEN, data = "often" },
+                    new(){ text = STRINGS.UI.SANDBOXMENU.SLIDEALWAYS, data = "always" },
                 };
             }
             else
             {
                 freqency_descriptions = new List<SpinnerOption>
                 {
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" }
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" }
                 };
                 freqency_descriptions_ps4_exceptions = new List<SpinnerOption>
                 {
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDEOFTEN, data = "often" },
-                    new() { text = Strings.UI.SANDBOXMENU.SLIDEALWAYS, data = "always" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDENEVER, data = "never" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDERARE, data = "rare" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDEDEFAULT, data = "default" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDEOFTEN, data = "often" },
+                    new() { text = STRINGS.UI.SANDBOXMENU.SLIDEALWAYS, data = "always" },
                 };
             }
 
@@ -449,15 +449,15 @@ namespace DYT.Map
                 {
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESMALL, data = "default"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESMALL, data = "default"
                     }, //-- 	image = "world_size_small.tex"}, 	--350x350
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESMEDIUM, data = "medium"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESMEDIUM, data = "medium"
                     }, //-- 	image = "world_size_medium.tex"},	--450x450
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESLARGE, data = "large"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESLARGE, data = "large"
                     }, //-- 	image = "world_size_large.tex"},	--550x550
                 };
             }
@@ -467,15 +467,15 @@ namespace DYT.Map
                 {
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESMALL, data = "default"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESMALL, data = "default"
                     }, //-- 	image = "world_size_small.tex"}, 	--350x350
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESMEDIUM, data = "medium"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESMEDIUM, data = "medium"
                     }, //-- 	image = "world_size_medium.tex"},	--450x450
                     new()
                     {
-                        text = Strings.UI.SANDBOXMENU.SLIDESLARGE, data = "large"
+                        text = STRINGS.UI.SANDBOXMENU.SLIDESLARGE, data = "large"
                     }, //-- 	image = "world_size_large.tex"},	--550x550
                     //--new(){ text = Strings.UI.SANDBOXMENU.SLIDESHUGE, data = "huge"},
                     //-- 		image = "world_size_huge.tex"},	--800x800

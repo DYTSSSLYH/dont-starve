@@ -216,7 +216,7 @@ public class Actions
     {
         Type actionsType = typeof(Actions);
         FieldInfo[] fieldInfos = actionsType.GetFields();
-        Type stringsActionType = typeof(Strings.ACTIONS);
+        Type stringsActionType = typeof(STRINGS.ACTIONS);
         foreach (FieldInfo fieldInfo in fieldInfos)
         {
             if (!fieldInfo.IsStatic) continue;

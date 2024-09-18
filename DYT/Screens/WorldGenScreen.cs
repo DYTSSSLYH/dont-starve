@@ -193,19 +193,19 @@ namespace DYT.Screens
             this.cb = cb;
             Main.TheFrontEnd.DoFadeIn(2);
 
-            verbs = Util.shuffleArray(Strings.UI.WORLDGEN.VERBS);
+            verbs = Util.shuffleArray(STRINGS.UI.WORLDGEN.VERBS);
 
             if (worldGenOptions.level_type == "porkland")
             {
-                nouns = Util.shuffleArray(Strings.UI.WORLDGEN.NOUNS.PORKLAND);
+                nouns = Util.shuffleArray(STRINGS.UI.WORLDGEN.NOUNS.PORKLAND);
             }
             else if (worldGenOptions.level_type is "shipwrecked" or "volcano")
             {
-                nouns = Util.shuffleArray(Strings.UI.WORLDGEN.NOUNS.SHIPWRECKED);
+                nouns = Util.shuffleArray(STRINGS.UI.WORLDGEN.NOUNS.SHIPWRECKED);
             }
             else
             {
-                nouns = Util.shuffleArray(Strings.UI.WORLDGEN.NOUNS.BASE_GAME);
+                nouns = Util.shuffleArray(STRINGS.UI.WORLDGEN.NOUNS.BASE_GAME);
             }
 
             verbidx = 0;

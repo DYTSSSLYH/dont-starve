@@ -6,20 +6,20 @@ public class DlcSupportString
     // A table of which strings use prefixes and which use suffixes when constructing names in EntityScript
     public static Dictionary<string, bool> USE_PREFIX = new Dictionary<string, bool>
     {
-        {Strings.SMOLDERINGITEM, true},
-        {Strings.WITHEREDITEM, true},
-        {Strings.WET_PREFIX.FOOD, true},
-        {Strings.WET_PREFIX.CLOTHING, true},
-        {Strings.WET_PREFIX.TOOL, true},
-        {Strings.WET_PREFIX.FUEL, true},
-        {Strings.WET_PREFIX.GENERIC, true},
+        {STRINGS.SMOLDERINGITEM, true},
+        {STRINGS.WITHEREDITEM, true},
+        {STRINGS.WET_PREFIX.FOOD, true},
+        {STRINGS.WET_PREFIX.CLOTHING, true},
+        {STRINGS.WET_PREFIX.TOOL, true},
+        {STRINGS.WET_PREFIX.FUEL, true},
+        {STRINGS.WET_PREFIX.GENERIC, true},
         // Special case using inst.wet_prefix set on wet goop to WET_PREFIX.WETGOOP
-        {Strings.WET_PREFIX.WETGOOP, true},
+        {STRINGS.WET_PREFIX.WETGOOP, true},
         // Special case using inst.wet_prefix set on wet goop to WET_PREFIX.WETGOOP
-        {Strings.NAMES.WETGOOP, true},
+        {STRINGS.NAMES.WETGOOP, true},
         // Special case using inst.wet_prefix on rabbit hole set to WET_PREFIX.RABBITHOLE
-        {Strings.WET_PREFIX.RABBITHOLE, true},
+        {STRINGS.WET_PREFIX.RABBITHOLE, true},
         // Special case using inst.wet_prefix on rabbit hole set to WET_PREFIX.RABBITHOLE
-        {Strings.NAMES.RABBITHOLE, true}
+        {STRINGS.NAMES.RABBITHOLE, true}
     };
 }

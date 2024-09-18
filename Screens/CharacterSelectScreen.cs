@@ -94,9 +94,9 @@ public class CharacterSelectScreen : MonoBehaviour
         if (GameLogic.Profile.IsCharacterUnlocked(character))
         {
             heroPortrait.sprite = ResourcesTool.LoadSprite($"BigPortraits/{character}", character);
-            characterName.text = Strings.CHARACTER_TITLES.GetValueOrDefault(character, "");
-            characterQuote.text = Strings.CHARACTER_QUOTES.GetValueOrDefault(character, "");
-            characterDetails.text = Strings.CHARACTER_DESCRIPTIONS.GetValueOrDefault(character, "");
+            characterName.text = STRINGS.CHARACTER_TITLES.GetValueOrDefault(character, "");
+            characterQuote.text = STRINGS.CHARACTER_QUOTES.GetValueOrDefault(character, "");
+            characterDetails.text = STRINGS.CHARACTER_DESCRIPTIONS.GetValueOrDefault(character, "");
             applyButton.interactable = true;
         }
         else

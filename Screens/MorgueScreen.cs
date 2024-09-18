@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using DYT;
+using DYT.Map;
 using DYT.Tools;
 using TMPro;
 using UnityEngine;
@@ -65,13 +66,13 @@ public class MorgueScreen : MonoBehaviour
             else if (killedBy == "moose") killedBy = Random.Range(0, 1) < 0.5 ? "moose1" : "moose2";
             Debug.Log("killed_by: " + killedBy);
             killedBy = killedBy.ToUpper();
-            Type type = typeof(Strings.NAMES);
+            Type type = typeof(STRINGS.NAMES);
             FieldInfo fieldInfo = type.GetField(killedBy);
             killedBy = (string)(fieldInfo != null ? fieldInfo.GetValue(null) : type.GetField("SHENANIGANS"));
             cause.text = killedBy;
             
             TextMeshProUGUI mode = group.Find("Mode").GetComponent<TextMeshProUGUI>();
-            mode.text = Strings.UI.MorgueScreen.LEVEL_TYPE[(int)Levels.GetTypeForLevelID(morgueData.world)];
+            mode.text = STRINGS.UI.MorgueScreen.LEVEL_TYPE[(int)Levels.GetTypeForLevelID(morgueData.world)];
         }
     }
     private void Scroll(int dir)
