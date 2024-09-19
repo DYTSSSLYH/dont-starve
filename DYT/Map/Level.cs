@@ -44,6 +44,8 @@ namespace DYT.Map
         public int max_playlist_position = 999;
         public List<string> ordered_story_setpieces;
         public List<string> required_prefabs;
+        public int numrandom_set_pieces;
+        public List<string> random_set_pieces;
 
         public Level(){}
         public Level(Level data)
@@ -66,6 +68,9 @@ namespace DYT.Map
             max_playlist_position = data.max_playlist_position;
             ordered_story_setpieces = data.ordered_story_setpieces;
             required_prefabs = data.required_prefabs;
+
+            numrandom_set_pieces = data.numrandom_set_pieces;
+            random_set_pieces = data.random_set_pieces;
         }
     }
 }

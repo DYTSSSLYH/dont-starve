@@ -31,6 +31,8 @@ namespace DYT.Map
         static Levels()
         {
             new AdventureLevels();
+            new CaveLevels();
+            new SurvivalLevels();
             
             AddLevel(LEVELTYPE.TEST, new Level
             {
@@ -94,6 +96,7 @@ namespace DYT.Map
                     //-- },
                 },
             });
+            
             //--free_level=levellist[LEVELTYPE.SURVIVAL][1],
             test_level = levellist[LEVELTYPE.TEST][1];
         }

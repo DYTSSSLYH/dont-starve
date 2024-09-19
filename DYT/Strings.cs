@@ -525,11 +525,108 @@ namespace DYT
                     SAVEDATA = "SaveData";
             }
         
-            public class CustomScreen
+            public class CUSTOMIZATIONSCREEN
             {
+                public static List<string> PRESETLEVELS = new()
+                {
+                    "Default",
+                    "Default Plus", //-- Bootstrap the start
+                    "Lights Out",
+                    "Soggy", //-- Too much water - swamp etc
+                    "Eternal Summer", //-- Less water, no swamp etc
+                    "Winter you'll do next?", //-- Winter focus
+                    "Island you an axe", //-- Island hopping
+                    "Crazy Eddie", //-- Focus on sanity play
+                    "Nighttime Antics", //-- Focus on nighttime play
+                };
+
+                public static List<string> PRESETLEVELDESC = new()
+                {
+                    "The standard Don't Starve experience",
+                    "A quicker start in a harsher world.",
+                    "A dark twist on the standard Don't Starve experience.",
+                    "The standard Don't Starve Experience 4",
+                    "The standard Don't Starve Experience 5",
+                    "The standard Don't Starve Experience 6",
+                    "The standard Don't Starve Experience 7",
+                    "The standard Don't Starve Experience 8",
+                    "The standard Don't Starve Experience 9",
+                    "The standard Don't Starve Experience 10",
+                };
+                
                 public class NAMES
                 {
-                
+                    public static string
+                        WORLD_SIZE = "World Size",
+                        BRANCHING = "Branches",
+                        LOOP = "Loops",
+                        SEASON = "Seasons",
+                        CAVE_ENTRANCE = "Caves", //-- World customization.
+                        MARSHBUSH = "Spiky Bushes",
+                        RABBITS = "Rabbit Holes",
+                        MOLES = "Mole Burrows",
+                        PIGS = "Pigs",
+                        BEEFALOHEAT = "Beefalo Mating Frequency",
+                        HUNT = "Hunts",
+                        PENGUINS = "Pengulls",
+                        FROGS = "Frogs",
+                        TENTACLES = "Tentacles",
+                        CHESS = "Clockworks",
+                        LIEFS = "Treeguards",
+                        SUMMER = "Summer",
+                        WINTER = "Winter",
+                        SPRING = "Spring",
+                        AUTUMN = "Autumn",
+                        FROGRAIN = "Frog Rain",
+                        WILDFIRES = "Wildfires",
+                        PONDS = "Ponds",
+                        DECIDUOUSMONSTER = "Poison Birchnut Trees",
+                        GOOSEMOOSE = "Meese/Geese",
+                        MILD_SEASON = "Mild",
+                        WET_SEASON = "Hurricane",
+                        GREEN_SEASON = "Monsoon",
+                        DRY_SEASON = "Dry",
+                        SEASON_START = "Season Start",
+                        TEMPERATE_SEASON = "Temperate Season",
+                        HUMID_SEASON = "Humid Season",
+                        LUSH_SEASON = "Lush Season",
+                        DAY = "Day",
+                        WEATHER = "Weather",
+                        TREES = "Trees",
+                        POISON = "Poison",
+                        TOUCHSTONE = "Touch Stone",
+                        BOONS = "Boons",
+                        TIDES = "Tides",
+                        FLOODS = "Floods",
+                        FLOWERS = "Flowers",
+                        ROCK = "Rocks",
+                        MUSHROOM = "Mushrooms",
+                        BIRDS = "Birds",
+                        BEES = "Bees",
+                        ANGRYBEES = "Killer Bees",
+                        TALLBIRDS = "Tallbirds",
+                        SPIDERS = "Spiders",
+                        LUREPLANTS = "Meat Bulbs",
+                        WHALEHUNT = "Whaling",
+                        WILDBORES = "Wildbores",
+                        HOUNDS = "Hounds",
+                        OCEANWAVES = "Waves",
+                        GLOWFLYCYCLE = "Glowfly Cycle",
+                        GRASS_BUNCHES = "Tall Grass Fields",
+                        FLOWERS_RAINFOREST = "Tropical Flowers",
+                        DEEP_JUNGLE_FERN_NOISE = "Jungle Floor Ferns",
+                        JUNGLE_BORDER_VINE = "Jungle Canopy Vines",
+                        LOST_RELICS = "Lost Relics",
+                        RUINED_SCULPTURES = "Ruined Sculptures",
+                        SPEAR_TRAPS = "Spear Traps",
+                        DART_TRAPS = "Dart Traps",
+                        DOOR_VINES = "Creeping Vines",
+                        RUSTED_HULKS = "Rusted Hulks",
+                        ROC = "Roc",
+                        ANTMAN = "Mants",
+                        FOG = "Fog",
+                        HAYFEVER = "Hayfever",
+                        BRAMBLES = "Brambles";
                 }
             }
 

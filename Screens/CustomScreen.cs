@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using DYT;
 using DYT.Map;
@@ -117,7 +118,7 @@ public class CustomScreen : MonoBehaviour
             string upperCaseName = nowSettingOption.name.ToUpper();
             Type type = typeof(STRINGS.NAMES);
             FieldInfo fieldInfo = type.GetField(upperCaseName);
-            Type type1 = typeof(STRINGS.UI.CustomScreen.NAMES);
+            Type type1 = typeof(STRINGS.UI.CUSTOMIZATIONSCREEN.NAMES);
             FieldInfo fieldInfo1 = type1.GetField(upperCaseName);
             string tooltip = (string)(fieldInfo != null ? fieldInfo.GetValue(null) :
                 fieldInfo1 != null ? fieldInfo1.GetValue(null) : nowSettingOption.name);
@@ -229,16 +230,16 @@ public class CustomScreen : MonoBehaviour
         _presetList = new List<SpinnerOption>();
         
         List<Level> levelPresetList = new List<Level>();
-        if (world == DLCSupport.MAIN_GAME) levelPresetList = Levels.sandboxLevels;
-        else if (world == DLCSupport.REIGN_OF_GIANTS) levelPresetList = Levels.reginOfGiantsLevels;
-        else if (world == DLCSupport.CAPY_DLC) levelPresetList = Levels.shipwreckedLevels;
-        else if (world == DLCSupport.PORKLAND_DLC) levelPresetList = Levels.hamletLevels;
+        if (world == DLCSupport.MAIN_GAME) levelPresetList = Levels.sandbox_levels;
+        else if (world == DLCSupport.REIGN_OF_GIANTS) levelPresetList = Levels.sandbox_levels;
+        else if (world == DLCSupport.CAPY_DLC) levelPresetList = Levels.shipwrecked_levels;
+        else if (world == DLCSupport.PORKLAND_DLC) levelPresetList = Levels.porkland_levels;
         _defaultPresetNum = levelPresetList.Count;
         foreach (Level levelPreset in levelPresetList)
         {
             _presetList.Add(new SpinnerOption(levelPreset.name, levelPreset.id,
                 new Dictionary<string, object> {
-                    {"description", levelPreset.description},
+                    {"description", levelPreset.desc},
                     {"overrides", levelPreset.overrides}
                 }
             ));
@@ -249,7 +250,7 @@ public class CustomScreen : MonoBehaviour
         {
             _presetList.Add(new SpinnerOption(customPreset.name, customPreset.id,
                 new Dictionary<string, object> {
-                    {"description", customPreset.description},
+                    {"description", customPreset.desc},
                     {"overrides", customPreset.overrides}
                 }
             ));
@@ -417,7 +418,9 @@ public class CustomScreen : MonoBehaviour
 
             string presetDescription = $"Custom preset {existedCustomPresetNum}. Your world, your rules!";
 
-            Level preset = new Level(presetId, presetName, presetDescription, _nowChangedOption.optionList);
+            Dictionary<object,object> dictionary = new();
+            foreach ((string key, string value) in _nowChangedOption.optionList) dictionary.Add(key, value);
+            Level preset = new(){id = presetId, name = presetName, desc = presetDescription, overrides = dictionary};
             GameLogic.Profile.AddWorldCustomizationPreset(world, preset, existedCustomPresetNum);
             GameLogic.Profile.Save(null);
 

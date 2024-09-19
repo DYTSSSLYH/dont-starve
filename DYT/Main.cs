@@ -15,6 +15,7 @@ namespace DYT
         public static string APP_REGION = "NONE";
         public static bool RUN_GLOBAL_INIT = true;
         public static string APP_VERSION;
+        public static string GEN_PARAMETERS;
 
         // defines
         public static int MAIN = 1;
