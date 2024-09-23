@@ -22,7 +22,14 @@ namespace DYT
         /// <returns></returns>
         public static bool IsWater(int tile)
         {
-            return false;
+            return tile >= 55;
+        }
+        
+        public static bool IsShore(int tile)
+        {
+            return tile == Constant.GROUND.OCEAN_SHORE || tile == Constant.GROUND.MANGROVE_SHORE ||
+                   tile == Constant.GROUND.OCEAN_CORAL_SHORE ||
+                   tile == Constant.GROUND.OCEAN_SHIPGRAVEYARD_SHORE;
         }
 
         public static Vector2 GetWorldSize()

@@ -26,6 +26,7 @@ namespace DYT
         public static int WORLDGEN_MAIN = 1;
         public static bool POT_GENERATION = false;
     
+        
         static WorldGenMain()
         {
             DebugPrint.print("worldgen_main.lua MAIN = 1");
@@ -66,9 +67,9 @@ namespace DYT
             //--print("Generate New map", debug, parameters.gen_type,
             //"type: "..parameters.level_type, parameters.current_level, parameters.world_gen_choices)
             new ForestMap();
-            
-            
-            
+
+            Level level = Levels.test_level;
+
             return null;
         }
 

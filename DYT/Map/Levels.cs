@@ -33,6 +33,9 @@ namespace DYT.Map
             new AdventureLevels();
             new CaveLevels();
             new SurvivalLevels();
+            new VolcanoLevels();
+            new ShipwreckedLevels();
+            new PorklandLevels();
             
             AddLevel(LEVELTYPE.TEST, new Level
             {
@@ -104,7 +107,7 @@ namespace DYT.Map
 
         public static void AddLevel(int type, Level data)
         {
-            levellist[type].Add(data);
+            levellist[type].Add(new Level(data));
         }
     
         public static int GetTypeForLevelID(string id)

@@ -553,6 +553,16 @@ namespace DYT
                     "The standard Don't Starve Experience 9",
                     "The standard Don't Starve Experience 10",
                 };
+
+                public static List<string> SHIPWRECKEDLEVELS = new()
+                {
+                    "Shipwrecked"
+                };
+
+                public static List<string> SHIPWRECKEDLEVELDESC = new()
+                {
+                    "A tropical paradise?"
+                };
                 
                 public class NAMES
                 {

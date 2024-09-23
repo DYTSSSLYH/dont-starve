@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DYT.Map.levels;
 
 namespace DYT.Map
@@ -25,7 +26,32 @@ namespace DYT.Map
             public int count;
             public List<string> tasks;
         }
+        public class StartTask
+        {
+            public float weight;
+            public string start_setpiece;
+            public string start_node;
+        }
+        public class SelectedTask
+        {
+            public int min;
+            public int max;
+            public List<string> task_choices;
+        }
+        public class WaterContent
+        {
+            public Func<int, bool> checkFn;
+        }
+        public class Treasure
+        {
+            public int count;
+            public List<string> treasuretasks;
+            public List<string> maptasks;
+            public List<string> tasks;
+        }
+        
         public bool override_level_string;
+        public object required_treasures;
         public string id;
         public string name;
         public string desc;
@@ -44,8 +70,19 @@ namespace DYT.Map
         public int max_playlist_position = 999;
         public List<string> ordered_story_setpieces;
         public List<string> required_prefabs;
+        public Dictionary<string, int> required_prefab_count;
+        public int[] background_node_range;
         public int numrandom_set_pieces;
         public List<string> random_set_pieces;
+        public List<SelectedTask> selectedtasks;
+        public Dictionary<string, StartTask> start_tasks;
+        public Dictionary<string, Treasure> treasures;
+        public int numoptional_treasures;
+        public object optional_treasures;
+        public int numrandom_treasures;
+        public List<string> random_treasures;
+        public Dictionary<string, WaterContent> water_content;
+        public Dictionary<string, Piece> water_prefill_setpieces;
 
         public Level(){}
         public Level(Level data)
@@ -68,9 +105,23 @@ namespace DYT.Map
             max_playlist_position = data.max_playlist_position;
             ordered_story_setpieces = data.ordered_story_setpieces;
             required_prefabs = data.required_prefabs;
+            required_prefab_count = data.required_prefab_count ?? new Dictionary<string, int>();
+            background_node_range = data.background_node_range;
 
             numrandom_set_pieces = data.numrandom_set_pieces;
             random_set_pieces = data.random_set_pieces;
+
+            selectedtasks = data.selectedtasks ?? new List<SelectedTask>();
+            start_tasks = data.start_tasks ?? new Dictionary<string, StartTask>();
+            
+            treasures = data.treasures ?? new Dictionary<string, Treasure>();
+            numoptional_treasures = data.numoptional_treasures;
+            optional_treasures = data.optional_treasures;
+            numrandom_treasures = data.numrandom_treasures;
+            random_treasures = data.random_treasures ?? new List<string>();
+            
+            water_content = data.water_content ?? new Dictionary<string, WaterContent>();
+            water_prefill_setpieces = data.water_prefill_setpieces ?? new Dictionary<string, Piece>();
         }
     }
 }
