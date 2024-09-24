@@ -50,6 +50,24 @@ public class ModUtil
         // TODO
         env.postinitfns = new ModManager.PostInitFns();
 
+        env.postinitfns.LevelPreInit = new Dictionary<string, List<ModManager.ParamObjectArrayHandler>>();
+        env.AddLevelPreInit = (levelid, fn) =>
+        {
+            initprint("AddLevelPreInit", levelid);
+            if (!env.postinitfns.ComponentPostInit.ContainsKey(levelid))
+            {
+                env.postinitfns.ComponentPostInit.Add(levelid,
+                    new List<ModManager.ParamObjectArrayHandler>());
+            }
+            env.postinitfns.ComponentPostInit[levelid].Add(fn);
+        };
+        env.postinitfns.LevelPreInitAny = new List<ModManager.ParamObjectArrayHandler>();
+        env.AddLevelPreInitAny = fn =>
+        {
+            initprint("AddLevelPreInitAny");
+            env.postinitfns.GamePostInit.Add(fn);
+        };
+
         env.postinitfns.ComponentPostInit =
             new Dictionary<string, List<ModManager.ParamObjectArrayHandler>>();
         env.AddComponentPostInit = (component, fn) =>

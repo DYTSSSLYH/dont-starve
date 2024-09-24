@@ -15,6 +15,8 @@ public class ModManager
     private static List<string> modnames = new();
     public class PostInitFns
     {
+        public Dictionary<string, List<ParamObjectArrayHandler>> LevelPreInit;
+        public List<ParamObjectArrayHandler> LevelPreInitAny;
         public Dictionary<string, List<ParamObjectArrayHandler>> ComponentPostInit;
         public List<ParamObjectArrayHandler> GamePostInit;
     }
@@ -31,8 +33,10 @@ public class ModManager
         #region PostInit
 
         public PostInitFns postinitfns;
-        public Action<ParamObjectArrayHandler> AddGamePostInit;
+        public Action<string, ParamObjectArrayHandler> AddLevelPreInit;
+        public Action<ParamObjectArrayHandler> AddLevelPreInitAny;
         public Action<string, ParamObjectArrayHandler> AddComponentPostInit;
+        public Action<ParamObjectArrayHandler> AddGamePostInit;
 
         #endregion
 
@@ -402,7 +406,7 @@ public class ModManager
         DisplayBadMods();
     }
 
-    public static List<ParamObjectArrayHandler> GetPostInitFns(string type, string id)
+    public static List<ParamObjectArrayHandler> GetPostInitFns(string type, string id = null)
     {
         List<ParamObjectArrayHandler> retfns = new();
         foreach (string modname in enabledmods)
@@ -411,14 +415,17 @@ public class ModManager
             FieldInfo fieldInfo = typeof(PostInitFns).GetField(type);
             if (fieldInfo != null)
             {
-                Dictionary<string, List<ParamObjectArrayHandler>> value =
-                    (Dictionary<string, List<ParamObjectArrayHandler>>)fieldInfo.GetValue(mod.postinitfns);
-                value.TryGetValue(id, out List<ParamObjectArrayHandler> modfns);
+                List<ParamObjectArrayHandler> modfns;
+                object value = fieldInfo.GetValue(mod.postinitfns);
+                if (!string.IsNullOrWhiteSpace(id))
+                    modfns = ((Dictionary<string, List<ParamObjectArrayHandler>>)value)[id];
+                else modfns = (List<ParamObjectArrayHandler>)value;
                 if (modfns != null)
                 {
                     foreach (ParamObjectArrayHandler modfn in modfns)
                     {
-                        retfns.Add(runmodfn(modfn, mod, $"{type}: {id}"));
+                        retfns.Add(
+                            runmodfn(modfn, mod, string.IsNullOrWhiteSpace(id) ? type : $"{type}: {id}"));
                     }
                 }
             }
