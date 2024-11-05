@@ -20,6 +20,7 @@ public class CustomScreen : MonoBehaviour
     {
         public SpinnerOption preset { get; }
         public Dictionary<string, string> optionList { get; }
+        public Dictionary<string, Dictionary<string, string>> tweak;
         public bool ROGEnabled;
         public int level_id;
 

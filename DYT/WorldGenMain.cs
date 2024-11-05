@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DYT.Map;
-using DYT.Screens;
 using Newtonsoft.Json;
+using UnityEngine.Assertions;
 
 namespace DYT
 {
@@ -73,14 +73,121 @@ namespace DYT
                     name = ((List<string>)k)[UnityEngine.Random.Range(0, ((List<string>)k).Count)];
                 else if (k is string) name = (string)k;
                 
-                string value;
+                string value = null;
                 if (v.GetType() == typeof(List<string>))
                     value = ((List<string>)v)[UnityEngine.Random.Range(0, ((List<string>)v).Count)];
                 else if (v is string) value = (string)v;
 
                 string area = customise.GetGroupForItem(name);
                 //-- Modify world now
+                if (!(world_gen_choices.tweak != null && world_gen_choices.tweak.ContainsKey(area) &&
+                      world_gen_choices.tweak[area].ContainsKey(name)))
+                {
+                    if (world_gen_choices.tweak == null)
+                        world_gen_choices.tweak = new Dictionary<string, Dictionary<string, string>>();
+                    
+                    world_gen_choices.tweak.TryAdd(area, new Dictionary<string, string>());
+                    world_gen_choices.tweak[area].TryAdd(name, value);
+                    world_gen_choices.tweak[area][name] = value;
+                }
             }
+        }
+
+        private static Dictionary<string, object> GetRandomFromLayouts(Dictionary<object, Dictionary<string, Layout>> layouts)
+        {
+            List<object> areaKeys = new List<object>(layouts.Keys);
+            int areaIdx = UnityEngine.Random.Range(0, areaKeys.Count);
+            object area = areaKeys[areaIdx];
+            if ((area == "Rare" && UnityEngine.Random.value < 0.98f) || layouts[area].Count < 1)
+            {
+                areaKeys.Remove(areaIdx);
+                area = areaKeys[UnityEngine.Random.Range(0, areaKeys.Count)];
+            }
+
+            if (layouts[area].Count < 1) return null;
+
+            Dictionary<string, object> target = new Dictionary<string, object>()
+            {
+                ["target_area"] = area,
+                ["choice"] = Util.GetRandomKey(layouts[area]),
+            };
+            
+            return target;
+        }
+
+        private static List<string> GetAreasForChoice(object area, Level level)
+        {
+            List<string> areas = new List<string>();
+            
+            foreach (string taskName in level.tasks)
+            {
+                Task task = Tasks.GetTaskByName(taskName, Tasks.sampletasks);
+                if ((level.name == "Shipwrecked" && area == "Shipwrecked_Any")
+                    || area == "Any" || area == "Rare" || (int)area == task.room_bg)
+                    areas.Add(taskName);
+            }
+            if (areas.Count == 0) return null;
+            return areas;
+        }
+        
+        private static void AddSingleSetPeice(Level level, string choicefile)
+        {
+            Type type = Type.GetType(choicefile);
+            SandboxAndLayouts choices = (SandboxAndLayouts)Activator.CreateInstance(type);
+            Assert.IsNotNull(choices.Sandbox);
+
+            Dictionary<string,object> chosen = GetRandomFromLayouts(choices.Sandbox);
+            if (chosen == null) return;
+
+            if (chosen["target_area"] == "Water")
+            {
+                if (level.water_setpieces == null)
+                    level.water_setpieces = new Dictionary<string, Level.Piece>();
+                if (level.water_setpieces[(string)chosen["choice"]] == null)
+                    level.water_setpieces[(string)chosen["choice"]] = new Level.Piece() { count = 0 };
+                level.water_setpieces[(string)chosen["choice"]].count += 1;
+            }
+            else
+            {
+                if (level.set_pieces == null) level.set_pieces = new Dictionary<string, Level.Piece>();
+                List<string> areas = GetAreasForChoice(chosen["target_area"], level);
+                if (areas == null) return;
+
+                int num_peices = 1;
+                if (level.set_pieces[(string)chosen["choice"]] != null)
+                    num_peices = level.set_pieces[(string)chosen["choice"]].count + 1;
+                level.set_pieces[(string)chosen["choice"]] =
+                    new Level.Piece { count = num_peices, tasks = areas };
+            }
+        }
+
+        private static void AddSetPeices(Level level, CustomScreen.ChangedOption world_gen_choices)
+        {
+            string boons_override = "default";
+            string touchstone_override = "default";
+            string traps_override = "default";
+            string poi_override = "default";
+            string protected_override = "default";
+            
+            if (world_gen_choices.tweak != null && world_gen_choices.tweak.ContainsKey("misc"))
+            {
+                if (world_gen_choices.tweak["misc"].ContainsKey("boons"))
+                    boons_override = world_gen_choices.tweak["misc"]["boons"];
+                
+                if (world_gen_choices.tweak["misc"].ContainsKey("touchstone"))
+                    touchstone_override = world_gen_choices.tweak["misc"]["touchstone"];
+                
+                if (world_gen_choices.tweak["misc"].ContainsKey("traps"))
+                    traps_override = world_gen_choices.tweak["misc"]["traps"];
+                
+                if (world_gen_choices.tweak["misc"].ContainsKey("poi"))
+                    poi_override = world_gen_choices.tweak["misc"]["poi"];
+                
+                if (world_gen_choices.tweak["misc"].ContainsKey("protected"))
+                    protected_override = world_gen_choices.tweak["misc"]["protected"];
+            }
+            
+            if (traps_override != "never") AddSingleSetPeice(level, "map/traps");
         }
 
         private static void FixWesUnlock(Level level, int progress, PlayerProfile.Data profile)
@@ -240,6 +347,7 @@ namespace DYT
             }
             
             OverrideTweaks(level, parameters.world_gen_choices);
+            Dictionary<string,List<List<string>>> level_area_triggers = level.override_triggers;
 
             return null;
         }

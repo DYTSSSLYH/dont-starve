@@ -82,6 +82,7 @@ namespace DYT.Map
         public int numrandom_treasures;
         public List<string> random_treasures;
         public Dictionary<string, WaterContent> water_content;
+        public Dictionary<string, Piece> water_setpieces;
         public Dictionary<string, Piece> water_prefill_setpieces;
 
         public Level(){}
@@ -121,6 +122,7 @@ namespace DYT.Map
             random_treasures = data.random_treasures ?? new List<string>();
             
             water_content = data.water_content ?? new Dictionary<string, WaterContent>();
+            water_setpieces = data.water_setpieces ?? new Dictionary<string, Piece>();
             water_prefill_setpieces = data.water_prefill_setpieces ?? new Dictionary<string, Piece>();
         }
     }

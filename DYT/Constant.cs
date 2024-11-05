@@ -367,6 +367,37 @@ namespace DYT
 				SEED_WALLS = 3;
 		}
     
+		public class LAYOUT
+		{
+			public static int
+				STATIC = 0,
+				CIRCLE_EDGE = 1,
+				CIRCLE_RANDOM = 2,
+				GRID = 3,
+				RECTANGLE_EDGE = 4,
+				CIRCLE_FILLED = 5;
+		}
+    
+		public class LAYOUT_POSITION
+		{
+			public static int
+				RANDOM = 0,
+				CENTER = 1;
+		}
+    
+		public class PLACE_MASK
+		{
+			public static int
+				NORMAL = 0,
+				IGNORE_IMPASSABLE = 1,
+				IGNORE_BARREN = 2,
+				IGNORE_IMPASSABLE_BARREN = 3,
+				IGNORE_RESERVED = 4,
+				IGNORE_IMPASSABLE_RESERVED = 5,
+				IGNORE_BARREN_RESERVED = 6,
+				IGNORE_IMPASSABLE_BARREN_RESERVED = 7;
+		}
+		
 		public class RecipeTab
 		{
 			public string str;

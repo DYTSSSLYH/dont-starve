@@ -7,6 +7,11 @@ namespace DYT
 {
     public static class Util
     {
+        public static int GetTableSize<K, V>(Dictionary<K, V> table)
+        {
+            return table?.Count ?? 0;
+        }
+            
         public static T GetRandomItem<T>(List<T> choices)
         {
             return choices[Random.Range(0, choices.Count)];
@@ -51,6 +56,20 @@ namespace DYT
             }
             
             return result;
+        }
+
+        public static string GetRandomKey<T>(Dictionary<string, T> choices)
+        {
+            int choice = Random.Range(1, choices.Count) - 1;
+
+            string picked = null;
+            foreach ((string key, object _) in choices)
+            {
+                picked = key;
+                if (choice <= 0) break;
+                choice -= 1;
+            }
+            return picked;
         }
 
         public static float GetRandomWithVariance(float baseval, float randomval)
