@@ -93,7 +93,8 @@ namespace DYT
             }
         }
 
-        private static Dictionary<string, object> GetRandomFromLayouts(Dictionary<object, Dictionary<string, Layout>> layouts)
+        private static Dictionary<string, object> GetRandomFromLayouts(
+            Dictionary<object, Dictionary<string, Layout>> layouts)
         {
             List<object> areaKeys = new List<object>(layouts.Keys);
             int areaIdx = UnityEngine.Random.Range(0, areaKeys.Count);
@@ -188,6 +189,7 @@ namespace DYT
             }
             
             if (traps_override != "never") AddSingleSetPeice(level, "map/traps");
+            if (poi_override != "never") AddSingleSetPeice(level, "map/pointsofinterest");
         }
 
         private static void FixWesUnlock(Level level, int progress, PlayerProfile.Data profile)
