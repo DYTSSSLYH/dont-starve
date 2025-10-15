@@ -6,7 +6,6 @@ using DYT.Widgets;
 using Newtonsoft.Json;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT
 {
@@ -26,7 +25,7 @@ namespace DYT
         private void Start()
         {
             // The screen manager
-            Main.TheFrontEnd = Instantiate(theFrontEnd).GetComponent<FrontEnd>();
+            MainSelf.TheFrontEnd = Instantiate(theFrontEnd).GetComponent<FrontEnd>();
             Instantiate(gameLogic).GetComponent<GameLogic>().Init();
 
             CheckControllers();
@@ -36,16 +35,19 @@ namespace DYT
         public static void SavePersistentString(string name, string data, bool encode,
             Action callback, bool local_save = false)
         {
-            if (Main.TheFrontEnd != null) //TODO
+            if (MainSelf.TheFrontEnd != null) //TODO
             {
-                TheSim.SetPersistentString(name, data, encode, callback, local_save);
+                // TheSim.SetPersistentString(name, data, encode, callback, local_save);
             }
-            else TheSim.SetPersistentString(name, data, encode, callback, local_save);
+            // else TheSim.SetPersistentString(name, data, encode, callback, local_save);
+            else
+            {
+            }
         }
 
         public static void Print(Constant.VERBOSITY msgVerbosity, params object[] objectArray)
         {
-            if (msgVerbosity <= Main.VERBOSITY_LEVEL) DebugPrint.print(objectArray);
+            if (msgVerbosity <= MainSelf.VERBOSITY_LEVEL) DebugPrint.print(objectArray);
         }
 
 
@@ -53,7 +55,7 @@ namespace DYT
 
         public static void RegisterPrefabs(GameObject prefab)
         {
-            Main.Prefabs.Add(prefab.name, prefab);
+            MainSelf.Prefabs.Add(prefab.name, prefab);
         }
 
         public static Dictionary<string, GameObject> PREFABDEFINITIONS = new Dictionary<string, GameObject>();
@@ -89,11 +91,11 @@ namespace DYT
 
         public static EntityScript CreateEntity()
         {
-            GameObject ent = new();
+            GameObject ent = new GameObject();
             int guid = ent.GetInstanceID();
-            EntityScript scr = ent.AddComponent<EntityScript>().Init();
-            Main.Ents.Add(guid, scr);
-            Main.NumEnts++;
+            EntityScript scr = new EntityScript(ent);
+            MainSelf.Ents.Add(guid, scr);
+            MainSelf.NumEnts++;
             return scr;
         }
 
@@ -197,7 +199,7 @@ namespace DYT
 
             PlayerProfile.ShowedControllerPopup();
             // pop after updating settings otherwise this dialog might show again!
-            Main.TheFrontEnd.PopScreen();
+            MainSelf.TheFrontEnd.PopScreen();
             GameLogic.Profile.Save();
             Scheduler.ExecuteInTime(0.05f, Check_Mods);
         }
@@ -206,7 +208,7 @@ namespace DYT
             TheInput.DisableAllControllers();
             PlayerProfile.ShowedControllerPopup();
             // pop after updating settings otherwise this dialog might show again!
-            Main.TheFrontEnd.PopScreen();
+            MainSelf.TheFrontEnd.PopScreen();
             GameLogic.Profile.Save();
             Scheduler.ExecuteInTime(0.05f, Check_Mods);
         }
@@ -237,19 +239,19 @@ namespace DYT
                             new(){text = "启用游戏手柄", cb = enableControllers},
                             new(){text = "禁用游戏手柄", cb = disableControllers}
                         });
-                foreach (Widget widget in popup.menu.items)
+                foreach (WidgetSelf widget in popup.menu.items)
                 {
                     ImageButton menuItem = (ImageButton)widget;
                     menuItem.text.SetSize(33);
                 }
-                Main.TheFrontEnd.PushScreen(popup);
+                MainSelf.TheFrontEnd.PushScreen(popup);
             }
             else Check_Mods();
         }
 
         public void Check_Mods()
         {
-            if (Main.MODS_ENABLED)
+            if (MainSelf.MODS_ENABLED)
             {
                 // after starting everything up, give the mods additional environment variables
                 ModManager.SetPostEnv();
@@ -273,7 +275,7 @@ namespace DYT
         // Does not get called on subsequent sim recreations!
         public static void GlobalInit()
         {
-            TheSim.LoadPrefabs("Global");
+            // TheSim.LoadPrefabs("Global");
         
             // LoadFonts()
             // if PLATFORM == "PS4" then
@@ -303,13 +305,13 @@ namespace DYT
 
             if (instanceparameters == null) instanceparameters = new Setting();
             instanceparameters.last_asset_set = Settings.current_asset_set;
-            TheSim.SetInstanceParameters(JsonConvert.SerializeObject(instanceparameters));
+            // TheSim.SetInstanceParameters(JsonConvert.SerializeObject(instanceparameters));
             if (SimUtil.GetWorld())
             {
                 SimUtil.GetWorld().GetComponent<AmbientSoundMixer>().ClearReverbOverride();
             }
-            TheSim.SetReverbPreset("default");
-            TheSim.ResetSim();
+            // TheSimSelf.SetReverbPreset("default");
+            // TheSim.ResetSim();
         }
     
         private static void Shutdown()
@@ -323,8 +325,8 @@ namespace DYT
 
             exitingGame = true;
 
-            Main.TheFrontEnd.PushScreen(
-                Object.Instantiate(Resources.Load<GameObject>("UI/ExitScreen")).GetComponent<Screen>());
+            MainSelf.TheFrontEnd.PushScreen(
+                Object.Instantiate(Resources.Load<GameObject>("UI/ExitScreen")).GetComponent<ScreenSelf>());
 
             Dictionary<string, object> profileStats = WorldGenerateMain.GetProfileStats();
 
@@ -335,7 +337,7 @@ namespace DYT
 
         public void DisplayError(string error)
         {
-            if (!Main.TheFrontEnd)
+            if (!MainSelf.TheFrontEnd)
             {
                 DebugPrint.print(
                     "Error error! We tried displaying an error but TheFrontEnd isn't ready yet...");
@@ -344,7 +346,7 @@ namespace DYT
             }
 
             SetPause(true, "DisplayError");
-            if (Main.TheFrontEnd.IsDisplayingError()) return;
+            if (MainSelf.TheFrontEnd.IsDisplayingError()) return;
         
             DebugPrint.print(error); //Failsafe since sometimes the error screen is no shown
 
@@ -361,52 +363,52 @@ namespace DYT
                 ScriptErrorScreen errorScreen = Instantiate(scriptErrorScreen)
                     .GetComponent<ScriptErrorScreen>().Init("警告！", error, new List<Menu.MenuItem>
                         {
-                            new(){text = "退出游戏", cb = TheSim.ForceAbort},
+                            // new(){text = "退出游戏", cb = TheSim.ForceAbort},
                             new(){text = "禁用模组", cb = () =>
                             {
                                 KnownModIndex.DisableAllMods();
                                 KnownModIndex.Save(() => SimReset());
                             }},
-                            new(){text = "模组论坛", nopop = true, cb = () => Main.VisitURL(
+                            new(){text = "模组论坛", nopop = true, cb = () => MainSelf.VisitURL(
                                 "http://forums.kleientertainment.com/index.php" +
                                 "?/forum/26-dont-starve-mods-and-tools/")}
                         }, Constant.ANCHOR_LEFT,
                         $"此错误可能是由于你启用的某个模组所致！\n你启用了下列模组：\n{modnamesstr}", 20);
-                if (Main.ENABLE_BUG_REPORTER)
+                if (MainSelf.ENABLE_BUG_REPORTER)
                 {
                     errorScreen.menu.AddItem(
                         "报告漏洞",
-                        () => Main.TheFrontEnd.PushScreen(
+                        () => MainSelf.TheFrontEnd.PushScreen(
                             Object.Instantiate(bugReportScreen).GetComponent<BugReportScreen>().Init(),
                             true
                         ),
                         null
                     );
                 }
-                Main.TheFrontEnd.DisplayError(errorScreen);
+                MainSelf.TheFrontEnd.DisplayError(errorScreen);
             }
             else
             {
                 ScriptErrorScreen errorScreen = Object.Instantiate(scriptErrorScreen)
                     .GetComponent<ScriptErrorScreen>().Init("警告！", error, new List<Menu.MenuItem>
                     {
-                        new(){text = "退出游戏", cb = TheSim.ForceAbort},
-                        new(){text = "模组论坛", nopop = true, cb = () => Main.VisitURL(
+                        // new(){text = "退出游戏", cb = TheSim.ForceAbort},
+                        new(){text = "模组论坛", nopop = true, cb = () => MainSelf.VisitURL(
                             "http://forums.kleientertainment.com/index.php" +
                             "?/forum/26-dont-starve-mods-and-tools/")}
                     }, Constant.ANCHOR_LEFT, null, 20);
-                if (Main.ENABLE_BUG_REPORTER)
+                if (MainSelf.ENABLE_BUG_REPORTER)
                 {
                     errorScreen.menu.AddItem(
                         "报告漏洞",
-                        () => Main.TheFrontEnd.PushScreen(
+                        () => MainSelf.TheFrontEnd.PushScreen(
                             Object.Instantiate(bugReportScreen).GetComponent<BugReportScreen>().Init(),
                             true
                         ),
                         null
                     );
                 }
-                Main.TheFrontEnd.DisplayError(errorScreen);
+                MainSelf.TheFrontEnd.DisplayError(errorScreen);
             }
         }
 

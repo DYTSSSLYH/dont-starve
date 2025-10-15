@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainFungusRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGNoisyFungus", new Room
             {
-                colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
                 value = Constant.GROUND.FUNGUS_NOISE,
                 //--tags = {"ForceConnected"},
                 contents =
@@ -37,7 +39,7 @@
             });
             Rooms.AddRoom("BGFungusRoom", new Room
             {
-                colour = { r = 0.36f, g = 0.32f, b = 0.38f, a = 0.50f },
+                colour = new Color{r = 0.36f, g = 0.32f, b = 0.38f, a = 0.50f },
                 value = Constant.GROUND.FUNGUS,
                 //--tags = {"ForceConnected"},
                 contents =
@@ -46,7 +48,7 @@
                     {
                         ["MushroomRingMedium"] = () =>
                         {
-                            if (WorldGenMain.random.Next(0, 200) > 185)
+                            if (Random.Range(0, 200) > 185)
                                 return 1;
 
                             return 0;

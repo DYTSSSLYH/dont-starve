@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using DYT;
+using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 
-public class ConsoleScreen : Screen
+public class ConsoleScreen : ScreenSelf
 {
     private static List<string> CONSOLE_HISTORY;
     private static int SUGGESTIONS_MAX;
@@ -57,17 +57,17 @@ public class ConsoleScreen : Screen
     {
         MainFunctions.SetPause(false);
         TheInput.EnableDebugToggle(true);
-        Main.TheFrontEnd.PopScreen();
+        MainSelf.TheFrontEnd.PopScreen();
     }
     
     public void OnTextEntered(string text)
     {
         Run(text);
         Close();
-        if (Main.TheFrontEnd.consoletext.closeonrun.HasValue)
+        if (MainSelf.TheFrontEnd.consoletext.closeonrun.HasValue)
         {
-            Main.TheFrontEnd.HideConsoleLog();
-            Main.TheFrontEnd.consoletext.closeonrun = null;
+            MainSelf.TheFrontEnd.HideConsoleLog();
+            MainSelf.TheFrontEnd.consoletext.closeonrun = null;
         }
     }
     

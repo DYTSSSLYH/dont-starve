@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainMazesRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("LabyrinthGuarden", new Room
             {
-                colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
                 value = Constant.GROUND.BRICK,
                 tags = { "LabyrinthEntrance" },
                 contents =
@@ -20,7 +22,7 @@
 
             Rooms.AddRoom("BGLabyrinth", new Room
             {
-                colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
                 value = Constant.GROUND.CAVE_NOISE,
                 tags = { "Labyrinth" },
                 contents =
@@ -35,7 +37,7 @@
             });
             Rooms.AddRoom("BGMaze", new Room
             {
-                colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
                 value = Constant.GROUND.MUD,
                 tags = { "Maze" },
                 contents =

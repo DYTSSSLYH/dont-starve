@@ -1,6 +1,9 @@
 ﻿// ------------------------------------------------------------------------------------
 // -- BLOCKERS ------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class BlockersRooms
@@ -9,7 +12,7 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("Deerclopsfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -40,7 +43,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Walrusfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -64,15 +67,15 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Chessfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.CHECKER,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(2, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(2, 3),
+				        ["ChessSpot1"] = () => Random.Range(2, 3),
+				        ["ChessSpot2"] = () => Random.Range(2, 3),
 			        },
 			        distributepercent = 0.4f,
 			        distributeprefabs =
@@ -91,7 +94,7 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("ChessfieldC", Rooms.MakeSetpieceBlockerRoom("ChessBlockerC"));
 	        Rooms.AddRoom("Tallbirdfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -114,14 +117,14 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("TallbirdfieldB", Rooms.MakeSetpieceBlockerRoom("TallbirdBlockerB"));
 	        Rooms.AddRoom("Mermfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.MARSH,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["pighead"] = () => WorldGenMain.random.Next(6),
+				        ["pighead"] = () => Random.Range(0, 6),
 			        },
 			        distributepercent = 0.3f,
 			        distributeprefabs =
@@ -135,7 +138,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Moundfield", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.DIRT,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -161,7 +164,7 @@ namespace DYT.Map.rooms
 	        {
 
 		        //-- DO NOT USE -- it destroys performance, so many mosquitos!!
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.MARSH,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -176,7 +179,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Trapfield", new Room
 	        {
-		        colour = { r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.DIRT,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -195,7 +198,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("TrappedForest", new Room
 	        {
-		        colour = { r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -213,7 +216,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("SpiderfieldEasy", new Room
 	        {
-		        colour = { r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -235,7 +238,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Spiderfield", new Room
 	        {
-		        colour = { r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.0f, g = 0.4f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -269,12 +272,12 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("PigGuardpostB", Rooms.MakeSetpieceBlockerRoom("PigGuardsB"));
 	        Rooms.AddRoom("SpiderCon", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
+		        colour = new Color{r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
 		        value = Constant.GROUND.MARSH,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
 		        {
-			        countstaticlayouts = { ["StoneHenge"] = () => WorldGenMain.random.Next(0, 1) },
+			        countstaticlayouts = { ["StoneHenge"] = () => Random.Range(0, 1) },
 			        distributepercent = 0.2f,
 			        distributeprefabs =
 			        {
@@ -288,7 +291,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Waspnests", new Room
 	        {
-		        colour = { r = 0.9f, g = 0.1f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.9f, g = 0.1f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -306,7 +309,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Tentacleland", new Room
 	        {
-		        colour = { r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
+		        colour = new Color{r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
 		        value = Constant.GROUND.MARSH,
 		        tags = { "ForceConnected", "RoadPoison" },
 		        contents =
@@ -328,7 +331,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("SanityWormholeBlocker", new Room
 	        {
-		        colour = { r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
+		        colour = new Color{r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
 		        type = "blank",
 		        tags = { "OneshotWormhole", "ForceDisconnected" },
 		        value = Constant.GROUND.IMPASSABLE,
@@ -336,7 +339,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("ForceDisconnectedRoom", new Room
 	        {
-		        colour = { r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
+		        colour = new Color{r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
 		        type = "blank",
 		        tags = { "ForceDisconnected" },
 		        value = Constant.GROUND.IMPASSABLE,

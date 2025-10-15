@@ -117,7 +117,7 @@ public class KnownModIndex
     public static void BeginStartupSequence(Action callback)
     {
         startingup = true;
-        string filename = $"boot_{GetModIndexName()}";
+        string filename = $"boot_{GetModIndexName()}";/*
         TheSim.GetPersistentString(filename, (load_success, str) =>
         {
             if (load_success && str == "loading")
@@ -137,7 +137,7 @@ public class KnownModIndex
                 Debug.Log("ModIndex: Beginning normal load sequence.\n");
                 MainFunctions.SavePersistentString(filename, "loading", false, callback);
             }
-        });
+        });*/
     }
     
     public static void EndStartupSequence(Action callback)
@@ -162,7 +162,7 @@ public class KnownModIndex
 
     public static void Save(Action callback = null)
     {
-        if (Main.PLATFORM == "PS4") return;
+        if (MainSelf.PLATFORM == "PS4") return;
 
         SaveData newData = new SaveData { known_mods = new Dictionary<string, ModData>() };
         newData.known_api_version = ModManager.MOD_API_VERSION;
@@ -179,7 +179,7 @@ public class KnownModIndex
         }
         
         MainFunctions.SavePersistentString(
-            GetModIndexName(), JsonConvert.SerializeObject(newData), Main.ENCODE_SAVES, callback);
+            GetModIndexName(), JsonConvert.SerializeObject(newData), MainSelf.ENCODE_SAVES, callback);
     }
 
     public static List<string> GetModsToLoad(bool cached = false)
@@ -187,11 +187,11 @@ public class KnownModIndex
         List<string> ret = new List<string>();
         if (!cached)
         {
-            string[] moddirs = TheSim.GetModDirectoryNames();
-            foreach (string moddir in moddirs)
-            {
-                if (IsModEnabled(moddir) || IsModForceEnabled(moddir)) ret.Add(moddir);
-            }
+            // string[] moddirs = TheSim.GetModDirectoryNames();
+            // foreach (string moddir in moddirs)
+            // {
+            //     if (IsModEnabled(moddir) || IsModForceEnabled(moddir)) ret.Add(moddir);
+            // }
         }
         else
         {
@@ -229,19 +229,19 @@ public class KnownModIndex
     {
         modprint("Updating all mod info.");
 
-        List<string> modNames = new List<string>(TheSim.GetModDirectoryNames());
+        // List<string> modNames = new List<string>(TheSim.GetModDirectoryNames());
 
         foreach (string knownModsKey in savedata.known_mods.Keys)
         {
-            if (!modNames.Contains(knownModsKey)) savedata.known_mods.Remove(knownModsKey);
+            // if (!modNames.Contains(knownModsKey)) savedata.known_mods.Remove(knownModsKey);
         }
 
         
-        foreach (string modName in modNames)
-        {
-            if (!savedata.known_mods.ContainsKey(modName)) savedata.known_mods.Add(modName, new ModData());
-            savedata.known_mods[modName].modinfo = LoadModInfo(modName);
-        }
+        // foreach (string modName in modNames)
+        // {
+        //     if (!savedata.known_mods.ContainsKey(modName)) savedata.known_mods.Add(modName, new ModData());
+        //     savedata.known_mods[modName].modinfo = LoadModInfo(modName);
+        // }
     }
 
     public static ModInfo LoadModInfo(string modname)
@@ -289,7 +289,7 @@ public class KnownModIndex
         env.hamletCompatible = true;
         env.hamletCompatibilitySpecified = false;
         
-        bool fn = TheSim.LoadModInfo(modname, ref env);
+        // bool fn = TheSim.LoadModInfo(modname, ref env);
         env.folder_name = modname;
         env.locale = Loc.GetLocaleCode();
         env.ChooseTranslationTable = tbl =>
@@ -298,7 +298,7 @@ public class KnownModIndex
             return tbl.ContainsKey(locale) ? tbl[locale] : tbl.First(pair => true);
         };
 
-        string modinfo_message = "";
+        string modinfo_message = "";/*
         if (!fn)
         {
             modinfo_message += "No modinfo.lua, using defaults... ";
@@ -375,7 +375,7 @@ public class KnownModIndex
                 }
                 else{} //everything loaded okay!
             }
-        }
+        }*/
 
         env.modinfo_message = modinfo_message;
 
@@ -393,6 +393,7 @@ public class KnownModIndex
 
         string filename = GetModIndexName();
         
+        /*
         TheSim.GetPersistentString(filename, (load_success, str) =>
         {
             if (load_success && !string.IsNullOrWhiteSpace(str))
@@ -408,7 +409,7 @@ public class KnownModIndex
             else Debug.Log($"Could not load {filename}");
             
             callback();
-        });
+        });*/
     }
 
     public static bool IsModCompatibleWithMode(string modname, object dlcmode = null) //TODO: dlcmode
@@ -464,7 +465,7 @@ public class KnownModIndex
         ModData known_mod = savedata.known_mods.ContainsKey(modname) ? savedata.known_mods[modname] : null;
         // Try to find saved config settings first
         string filename = GetModConfigurationPath(modname);
-        TheSim.GetPersistentString(filename, (load_success, str) =>
+        /*TheSim.GetPersistentString(filename, (load_success, str) =>
         {
             if (load_success && !string.IsNullOrWhiteSpace(str))
             {
@@ -476,7 +477,7 @@ public class KnownModIndex
                 Debug.Log($"loaded {filename}");
             }
             else Debug.Log($"Could not load {filename}");
-        });
+        });*/
 
         return known_mod != null && known_mod.modinfo != null && known_mod.modinfo.configList != null
             ? known_mod.modinfo.configList
@@ -492,7 +493,7 @@ public class KnownModIndex
         foreach (Config configOption in configData)
             data += configOption.name + "=" + configOption.currentIndex + "\n";
         
-        MainFunctions.SavePersistentString(filePath, data, Main.ENCODE_SAVES, callback);
+        MainFunctions.SavePersistentString(filePath, data, MainSelf.ENCODE_SAVES, callback);
     }
 
     public static bool IsModEnabled(string modName)

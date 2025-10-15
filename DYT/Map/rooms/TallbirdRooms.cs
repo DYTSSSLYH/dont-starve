@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TallbirdRooms
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("TallbirdNests", new Room
             {
-                colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+                colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
                 value = Constant.GROUND.ROCKY,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =

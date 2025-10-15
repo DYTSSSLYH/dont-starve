@@ -25,7 +25,7 @@ public class LoadGameScreen : MonoBehaviour
 
     private void OnClickTile(int slotNum)
     {
-        Main.TheFrontEnd.GetSound().PlayOneShot(audioClip);
+        MainSelf.TheFrontEnd.GetSound().PlayOneShot(audioClip);
 
         if (GameLogic.SaveGameIndex.GetCurrentMode(slotNum) == null)
         {

@@ -1,6 +1,9 @@
 ﻿// --------------------------------------------------------------------------------
 // -- Walrus 
 // --------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class WalrusRooms
@@ -9,7 +12,7 @@ namespace DYT.Map.rooms
         {
             Rooms.AddRoom("WalrusHut_Plains", new Room
             {
-                colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+                colour =new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
                 value = Constant.GROUND.SAVANNA,
                 contents =
                 {
@@ -27,7 +30,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("WalrusHut_Grassy", new Room
             {
-                colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+                colour =new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
                 value = Constant.GROUND.GRASS,
                 contents =
                 {
@@ -50,7 +53,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("WalrusHut_Rocky", new Room
             {
-                colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+                colour =new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
                 value = Constant.GROUND.ROCKY,
                 contents =
                 {

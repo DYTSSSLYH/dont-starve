@@ -111,7 +111,7 @@ namespace DYT.Map.levels
 				},
 			});
 
-			if (Main.PLATFORM == "PS4")
+			if (MainSelf.PLATFORM == "PS4")
 			{
 				//-- boons and spiders at default values rather than "often"
 				Levels.AddLevel(LEVELTYPE.SURVIVAL, new Level

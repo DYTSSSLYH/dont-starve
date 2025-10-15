@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using DYT.Map.rooms;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DYT.Map
 {
 	public class Room
 	{
-		public Color colour;
-		public int value;
-		public string type;
-		public List<string> tags;
-		public RoomFunctions.Runca custom_tiles;
-		public int internal_type;
-	        
 		public class Contents
 		{
 			public Dictionary<string, Func<float>> countprefabs;
@@ -26,8 +20,23 @@ namespace DYT.Map
 			}
 			public Dictionary<string, object> distributeprefabs;
 			public Dictionary<string, Func<string>> prefabdata;
+			public Action<Room> fn;
 		}
+		
+		public string id;
+		public Color? colour;
+		public int value;
+		public string type;
+		public List<string> tags;
+		public RoomFunctions.Runca custom_tiles;
+		public object custom_objects;
+		public int? internal_type;
+		public bool entrance;
+		public string task;
 		public Contents contents;
+		public Contents terrain_contents;
+		public Dictionary<string, object> terrain_contents_extra;
+		public Dictionary<string, List<int>> terrain_filter;
 	}
     public class Rooms
     {
@@ -35,7 +44,7 @@ namespace DYT.Map
 	    {
 		    return new Room
 		    {
-			    colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+			    colour = new Color(){ r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 			    value = Constant.GROUND.IMPASSABLE,
 			    tags = { "ForceConnected", "RoadPoison" },
 			    contents =
@@ -139,16 +148,16 @@ namespace DYT.Map
 			// ------------------------------------------------------------------------------------
 		    AddRoom("Exit", new Room
 		    {
-			    colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+			    colour = new Color(){ r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 			    value = Constant.GROUND.FOREST,
 			    contents = new Room.Contents
 			    {
 				    countprefabs = new Dictionary<string, Func<float>>
 				    {
 					    ["teleportato_base"] = () => 1,
-					    ["spiderden"] = () => 5 + WorldGenMain.random.Next(3),
-					    ["gravestone"] = () => 4 + WorldGenMain.random.Next(4),
-					    ["mound"] = () => 4 + WorldGenMain.random.Next(4)
+					    ["spiderden"] = () => 5 + Random.Range(0, 3),
+					    ["gravestone"] = () => 4 + Random.Range(0, 4),
+					    ["mound"] = () => 4 + Random.Range(0, 4)
 				    }
 			    }
 		    });

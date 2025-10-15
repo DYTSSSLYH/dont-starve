@@ -1,6 +1,9 @@
 ﻿// --------------------------------------------------------------------------------
 // -- Pigs 
 // --------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class PigsRooms
@@ -9,7 +12,7 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("PigTown", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+		        colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "Town" },
 		        contents =
@@ -28,25 +31,25 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("PigVillage", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+		        colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "Town" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Farmplot"] = () => WorldGenMain.random.Next(2, 5),
+				        ["Farmplot"] = () => Random.Range(2, 5),
 				        ["VillageSquare"] = () =>
 				        {
-					        if (WorldGenMain.random.NextDouble() > 0.97) return 1;
+					        if (Random.value > 0.97) return 1;
 					        return 0;
 				        },
 			        },
 			        countprefabs =
 			        {
 				        // --bonfire = 1,
-				        ["pighouse"] = () => 3 + WorldGenMain.random.Next(4),
-				        ["mermhead"] = () => WorldGenMain.random.Next(3),
+				        ["pighouse"] = () => 3 + Random.Range(0,4),
+				        ["mermhead"] = () => Random.Range(0,3),
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =
@@ -58,7 +61,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("PigKingdom", new Room
 	        {
-		        colour = { r = 0.8f, g = 0.8f, b = 0.1f, a = 0.50f },
+		        colour = new Color{r = 0.8f, g = 0.8f, b = 0.1f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "Town" },
 		        contents =
@@ -66,49 +69,49 @@ namespace DYT.Map.rooms
 			        countstaticlayouts =
 			        {
 				        ["DefaultPigking"] = () => 1,
-				        ["CropCircle"] = () => WorldGenMain.random.Next(0, 1),
+				        ["CropCircle"] = () => Random.Range(0, 1),
 				        ["TreeFarm"] = () =>
 				        {
-					        if (WorldGenMain.random.NextDouble() > 0.97)
-						        return WorldGenMain.random.Next(1, 2);
+					        if (Random.value > 0.97)
+						        return Random.Range(1, 2);
 					        return 0;
 				        }
 			        },
 			        countprefabs =
 			        {
-				        ["pighouse"] = () => 5 + WorldGenMain.random.Next(4),
+				        ["pighouse"] = () => 5 + Random.Range(0,4),
 			        }
 		        }
 	        });
 	        Rooms.AddRoom("PigCity", new Room
 	        {
-		        colour = { r = 0.9f, g = 0.9f, b = 0.2f, a = 0.50f },
+		        colour = new Color{r = 0.9f, g = 0.9f, b = 0.2f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "Town" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["PigTown"] = () => 1 + WorldGenMain.random.Next(2),
+				        ["PigTown"] = () => 1 + Random.Range(0,2),
 				        ["TorchPigking"] = () => 1,
 			        },
 			        countprefabs =
 			        {
-				        ["mermhead"] = () => WorldGenMain.random.Next(3),
+				        ["mermhead"] = () => Random.Range(0,3),
 			        },
 		        }
 	        });
 	        Rooms.AddRoom("PigCamp", new Room
 	        {
-		        colour = { r = 1f, g = 0.8f, b = 0.8f, a = 0.50f },
+		        colour = new Color{r = 1f, g = 0.8f, b = 0.8f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "Town" },
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["pighouse"] = () => 4 + WorldGenMain.random.Next(4),
-				        ["mermhead"] = () => WorldGenMain.random.Next(3),
+				        ["pighouse"] = () => 4 + Random.Range(0,4),
+				        ["mermhead"] = () => Random.Range(0,3),
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =
@@ -122,7 +125,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("PigShrine", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
@@ -132,7 +135,7 @@ namespace DYT.Map.rooms
 			        },
 			        countprefabs =
 			        {
-				        ["flower"] = () => 8 + WorldGenMain.random.Next(4),
+				        ["flower"] = () => 8 + Random.Range(0,4),
 			        },
 			        distributepercent = 0.4f,
 			        distributeprefabs =
@@ -144,13 +147,13 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Pondopolis", new Room
 	        {
-		        colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+		        colour = new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["pond"] = () => 5 + WorldGenMain.random.Next(3)
+				        ["pond"] = () => 5 + Random.Range(0,3)
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =

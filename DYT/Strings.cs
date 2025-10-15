@@ -1068,7 +1068,7 @@ namespace DYT
         public static void Init()
         {
             // Don't include this in pot generation as this file is already translated.
-            if (!Main.POT_GENERATION)
+            if (!MainSelf.POT_GENERATION)
             {
                 StringsPreTranslated.Init();
             }

@@ -13,12 +13,12 @@ namespace DYT
 
             for (int i = 0; i < files.Count; i++)
             {
-                TheSim.CheckPersistentStringExists(files[i], exists =>
-                {
-                    file_status.Add(files[i], exists);
-
-                    if (i == files.Count - 1 && cb != null) cb(file_status);
-                });
+                // TheSim.CheckPersistentStringExists(files[i], exists =>
+                // {
+                //     file_status.Add(files[i], exists);
+                //
+                //     if (i == files.Count - 1 && cb != null) cb(file_status);
+                // });
             }
         }
     }

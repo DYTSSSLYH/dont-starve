@@ -87,7 +87,7 @@ namespace DYT.Map
             "LAND_DIVIDE_4",
             "LAND_DIVIDE_5",
         };
-        public static readonly List<string> LOCKS = new();
+        public static readonly Dictionary<string, string> LOCKS = new();
         
         // List of keys
         public static readonly List<string> KEYS_ARRAY = new()
@@ -181,7 +181,7 @@ namespace DYT.Map
             "LAND_DIVIDE_4",
             "LAND_DIVIDE_5",
         };
-        public static readonly List<string> KEYS = new();
+        public static readonly Dictionary<string, int> KEYS = new Dictionary<string, int>();
         
         // -- Locks are unlocked if ANY key is provided.
 		// -- However, ALL locks must be opened for a task to be unlocked.
@@ -486,24 +486,26 @@ namespace DYT.Map
 	    
         static LockAndKey()
         {
-            foreach (string locks in LOCKS_ARRAY)
-            {
-                Assert.IsFalse(LOCKS.Contains(locks), $"Lock {locks} is defined twice!");
-                LOCKS.Add(locks);
+	        for (int i = 0; i < LOCKS_ARRAY.Count; i++)
+	        {
+		        string locks = LOCKS_ARRAY[i];
+		        Assert.IsFalse(LOCKS.ContainsKey(locks), $"Lock {locks} is defined twice!");
+                LOCKS.Add(locks, locks);
             }
             
-            foreach (string key in KEYS_ARRAY)
-            {
-                Assert.IsFalse(KEYS.Contains(key), $"Key {key} is defined twice!");
-                KEYS.Add(key);
+	        for (int i = 0; i < KEYS_ARRAY.Count; i++)
+	        {
+		        string key = KEYS_ARRAY[i];
+                Assert.IsFalse(KEYS.ContainsKey(key), $"Key {key} is defined twice!");
+                KEYS.Add(key, i);
             }
             
             foreach (string lockKey in LOCKS_KEYS.Keys)
             {
-	            Assert.IsTrue(LOCKS.Contains(lockKey), "A lock in the lock_keys is misnamed!");
+	            Assert.IsTrue(LOCKS.ContainsKey(lockKey), "A lock in the lock_keys is misnamed!");
 	            foreach (string key in LOCKS_KEYS[lockKey])
 	            {
-		            Assert.IsTrue(KEYS.Contains(key), $"A key in lock {lockKey} is misnamed!");
+		            Assert.IsTrue(KEYS.ContainsKey(key), $"A key in lock {lockKey} is misnamed!");
 	            }
             }
         }

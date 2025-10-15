@@ -721,9 +721,9 @@ public class WorldTileDefs
             if (!string.IsNullOrWhiteSpace(properties.name)
                 && !string.IsNullOrWhiteSpace(properties.noise_texture))
             {
-                assets.Add(new Asset("IMAGE", properties.noise_texture));
-                assets.Add(new Asset("IMAGE", GroundImage(properties.name)));
-                assets.Add(new Asset("FILE", GroundImage(properties.name)));
+                // assets.Add(new Asset("IMAGE", properties.noise_texture));
+                // assets.Add(new Asset("IMAGE", GroundImage(properties.name)));
+                // assets.Add(new Asset("FILE", GroundImage(properties.name)));
             }
         }
     }
@@ -744,6 +744,6 @@ public class WorldTileDefs
         AddAssets(assets, underground_layers);
         AddAssets(assets, GROUND_CREEP_PROPERTIES);
         
-        foreach (string v in ADDITIONAL_TEXTURES) assets.Add(new Asset("IMAGE", v));
+        // foreach (string v in ADDITIONAL_TEXTURES) assets.Add(new Asset("IMAGE", v));
     }
 }

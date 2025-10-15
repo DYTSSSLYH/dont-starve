@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DYT.Widgets
 {
-    public class LoadingWidget : Widget
+    public class LoadingWidget : WidgetSelf
     {
         private static string LOADER_ATLAS_FMT = "Images/bg_loading_{0}";
     

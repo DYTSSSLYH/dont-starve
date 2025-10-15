@@ -10,7 +10,7 @@
         public void ClearReverbOverride()
         {
             reverboverride = null;
-            TheSim.SetReverbPreset(!string.IsNullOrWhiteSpace(oldreverb) ? oldreverb : "default");
+            // TheSimSelf.SetReverbPreset(!string.IsNullOrWhiteSpace(oldreverb) ? oldreverb : "default");
         }
     }
 }

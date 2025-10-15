@@ -3,7 +3,7 @@
 namespace DYT.Widgets
 {
     [RequireComponent(typeof(Animator))]
-    public class UIAnim : Widget
+    public class UIAnim : WidgetSelf
     {
         private Animator AnimState;
         

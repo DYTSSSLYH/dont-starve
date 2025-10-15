@@ -1,6 +1,9 @@
 ﻿// ------------------------------------------------------------------------------------
 // -- Ruins ---------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class RuinsRooms
@@ -10,14 +13,14 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("Labyrinth", new Room
 	        {
 		        //-- Not a real Labyrinth.. more of a maze really.
-		        colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+		        colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 		        value = Constant.GROUND.MUD,
 		        tags = { "Labyrinth" },
 		        internal_type = Constant.NODE_INTERNAL_CONNECTION_TYPE.EdgeCentroid,
 	        });
 	        Rooms.AddRoom("LabyrinthEntrance", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        tags = { "ForceConnected", "LabyrinthEntrance" }, //--"Labyrinth",
 		        contents =
@@ -39,7 +42,7 @@ namespace DYT.Map.rooms
 			//-- TODO: need a way to force connect to previous story? ForceConnected doesnt seem to work
 	        Rooms.AddRoom("LabyrinthCityEntrance", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        tags = { "ForceConnected", "MazeEntrance", "LabyrinthEntrance" }, //-- MazeExit?
 		        contents =
@@ -56,14 +59,14 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("RuinedCity", new Room
 	        {
 		        //-- Maze used to define room connectivity
-		        colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+		        colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 		        value = Constant.GROUND.CAVE,
 		        tags = { "Maze" },
 		        internal_type = Constant.NODE_INTERNAL_CONNECTION_TYPE.EdgeCentroid,
 	        });
 	        Rooms.AddRoom("RuinedCityEntrance", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        tags = { "ForceConnected", "MazeEntrance" }, //--"Maze",
 		        contents =
@@ -82,17 +85,17 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("RuinedGuarden", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.FUNGUS,
 		        contents =
 		        {
 
 			        countprefabs =
 			        {
-				        ["mushtree"] = () => 3 + WorldGenMain.random.Next(3),
-				        ["flower_cave"] = () => 5 + WorldGenMain.random.Next(3),
-				        ["gravestone"] = () => 4 + WorldGenMain.random.Next(4),
-				        ["mound"] = () => 4 + WorldGenMain.random.Next(4)
+				        ["mushtree"] = () => 3 + Random.Range(0,3),
+				        ["flower_cave"] = () => 5 + Random.Range(0,3),
+				        ["gravestone"] = () => 4 + Random.Range(0,4),
+				        ["mound"] = () => 4 + Random.Range(0,4)
 			        }
 		        }
 	        });
@@ -102,7 +105,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("SacredEntrance", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        tags = { "ForceConnected", "MazeEntrance" }, //--"Maze",
 		        contents =
@@ -117,7 +120,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("BGSacredGround", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -145,7 +148,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Altar", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -178,7 +181,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Barracks", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -213,7 +216,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Bishops", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -246,7 +249,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Spiral", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -279,7 +282,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("BrokenAltar", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.TILES,
 		        contents =
 		        {
@@ -315,7 +318,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("RuinsCamp", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -339,7 +342,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("BGWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -362,7 +365,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("PondWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -381,7 +384,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("SlurperWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -400,7 +403,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("LushWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -425,7 +428,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("LightWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
@@ -451,7 +454,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("BGMilitary", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.UNDERROCK,
 				tags = { "Maze" },
 				contents =
@@ -469,7 +472,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("MilitaryEntrance", new Room
 			{
-				colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+				colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 				value = Constant.GROUND.UNDERROCK,
 				tags = { "ForceConnected", "MazeEntrance" },
 				contents =
@@ -488,7 +491,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("BGMonkeyWilds", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        tags = { "Maze" },
 		        contents =
@@ -512,16 +515,16 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("Vacant", new Room
 	        {
-		        colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+		        colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 		        value = Constant.GROUND.MUD,
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["CornerWall"] = () => WorldGenMain.random.Next(1, 3),
-				        ["StraightWall"] = () => WorldGenMain.random.Next(1, 2),
-				        ["CornerWall2"] = () => WorldGenMain.random.Next(1, 2),
-				        ["StraightWall2"] = () => WorldGenMain.random.Next(1, 3),
+				        ["CornerWall"] = () => Random.Range(1, 3),
+				        ["StraightWall"] = () => Random.Range(1, 2),
+				        ["CornerWall2"] = () => Random.Range(1, 2),
+				        ["StraightWall2"] = () => Random.Range(1, 3),
 			        },
 			        distributepercent = 0.12f,
 			        distributeprefabs =

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace DYT.Widgets
 {
-    public class Button : Widget
+    public class Button : WidgetSelf
     {
         public Text text { get; set; }
 

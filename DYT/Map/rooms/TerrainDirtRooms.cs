@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainDirtRooms
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGDirt", new Room
             {
-                colour = { r = 1.0f, g = 0.8f, b = 0.66f, a = 0.50f },
+                colour = new Color{r = 1.0f, g = 0.8f, b = 0.66f, a = 0.50f },
                 value = Constant.GROUND.DIRT,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =

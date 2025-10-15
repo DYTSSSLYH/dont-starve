@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using DYT.Widgets;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class PopupDialogScreen : Screen
+    public class PopupDialogScreen : ScreenSelf
     {
         private Image background;
         private Text title;

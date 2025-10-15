@@ -5,6 +5,7 @@ using DYT.Map;
 using DYT.Screens;
 using DYT.Widgets;
 using Newtonsoft.Json;
+using Screens;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -85,8 +86,8 @@ namespace DYT
                 else
                 {
                     Debug.Log("\tUnload BE");
-                    TheSim.UnloadPrefabs(Constant.RECIPE_PREFABS);
-                    TheSim.UnloadPrefabs(Constant.BACKEND_PREFABS);
+                    // TheSim.UnloadPrefabs(Constant.RECIPE_PREFABS);
+                    // TheSim.UnloadPrefabs(Constant.BACKEND_PREFABS);
                     Debug.Log("\tUnload BE done");
                     StartCoroutine(KeepAlive());
                     
@@ -98,7 +99,7 @@ namespace DYT
                     ModManager.RegisterPrefabs();
                     StartCoroutine(KeepAlive());
                     Debug.Log("\tLoad FE");
-                    TheSim.LoadPrefabs(Constant.FRONTEND_PREFABS);
+                    // TheSim.LoadPrefabs(Constant.FRONTEND_PREFABS);
                     Debug.Log("\tLoad FE: done");
                     StartCoroutine(KeepAlive());
                 }
@@ -118,7 +119,7 @@ namespace DYT
                 else
                 {
                     DebugPrint.print("\tUnload FE");
-                    TheSim.UnloadPrefabs(Constant.FRONTEND_PREFABS);
+                    // TheSim.UnloadPrefabs(Constant.FRONTEND_PREFABS);
                     DebugPrint.print("\tUnload FE done");
                     StartCoroutine(KeepAlive());
                     
@@ -132,9 +133,9 @@ namespace DYT
                     StartCoroutine(KeepAlive());
                     
                     DebugPrint.print("\tLoad BE");
-                    TheSim.LoadPrefabs(Constant.BACKEND_PREFABS);
+                    // TheSim.LoadPrefabs(Constant.BACKEND_PREFABS);
                     StartCoroutine(KeepAlive());
-                    TheSim.LoadPrefabs(PrefabList.PREFABFILES);
+                    // TheSim.LoadPrefabs(PrefabList.PREFABFILES);
                     Debug.Log("\tLoad BE: done");
                     StartCoroutine(KeepAlive());
                 }
@@ -150,7 +151,7 @@ namespace DYT
         {
             bool was_file_load = MainFunctions.Settings.playeranim == "file_load";
             
-            Main.TheFrontEnd.ClearScreens();
+            MainSelf.TheFrontEnd.ClearScreens();
             
             Assert.IsNotNull(savedata.map, "Map missing from savedata on load");
             Assert.IsNotNull(savedata.map.prefab, "Map prefab missing from savedata on load");
@@ -176,7 +177,7 @@ namespace DYT
 
             if (savedata.map.roads != null)
             {
-                Main.Roads = savedata.map.roads;
+                MainSelf.Roads = savedata.map.roads;
             }
         }
 
@@ -247,13 +248,14 @@ namespace DYT
                 worldGenOptions.cave_progress = SaveGameIndex.GetCurrentCaveLevel();
             }
 
-            Main.TheFrontEnd.PushScreen(worldGenScreen.Init(
+            MainSelf.TheFrontEnd.PushScreen(worldGenScreen.Init(
                 Profile, savedata => onComplete(savedata, saveslot, playerevent), worldGenOptions));
         }
 
         private int? ShouldSkipMainScreen()
         {
-            string slotNumString = TheSim.GetSetting("misc", "skip_to_slot");
+            // string slotNumString = TheSim.GetSetting("misc", "skip_to_slot");
+            string slotNumString = null;
 
             if (!string.IsNullOrWhiteSpace(slotNumString))
             {
@@ -280,15 +282,15 @@ namespace DYT
             else
             {
                 LoadAssets("FRONTEND");
-                MainScreen screen = Instantiate(mainScreen).GetComponent<MainScreen>();
+                MainScreenSelf screen = Instantiate(mainScreen).GetComponent<MainScreenSelf>();
                 screen.Start();
-                Main.TheFrontEnd.ShowScreen(screen);
+                MainSelf.TheFrontEnd.ShowScreen(screen);
             }
         }
 
         private void LoadSlot(int slot, object playerevent)
         {
-            Main.TheFrontEnd.ClearScreens();
+            MainSelf.TheFrontEnd.ClearScreens();
             DebugPrint.print($"Loading slot {slot}");
             if (SaveGameIndex.HasWorld(slot, SaveGameIndex.GetCurrentMode(slot)))
             {
@@ -339,9 +341,9 @@ namespace DYT
                             SaveGameIndex.GetCurrentMode(MainFunctions.Settings.save_slot)))
                     {
                         LoadAssets("FRONTEND");
-                        MainScreen screen = Instantiate(mainScreen).GetComponent<MainScreen>();
+                        MainScreenSelf screen = Instantiate(mainScreen).GetComponent<MainScreenSelf>();
                         screen.Start();
-                        Main.TheFrontEnd.ShowScreen(screen);
+                        MainSelf.TheFrontEnd.ShowScreen(screen);
                     }
                     else LoadSlot(MainFunctions.Settings.save_slot.Value, MainFunctions.Settings.playerevent);
                 }
@@ -387,7 +389,7 @@ namespace DYT
             new TreasureHunt();
             
             // Always on broadcasting widget
-            if (Main.PLATFORM == "WIN32_STEAM" || Main.PLATFORM == "WIN32")
+            if (MainSelf.PLATFORM == "WIN32_STEAM" || MainSelf.PLATFORM == "WIN32")
             {
                 global_broadcastnig_widget = Instantiate(broadcastingWidget).GetComponent<BroadcastingWidget>();
             }
@@ -402,7 +404,7 @@ namespace DYT
 
             #region LOAD THE PROFILE AND THE SAVE INDEX, AND START THE FRONTEND
 
-            STATS_ENABLE = Main.METRICS_ENABLED;
+            STATS_ENABLE = MainSelf.METRICS_ENABLED;
             
             MainFunctions.Print(Constant.VERBOSITY.DEBUG, "[Loading Morgue]");
             Morgue.Load(did_it_load => {});

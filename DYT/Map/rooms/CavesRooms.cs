@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DYT.Map.rooms
 {
@@ -8,7 +9,7 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("FungusRoom", new Room
 	        {
-		        colour = { r = 0.36f, g = 0.32f, b = 0.38f, a = 0.50f },
+		        colour = new Color{r = 0.36f, g = 0.32f, b = 0.38f, a = 0.50f },
 		        value = Constant.GROUND.FUNGUS,
 		        custom_tiles = new RoomFunctions.Runca
 		        {
@@ -34,8 +35,7 @@ namespace DYT.Map.rooms
 			        {
 				        ["MushroomRingMedium"] = () =>
 				        {
-					        if (WorldGenMain.random.Next(0, 200) > 185)
-						        return 1;
+					        if (Random.Range(0, 200) > 185) return 1;
 
 					        return 0;
 				        }
@@ -57,7 +57,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("CaveRoom", new Room
 	        {
-		        colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+		        colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 		        value = Constant.GROUND.CAVE,
 		        custom_tiles =
 		        {
@@ -105,7 +105,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("SinkholeRoom", new Room
 	        {
-		        colour = { r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
+		        colour = new Color{r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
 		        value = Constant.GROUND.SINKHOLE,
 		        custom_tiles =
 		        {
@@ -155,7 +155,7 @@ namespace DYT.Map.rooms
 				        ["spiderden"] = () =>
 				        {
 
-					        if (WorldGenMain.random.NextDouble() < 0.1f)
+					        if (Random.value < 0.1f)
 						        return "{growable = {stage = 3}}";
 					        else
 						        return "{growable = {stage = 2}}";
@@ -167,7 +167,7 @@ namespace DYT.Map.rooms
 			// Rock Lobster Plains
 			Rooms.AddRoom("RockLobsterPlains", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.CAVE_NOISE,
 				contents =
 				{
@@ -189,7 +189,7 @@ namespace DYT.Map.rooms
 			// Misty Sinkhole
 			Rooms.AddRoom("MistyCavern", new Room
 			{
-				colour = { r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
+				colour = new Color{r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
 				value = Constant.GROUND.MUD,
 				custom_tiles =
 				{
@@ -233,7 +233,7 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("TentacleCave", new Room
 			{
-				colour = { r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
+				colour = new Color{r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
 				value = Constant.GROUND.MARSH,
 				contents =
 				{
@@ -252,7 +252,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("SunkenMarsh", new Room
 			{
-				colour = { r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
+				colour = new Color{r = 0.45f, g = 0.75f, b = 0.45f, a = 0.50f },
 				value = Constant.GROUND.MARSH,
 				contents =
 				{
@@ -269,7 +269,7 @@ namespace DYT.Map.rooms
 					{
 						["spiderden"] = () =>
 						{
-							if (WorldGenMain.random.NextDouble() < 0.1f)
+							if (Random.value < 0.1f)
 								return "{growable = {stage = 3}}";
 							else
 								return "{growable = {stage = 2}}";
@@ -281,7 +281,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("RabitFungusRoom", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.FUNGUS,
 				// //tags = {"ForceConnected"},
 				contents =
@@ -310,7 +310,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("GreenMush", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.FUNGUSGREEN,
 				// //tags = {"ForceConnected"},
 				contents =
@@ -335,7 +335,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("RedMush", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.FUNGUSRED,
 				//tags = {"ForceConnected"},
 				contents =
@@ -360,7 +360,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("BlueMush", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.FUNGUS,
 				//tags = {"ForceConnected"},
 				contents =
@@ -385,7 +385,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("NoisyFungus", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.FUNGUS_NOISE,
 				//tags = {"ForceConnected"},
 				contents =
@@ -413,7 +413,7 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("NoisyCave", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.CAVE_NOISE,
 				contents =
 				{
@@ -435,7 +435,7 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("BatCaveRoom", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.CAVE,
 				contents =
 				{
@@ -457,7 +457,7 @@ namespace DYT.Map.rooms
 			// Bat Cave antichamber (warn of impending bats)
 			Rooms.AddRoom("BatCaveRoomAntichamber", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.CAVE,
 				contents =
 				{
@@ -476,14 +476,14 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("PitRoom", new Room
 			{
-				colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+				colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 				value = Constant.GROUND.IMPASSABLE,
 				internal_type = Constant.NODE_INTERNAL_CONNECTION_TYPE.EdgeCentroid,
 				contents = { },
 			});
 			Rooms.AddRoom("PitEdgeCave", new Room
 			{
-				colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+				colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 				value = Constant.GROUND.IMPASSABLE,
 				internal_type = Constant.NODE_INTERNAL_CONNECTION_TYPE.EdgeEdgeRight,
 				custom_tiles =
@@ -511,7 +511,7 @@ namespace DYT.Map.rooms
 			Rooms.AddRoom("PitCave", new Room
 			{
 				////
-				colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+				colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 				value = Constant.GROUND.CAVE_NOISE,
 				tags = { "ForceConnected" },
 				internal_type = Constant.NODE_INTERNAL_CONNECTION_TYPE.EdgeCentroid,
@@ -551,12 +551,12 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("MistyPitRoom", new Room
 			{
-				colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+				colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 				value = Constant.GROUND.IMPASSABLE,
 			});
 			Rooms.AddRoom("WaterFilledAbyss", new Room
 			{
-				colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+				colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
 				value = Constant.GROUND.IMPASSABLE,
 			});
 
@@ -564,7 +564,7 @@ namespace DYT.Map.rooms
 			Rooms.AddRoom("Stairs", new Room
 			{
 				// This room is used to tag for the next level of caves - it will be removed later
-				colour = { r = 0, g = 0, b = 0, a = 0.9f },
+				colour = new Color{r = 0, g = 0, b = 0, a = 0.9f },
 				value = Constant.GROUND.CAVE_NOISE,
 				contents =
 				{
@@ -595,7 +595,7 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("EmptyCave", new Room
 			{
-				colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+				colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 				value = Constant.GROUND.CAVE,
 				contents =
 				{
@@ -604,7 +604,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("CaveBase", new Room
 			{
-				colour = { r = 0, g = 0, b = 0, a = 0.9f },
+				colour = new Color{r = 0, g = 0, b = 0, a = 0.9f },
 				value = Constant.GROUND.CAVE,
 				contents =
 				{
@@ -633,7 +633,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("SinkBase", new Room
 			{
-				colour = { r = 0, g = 0, b = 0, a = 0.9f },
+				colour = new Color{r = 0, g = 0, b = 0, a = 0.9f },
 				value = Constant.GROUND.SINKHOLE,
 				contents =
 				{
@@ -659,7 +659,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("MushBase", new Room
 			{
-				colour = { r = 0, g = 0, b = 0, a = 0.9f },
+				colour = new Color{r = 0, g = 0, b = 0, a = 0.9f },
 				value = Constant.GROUND.FUNGUS,
 				contents =
 				{
@@ -687,7 +687,7 @@ namespace DYT.Map.rooms
 
 			Rooms.AddRoom("RabbitTown", new Room
 			{
-				colour = { r = 0, g = 0, b = 0, a = 0.9f },
+				colour = new Color{r = 0, g = 0, b = 0, a = 0.9f },
 				value = Constant.GROUND.FUNGUS,
 				contents =
 				{
@@ -710,19 +710,19 @@ namespace DYT.Map.rooms
 			});
 			Rooms.AddRoom("RabbitCity", new Room
 			{
-				colour = { r = 0.9f, g = 0.9f, b = 0.2f, a = 0.50f },
+				colour = new Color{r = 0.9f, g = 0.9f, b = 0.2f, a = 0.50f },
 				value = Constant.GROUND.UNDERROCK,
 				tags = { "Town" },
 				contents =
 				{
 					countstaticlayouts =
 					{
-						["RabbitCity"] = () => 1 + WorldGenMain.random.Next(2),
-						["TorchRabbitking"] = () => 1 + WorldGenMain.random.Next(2),
+						["RabbitCity"] = () => 1 + Random.Range(0, 2),
+						["TorchRabbitking"] = () => 1 + Random.Range(0,2),
 					},
 					countprefabs =
 					{
-						["mermhead"] = () => WorldGenMain.random.Next(3),
+						["mermhead"] = () => Random.Range(0, 3),
 					},
 				}
 			});

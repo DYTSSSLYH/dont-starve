@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class MandrakeRooms
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("MandrakeHome", new Room
             {
-                colour = { r = 0.3f, g = 0.4f, b = 0.8f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.4f, b = 0.8f, a = 0.3f },
                 value = Constant.GROUND.GRASS,
                 contents =
                 {
@@ -14,7 +16,7 @@
                     {
                         ["InsanePighouse"] = () =>
                         {
-                            if (WorldGenMain.random.Next(1000) > 995)
+                            if (Random.Range(0,1000) > 995)
                                 return 1;
                             else
                                 return 0;

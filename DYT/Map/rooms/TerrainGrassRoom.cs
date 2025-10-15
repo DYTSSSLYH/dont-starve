@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 
 namespace DYT.Map.rooms
 {
@@ -10,7 +11,7 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("BGGrassBurnt", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
+		        colour = new Color{r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -51,7 +52,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("BGGrass", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
+		        colour = new Color{r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -78,7 +79,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("BGGrassIsland", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
+		        colour = new Color{r = 0.5f, g = 0.8f, b = 0.5f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -107,7 +108,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("FlowerPatch", new Room
 	        {
-		        colour = { r = 0.5f, g = 1, b = 0.8f, a = 0.50f },
+		        colour = new Color{r = 0.5f, g = 1, b = 0.8f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -123,7 +124,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("GrassyMoleColony", new Room
 	        {
-		        colour = { r = 0.5f, g = 1, b = 0.8f, a = 0.50f },
+		        colour = new Color{r = 0.5f, g = 1, b = 0.8f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -140,7 +141,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("EvilFlowerPatch", new Room
 	        {
-		        colour = { r = 0.8f, g = 1, b = 0.4f, a = 0.50f },
+		        colour = new Color{r = 0.8f, g = 1, b = 0.4f, a = 0.50f },
 		        value = Constant.GROUND.GRASS,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =

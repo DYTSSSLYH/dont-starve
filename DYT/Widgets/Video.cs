@@ -5,7 +5,7 @@ using UnityEngine.Video;
 namespace DYT.Widgets
 {
     [RequireComponent(typeof(VideoPlayer))]
-    public class Video : Widget
+    public class Video : WidgetSelf
     {
         private VideoPlayer VideoWidget;
         private bool loopPointReached;

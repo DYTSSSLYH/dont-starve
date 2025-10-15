@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,11 +18,12 @@ namespace DYT
 {
     public class TheSim : MonoBehaviour
     {
-        public static TheSim instance;
+        public static TheSim INSTANCE;
         private static string _persistStringPath;
         private static string _dataPath;
 
         public GameObject cameraGameObject;
+        public GameObject audioListenerGameObject;
         public AudioMixer audioMixer;
     
         private Camera _mainCamera;
@@ -32,14 +34,14 @@ namespace DYT
 
         private void Awake()
         {
-            _mainCamera = cameraGameObject.GetComponent<Camera>();
+            // _mainCamera = cameraGameObject.GetComponent<Camera>();
         }
 
         private IEnumerator Start()
         {
             _persistStringPath = Application.persistentDataPath;
             _dataPath = Application.dataPath;
-            instance = this;
+            INSTANCE = this;
         
             string path = $"{Application.streamingAssetsPath}/settings.ini";
             UnityWebRequest request;
@@ -53,29 +55,32 @@ namespace DYT
             }
 #endif
             IniTool.LoadConfigFile(path);
+
+            Main.Start();
+            yield return null;
         }
     
 
-        public static void GetPersistentString(string fileName, Action<bool, string> callback, bool encode = false)
+        public void GetPersistentString(string fileName, Action<bool, string> callback, bool encode = false)
         {
             string path = Path.Combine(_persistStringPath, fileName);
         
             if (File.Exists(path)) callback(true, File.ReadAllText(fileName, Encoding.UTF8));
             else callback(false, null);
         }
-        public static void SetPersistentString(string filePath, string data, bool encode,
-            Action callback, bool local_save = false)
+        public void SetPersistentString(string filePath, string data, bool encode,
+            Action callback, bool? local_save = false)
         {
             File.WriteAllText(filePath, data, encode ? Encoding.UTF8 : Encoding.Default);
 
             callback?.Invoke();
         }
 
-        public static string GetSetting(string type, string settingName)
+        public string GetSetting(string type, string settingName)
         {
             return IniTool.GetContent(type, settingName);
         }
-        public static void SetSetting(string settingType, string settingName, string settingValue)
+        public void SetSetting(string settingType, string settingName, string settingValue)
         {
             if (!settingDictionary.ContainsKey(settingType))
                 settingDictionary.Add(settingType, new Dictionary<string, string> { { settingName, settingValue } });
@@ -84,24 +89,24 @@ namespace DYT
             else settingDictionary[settingType][settingName] = settingValue;
         }
 
-        public static void SetUseUnicode(bool useUnicode)
+        public void SetUseUnicode(bool useUnicode)
         {
             _useUnicode = useUnicode;
         }
 
-        public static long getrealtime()
+        public long getrealtime()
         {
             return DateTimeOffset.Now.ToUnixTimeMilliseconds();
         }
-        public static int GetRealTime()
+        public int GetRealTime()
         {
             return (int)Time.unscaledTime * 1000;
         }
-        public static float GetTick()
+        public float GetTick()
         {
             return Time.fixedDeltaTime;
         }
-        public static int GetTickTime()
+        public int GetTickTime()
         {
             return Time.frameCount;
         }
@@ -113,15 +118,18 @@ namespace DYT
         }
         public void SetSoundVolume(string sound, float volume)
         {
+            // volume: [0, 1]       SetFloat: [-80, 20]
             audioMixer.SetFloat(sound, volume * 100 - 80);
         }
 
-        public static string[] GetModDirectoryNames()
+        public List<string> GetModDirectoryNames()
         {
-            return Directory.GetDirectories($"{_dataPath}/Mods/");
+            string modPath = $"{Application.persistentDataPath}/mods";
+            string[] modNameArray = Directory.GetDirectories(modPath);
+            return modNameArray.Select(modName => Path.GetRelativePath(modPath, modName)).ToList();
         }
 
-        public static bool LoadModInfo(string modName, ref KnownModIndex.ModInfo modInfo)
+        public bool LoadModInfo(string modName, ref KnownModIndex.ModInfo modInfo)
         {
             string path = $"{_dataPath}/Mods/{modName}/mod_info.txt";
             if (!File.Exists(path)) return false;
@@ -194,27 +202,27 @@ namespace DYT
 
         public void SetCameraDir(float dx, float dy, float dz)
         {
-            cameraGameObject.transform.rotation = Quaternion.Euler(dx, dy, dz);
+            cameraGameObject.transform.forward = new Vector3(dx, dy, dz);
+        }
+
+        public void SetCameraUp(float dx, float dy, float dz)
+        {
+            // cameraGameObject.transform.up = new Vector3(dx, dy, dz);
         }
     
         public void SetCameraFOV(float fov)
         {
-            _mainCamera.fieldOfView = fov;
+            cameraGameObject.GetComponent<Camera>().fieldOfView = fov;
         }
 
-        public static void LoadPrefabs(params string[] prefabNameArray)
+        public void LoadPrefabs(params string[] prefabNameArray)
         {
-            foreach (string prefabName in prefabNameArray)
-            {
-                GameObject gameObject = Instantiate(Main.Prefabs[prefabName]);
-                _loadedPrefabCache.Add(prefabName, gameObject);
-            }
         }
-        public static void LoadPrefabs(List<string> prefabNameList)
+        public void LoadPrefabs(List<string> prefabNameList)
         {
             LoadPrefabs(prefabNameList.ToArray());
         }
-        public static void UnloadPrefabs(List<string> prefabNameArray)
+        public void UnloadPrefabs(List<string> prefabNameArray)
         {
             foreach (string prefabName in prefabNameArray)
             {
@@ -223,52 +231,117 @@ namespace DYT
         }
 
         // TODO: TheSim.GetUserID()
-        public static string GetUserID()
+        public string GetUserID()
         {
             return "111";
         }
 
-        public static void CheckPersistentStringExists(string path, Action<bool> action)
+        public void CheckPersistentStringExists(string path, Action<bool> action)
         {
             string allFilePath = Path.Combine(_persistStringPath, path);
             action?.Invoke(File.Exists(allFilePath));
         }
 
-        public static void SetInstanceParameters(string param)
+        public void SetInstanceParameters(string param)
         {
             SetPersistentString(_persistStringPath + "/instance-parameters", param, false, null);
         }
     
-        public static void SetReverbPreset(string str){}
+        public void SetReverbPreset(string str){}
     
-        public static void ResetSim(){}
+        public void ResetSim(){}
     
-        public static void ForceAbort(){}
+        public void ForceAbort(){}
     
-        public static void FileBugReport(string str){}
+        public void FileBugReport(string str){}
 
-        public static bool IsBugReportRunning()
+        public bool IsBugReportRunning()
         {
             return Random.Range(0, 2) < 1;
         }
 
-        public static bool DidBugReportSucceed()
+        public bool DidBugReportSucceed()
         {
             return Random.Range(0, 2) < 1;
         }
 
         // TODO: GenerateNewWorld
-        public static void GenerateNewWorld(string genparam, string modparam, Action<string> handler)
+        public void GenerateNewWorld(string genparam, string modparam, Action<string> handler)
         {
             WorldGenMain.GEN_PARAMETERS = genparam;
             handler("123");
         }
 
+        public void LuaPrint(params object[] args)
+        {
+            foreach (object o in args)
+            {
+                Debug.Log(o);
+            }
+        }
+
+        public string GetAgreementsSetting(string mainKey, string subKey)
+        {
+            return GetSetting(mainKey, subKey);
+        }
+
+        public bool IsDLCInstalled(int index)
+        {
+            return true;
+        }
+        
+        public void EnableUserDataCollection(bool enable){}
+
+        public object GetFileModificationTime(string filename)
+        {
+            string filePath = Main.GetFilePath(filename);
+            return File.GetLastWriteTime(filePath);
+        }
+
+        private readonly Dictionary<string, byte[]> _assetCache = new Dictionary<string, byte[]>();
+        public void OnAssetPathResolve(string name, string path)
+        {
+            string filePath = Main.GetFilePath(path);
+            _assetCache.TryAdd(name, File.ReadAllBytes(filePath));
+            _assetCache[name] = File.ReadAllBytes(filePath);
+        }
+        
+        private readonly List<Prefab> _prefabList = new List<Prefab>();
+        public void RegisterPrefab(string prefabName, List<Asset> assetList, List<object> deps)
+        {
+            Prefab prefab = new Prefab
+            {
+                name = prefabName,
+                assets = assetList,
+                deps = deps
+            };
+            _prefabList.Add(prefab);
+        }
+
+        public object FindFirstEntityWithTag(string tag)
+        {
+            return null;
+        }
+
+        public void SetListener(float lx, float ly, float lz,
+            float dx, float dy, float dz, float ux, float uy, float uz
+        )
+        {
+            audioListenerGameObject.transform.position = new Vector3(lx, ly, lz);
+            audioListenerGameObject.transform.forward = new Vector3(dx, dy, dz);
+            audioListenerGameObject.transform.up = new Vector3(ux, uy, uz);
+        }
+
+        public Entity CreateEntity()
+        {
+            return new Entity(new GameObject());
+        }
+
     
     
-        private static int statusState;
-        private static int statusProgress;
-        public static Dictionary<string, string> GetWorkshopUpdateStatus()
+        private int statusState;
+        private int statusProgress;
+        public Dictionary<string, string> GetWorkshopUpdateStatus()
         {
             Dictionary<string, string> status = new Dictionary<string, string>();
 

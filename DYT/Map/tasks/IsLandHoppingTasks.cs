@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DYT.Map.tasks
 {
@@ -16,16 +17,16 @@ namespace DYT.Map.tasks
 				locks = { "NONE" },
 				keys_given = { "MEAT" },
 				room_choices=new Dictionary<string, int>{
-					["SpiderMarsh"] = 1 + WorldGenMain.random.Next(2),
+					["SpiderMarsh"] = 1 + Random.Range(0, 2),
 				},
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGMarsh",
 				colour =
 				{
-					r = WorldGenMain.random.Next(),
-					g = WorldGenMain.random.Next(),
-					b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value,
+					g = Random.value,
+					b = Random.value,
+					a = Random.value
 				},
 			});
 
@@ -35,16 +36,16 @@ namespace DYT.Map.tasks
 				keys_given = { "MEAT" },
 				entrance_room = { "ForceDisconnectedRoom" },
 				room_choices=new Dictionary<string, int>{
-					["SpiderForest"] = 1 + WorldGenMain.random.Next(2),
+					["SpiderForest"] = 1 + Random.Range(0, 2),
 				},
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGBadlands",
 				colour =
 				{
-					r = WorldGenMain.random.Next(),
-					g = WorldGenMain.random.Next(),
-					b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value,
+					g = Random.value,
+					b = Random.value,
+					a = Random.value
 				},
 			});
 
@@ -54,17 +55,17 @@ namespace DYT.Map.tasks
 				keys_given = { "MEAT" },
 				entrance_room = { "ForceDisconnectedRoom" },
 				room_choices=new Dictionary<string, int>{
-					["Waspnests"] = 1 + WorldGenMain.random.Next(2),
+					["Waspnests"] = 1 + Random.Range(0, 2),
 				},
 				//-- room_choices=new Dictionary<string, int>{
-				//-- 	["DeepForest"] = 1+WorldGenMain.random.Next(2), 
+				//-- 	["DeepForest"] = 1+Random.Range(0, 2), 
 				//-- },
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGDeepForest",
 				colour =
 				{
-					r = WorldGenMain.random.Next(), g = WorldGenMain.random.Next(), b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value, g = Random.value, b = Random.value,
+					a = Random.value
 				},
 			});
 
@@ -74,17 +75,17 @@ namespace DYT.Map.tasks
 				keys_given = { "MEAT" },
 				entrance_room = { "ForceDisconnectedRoom" },
 				room_choices=new Dictionary<string, int>{
-					["BeefalowPlain"] = 1 + WorldGenMain.random.Next(2),
+					["BeefalowPlain"] = 1 + Random.Range(0, 2),
 				},
 				//-- room_choices=new Dictionary<string, int>{
-				//-- 	["BeefalowPlain"] = 1+WorldGenMain.random.Next(2), 
+				//-- 	["BeefalowPlain"] = 1+Random.Range(0, 2), 
 				//-- },
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGSavanna",
 				colour =
 				{
-					r = WorldGenMain.random.Next(), g = WorldGenMain.random.Next(), b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value, g = Random.value, b = Random.value,
+					a = Random.value
 				},
 			});
 
@@ -94,14 +95,14 @@ namespace DYT.Map.tasks
 				keys_given = { "MEAT" },
 				entrance_room = { "ForceDisconnectedRoom" },
 				room_choices=new Dictionary<string, int>{
-					["Rocky"] = 1 + WorldGenMain.random.Next(2),
+					["Rocky"] = 1 + Random.Range(0, 2),
 				},
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGRocky",
 				colour =
 				{
-					r = WorldGenMain.random.Next(), g = WorldGenMain.random.Next(), b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value, g = Random.value, b = Random.value,
+					a = Random.value
 				},
 			});
 
@@ -111,14 +112,14 @@ namespace DYT.Map.tasks
 				keys_given = { "MEAT" },
 				entrance_room = { "ForceDisconnectedRoom" },
 				room_choices=new Dictionary<string, int>{
-					["SlightlyMermySwamp"] = 1 + WorldGenMain.random.Next(2),
+					["SlightlyMermySwamp"] = 1 + Random.Range(0, 2),
 				},
 				room_bg = Constant.GROUND.DIRT,
 				background_room = "BGMarsh",
 				colour =
 				{
-					r = WorldGenMain.random.Next(), g = WorldGenMain.random.Next(), b = WorldGenMain.random.Next(),
-					a = WorldGenMain.random.Next()
+					r = Random.value, g = Random.value, b = Random.value,
+					a = Random.value
 				},
 			});
         }

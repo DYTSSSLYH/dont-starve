@@ -268,7 +268,7 @@ public class OptionsScreen : MonoBehaviour
         PlayerProfile.SetScreenShakeEnabled(_working.screenShake);
         PlayerProfile.SetAgreementsSetting(_working.sendStats);
         PlayerProfile.SetWathgrithrFontEnabled(_working.wathgrithrFont);
-        TheSim.SetSetting("graphics", "dynamic-loading-level", _working.dynamicLoadingLevel.ToString());
+        // TheSim.SetSetting("graphics", "dynamic-loading-level", _working.dynamicLoadingLevel.ToString());
         
         PlayerProfile.SetIntegratedBackpack(_working.integratedBackpack);
     }
@@ -450,7 +450,7 @@ public class OptionsScreen : MonoBehaviour
             () => Destroy(instantiate)
         );
         biggerPopupDialogScreenMenu.Find("PrivacyCenter").GetComponent<Button>().onClick.AddListener(
-            () => Main.VisitURL("https://www.klei.com/privacy-policy")
+            () => MainSelf.VisitURL("https://www.klei.com/privacy-policy")
         );
     }
     private void DoInitMainPage()
@@ -681,7 +681,8 @@ public class OptionsScreen : MonoBehaviour
     public void Start()
     {
         _options = new Options();
-        string dynamicLoadingLevelSetting = TheSim.GetSetting("graphics", "dynamic-loading-level");
+        // string dynamicLoadingLevelSetting = TheSim.GetSetting("graphics", "dynamic-loading-level");
+        string dynamicLoadingLevelSetting = null;
         if (dynamicLoadingLevelSetting != null)
             _options.dynamicLoadingLevel = int.Parse(dynamicLoadingLevelSetting);
         _working = (Options)_options.Clone();

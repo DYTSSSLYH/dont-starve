@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DYT.Map.tasks
 {
@@ -14,10 +15,10 @@ namespace DYT.Map.tasks
 		        locks = { "NONE" },
 		        keys_given = { "LIGHT" },
 		        room_choices=new Dictionary<string, int>{
-			        ["MistyCavern"] = WorldGenMain.random.Next(2),
-			        ["PitCave"] = WorldGenMain.random.NextDouble() > 0.5f ? 1 : 0,
+			        ["MistyCavern"] = Random.Range(0,2),
+			        ["PitCave"] = Random.value > 0.5f ? 1 : 0,
 			        ["RockLobsterPlains"] = 1,
-			        //--["BGCaveRoom"] = 4+WorldGenMain.random.Next(2),
+			        //--["BGCaveRoom"] = 4+Random.Range(0,2),
 		        },
 		        room_bg = Constant.GROUND.WALL_ROCKY,
 		        background_room = "BGCaveRoom",
@@ -29,9 +30,9 @@ namespace DYT.Map.tasks
 		        locks = { "NONE" },
 		        keys_given = { "LIGHT" },
 		        room_choices=new Dictionary<string, int>{
-			        ["SinkholeRoom"] = 3 + WorldGenMain.random.Next(2),
+			        ["SinkholeRoom"] = 3 + Random.Range(0,2),
 			        ["MistyCavern"] = 1,
-			        ["RockLobsterPlains"] = 1 + WorldGenMain.random.Next(2),
+			        ["RockLobsterPlains"] = 1 + Random.Range(0,2),
 		        },
 		        room_bg = Constant.GROUND.SINKHOLE,
 		        background_room = "BGCaveRoom",
@@ -44,8 +45,8 @@ namespace DYT.Map.tasks
 		        keys_given = { "CAVE" },
 		        entrance_room = { "BatCaveRoomAntichamber" },
 		        room_choices=new Dictionary<string, int>{
-			        //--["CaveRoom"] = 2+WorldGenMain.random.Next(2),
-			        ["BatCaveRoom"] = 2 + WorldGenMain.random.Next(2),
+			        //--["CaveRoom"] = 2+Random.Range(0,2),
+			        ["BatCaveRoom"] = 2 + Random.Range(0,2),
 		        },
 		        room_bg = Constant.GROUND.CAVE,
 		        background_room = "BGCaveRoom",
@@ -57,9 +58,9 @@ namespace DYT.Map.tasks
 		        locks = { "LIGHT" },
 		        keys_given = { "FUNGUS" },
 		        room_choices=new Dictionary<string, int>{
-			        ["FungusRoom"] = 2 + WorldGenMain.random.Next(2),
-			        ["SunkenMarsh"] = 2 + WorldGenMain.random.Next(2),
-			        ["BatCaveRoom"] = 1 + WorldGenMain.random.Next(2),
+			        ["FungusRoom"] = 2 + Random.Range(0,2),
+			        ["SunkenMarsh"] = 2 + Random.Range(0,2),
+			        ["BatCaveRoom"] = 1 + Random.Range(0,2),
 		        },
 		        room_bg = Constant.GROUND.FUNGUS,
 		        background_room = "BGFungusRoom",
@@ -71,8 +72,8 @@ namespace DYT.Map.tasks
 		        locks = { "LIGHT" },
 		        keys_given = { "NONE" },
 		        room_choices=new Dictionary<string, int>{
-			        ["PitRoom"] = 1 + WorldGenMain.random.Next(2),
-			        ["TentacleCave"] = 1 + WorldGenMain.random.Next(4),
+			        ["PitRoom"] = 1 + Random.Range(0,2),
+			        ["TentacleCave"] = 1 + Random.Range(0,4),
 		        },
 		        room_bg = Constant.GROUND.MARSH,
 		        background_room = "BGFungusRoom",
@@ -84,8 +85,8 @@ namespace DYT.Map.tasks
 		        locks = { "LIGHT" },
 		        keys_given = { "CAVE" },
 		        room_choices=new Dictionary<string, int>{
-			        ["BatCaveRoom"] = 3 + WorldGenMain.random.Next(4),
-			        ["PitRoom"] = 10 + WorldGenMain.random.Next(7),
+			        ["BatCaveRoom"] = 3 + Random.Range(0,4),
+			        ["PitRoom"] = 10 + Random.Range(0,7),
 		        },
 		        room_bg = Constant.GROUND.WALL_ROCKY,
 		        background_room = "BGFungusRoom",
@@ -99,8 +100,8 @@ namespace DYT.Map.tasks
 				locks = { "LIGHT" },
 				keys_given = { "CAVE" },
 				room_choices=new Dictionary<string, int>{
-					["BatCaveRoom"] = WorldGenMain.random.Next(4),
-					["PitRoom"] = 2 + WorldGenMain.random.Next(5),
+					["BatCaveRoom"] = Random.Range(0,4),
+					["PitRoom"] = 2 + Random.Range(0,5),
 				},
 				room_bg = Constant.GROUND.WALL_ROCKY,
 				background_room = "RedMush",
@@ -112,8 +113,8 @@ namespace DYT.Map.tasks
 				locks = { "LIGHT" },
 				keys_given = { "CAVE" },
 				room_choices=new Dictionary<string, int>{
-					["BatCaveRoom"] = WorldGenMain.random.Next(4),
-					["PitRoom"] = 2 + WorldGenMain.random.Next(5),
+					["BatCaveRoom"] = Random.Range(0,4),
+					["PitRoom"] = 2 + Random.Range(0,5),
 				},
 				room_bg = Constant.GROUND.WALL_ROCKY,
 				background_room = "GreenMush",
@@ -125,8 +126,8 @@ namespace DYT.Map.tasks
 				locks = { "LIGHT" },
 				keys_given = { "CAVE" },
 				room_choices=new Dictionary<string, int>{
-					["BatCaveRoom"] = WorldGenMain.random.Next(4),
-					["PitRoom"] = 2 + WorldGenMain.random.Next(5),
+					["BatCaveRoom"] = Random.Range(0,4),
+					["PitRoom"] = 2 + Random.Range(0,5),
 				},
 				room_bg = Constant.GROUND.WALL_ROCKY,
 				background_room = "BlueMush",
@@ -140,10 +141,10 @@ namespace DYT.Map.tasks
 				locks = { "LIGHT" },
 				keys_given = { "CAVE" },
 				room_choices=new Dictionary<string, int>{
-					["RabitFungusRoom"] = 1 + WorldGenMain.random.Next(2),
-					["SunkenMarsh"] = WorldGenMain.random.Next() > 0.5f ? 1 : 2,
+					["RabitFungusRoom"] = 1 + Random.Range(0,2),
+					["SunkenMarsh"] = Random.value > 0.5f ? 1 : 2,
 					["Stairs"] = 1,
-					["BGCaveRoom"] = 2 + WorldGenMain.random.Next(2),
+					["BGCaveRoom"] = 2 + Random.Range(0,2),
 				},
 				room_bg = Constant.GROUND.WALL_ROCKY,
 				background_room = "BGFungusRoom",
@@ -166,17 +167,17 @@ namespace DYT.Map.tasks
 				locks = { "CAVE", "FUNGUS" },
 				keys_given = { "NONE" },
 				room_choices=new Dictionary<string, int>{
-					//--["NoisyFungus"] = 3+WorldGenMain.random.Next(2),
+					//--["NoisyFungus"] = 3+Random.Range(0,2),
 
-					["GreenMush"] = WorldGenMain.random.NextDouble() > 0.5f ? WorldGenMain.random.Next(5) : 0,
-					["RedMush"] = WorldGenMain.random.NextDouble() > 0.5f ? WorldGenMain.random.Next(5) : 0,
-					["BlueMush"] = WorldGenMain.random.NextDouble() > 0.5f ? WorldGenMain.random.Next(5) : 0,
+					["GreenMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
+					["RedMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
+					["BlueMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
 
-					["RabitFungusRoom"] = 1 + WorldGenMain.random.Next(2),
-					["RockLobsterPlains"] = 1 + WorldGenMain.random.Next(2),
+					["RabitFungusRoom"] = 1 + Random.Range(0,2),
+					["RockLobsterPlains"] = 1 + Random.Range(0,2),
 				},
 				room_bg = Constant.GROUND.WALL_ROCKY,
-				background_room = WorldGenMain.random.NextDouble() > 0.5f ? "BGFungusRoom" : "BGNoisyFungus",
+				background_room = Random.value > 0.5f ? "BGFungusRoom" : "BGNoisyFungus",
 				colour = { r = 1, g = 0, b = 0.6f, a = 1 },
 			});
 
@@ -185,7 +186,7 @@ namespace DYT.Map.tasks
 				locks = { "LIGHT", "FUNGUS" },
 				keys_given = { "NONE" },
 				room_choices=new Dictionary<string, int>{
-					["NoisyCave"] = 5 + WorldGenMain.random.Next(6),
+					["NoisyCave"] = 5 + Random.Range(0,6),
 					["RockLobsterPlains"] = 1,
 				},
 				room_bg = Constant.GROUND.CAVE_NOISE,
@@ -198,16 +199,16 @@ namespace DYT.Map.tasks
 				locks = { "CAVE", "FUNGUS" },
 				keys_given = { "NONE" },
 				room_choices=new Dictionary<string, int>{
-					["GreenMush"] = WorldGenMain.random.Next() > 0.5f ? WorldGenMain.random.Next(5) : 0,
-					["RedMush"] = WorldGenMain.random.Next() > 0.5f ? WorldGenMain.random.Next(5) : 0,
-					["BlueMush"] = WorldGenMain.random.Next() > 0.5f ? WorldGenMain.random.Next(5) : 0,
+					["GreenMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
+					["RedMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
+					["BlueMush"] = Random.value > 0.5f ? Random.Range(0,5) : 0,
 
-					["RabitFungusRoom"] = 1 + WorldGenMain.random.Next(2),
-					["RockLobsterPlains"] = 1 + WorldGenMain.random.Next(2),
-					["RabbitCity"] = 4 + WorldGenMain.random.Next(2),
+					["RabitFungusRoom"] = 1 + Random.Range(0,2),
+					["RockLobsterPlains"] = 1 + Random.Range(0,2),
+					["RabbitCity"] = 4 + Random.Range(0,2),
 				},
 				room_bg = Constant.GROUND.UNDERROCK,
-				background_room = WorldGenMain.random.Next() > 0.5f ? "BGFungusRoom" : "BGNoisyFungus",
+				background_room = Random.value > 0.5f ? "BGFungusRoom" : "BGNoisyFungus",
 				colour = { r = 1, g = 0, b = 0.6f, a = 1 },
 			});
 

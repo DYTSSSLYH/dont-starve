@@ -2,11 +2,10 @@
 using DYT.Components;
 using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class SubmittingBugReportPopup : Screen
+    public class SubmittingBugReportPopup : ScreenSelf
     {
         public GameObject popupDialogScreen;
         
@@ -65,6 +64,7 @@ namespace DYT.Screens
             }
             
             // did we finish?
+            /*
             if (!TheSim.IsBugReportRunning())
             {
                 string title = "错误";
@@ -83,15 +83,15 @@ namespace DYT.Screens
                     {
                         new(){text = "好的", cb = () =>
                         {
-                            Main.TheFrontEnd.PopScreen();
+                            MainSelf.TheFrontEnd.PopScreen();
                             if (needsUnPause) MainFunctions.SetPause(false);
                             if (succeed)
                             {
                                 // if the error screen is visible, disable the "submit bug" button
-                                Main.TheFrontEnd.PopScreen();
-                                if (Main.TheFrontEnd.IsDisplayingError())
+                                MainSelf.TheFrontEnd.PopScreen();
+                                if (MainSelf.TheFrontEnd.IsDisplayingError())
                                 {
-                                    Screen screen = Main.TheFrontEnd.GetActiveScreen();
+                                    ScreenSelf screen = MainSelf.TheFrontEnd.GetActiveScreen();
                                     ScriptErrorScreen scriptErrorScreen = screen as ScriptErrorScreen;
                                     if (scriptErrorScreen) scriptErrorScreen.DisableSubmitButton();
                                 }
@@ -99,9 +99,9 @@ namespace DYT.Screens
                         }}
                     });
 
-                Main.TheFrontEnd.PopScreen();
-                Main.TheFrontEnd.PushScreen(popup, true);
-            }
+                MainSelf.TheFrontEnd.PopScreen();
+                MainSelf.TheFrontEnd.PushScreen(popup, true);
+            }*/
         }
     }
 }

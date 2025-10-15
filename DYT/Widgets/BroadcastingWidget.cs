@@ -1,6 +1,6 @@
 ﻿namespace DYT.Widgets
 {
-    public class BroadcastingWidget : Widget
+    public class BroadcastingWidget : WidgetSelf
     {
         private bool initialized;
 

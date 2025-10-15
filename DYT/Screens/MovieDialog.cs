@@ -3,7 +3,7 @@ using DYT.Widgets;
 
 namespace DYT.Screens
 {
-    public class MovieDialog : Screen
+    public class MovieDialog : ScreenSelf
     {
         private Action cb;
         private bool do_fadeback;

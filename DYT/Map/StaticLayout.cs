@@ -38,7 +38,7 @@ namespace DYT.Map
             layout.scale = 1;
 	
             //-- See \tools\tiled\dont_starve\tiles.png for tiles
-            layout.ground_types = new List<int>()
+            layout.ground_types = new List<int>
             {
                 //--Translates tile type index from constants.lua into tiled tileset. 
                 //--Order they appear here is the order they will be used in tiled.
@@ -81,7 +81,7 @@ namespace DYT.Map
             int tilefactor = 64 / staticLayout.tilewidth;
 	
             //-- See \tools\tiled\dont_starve\objecttypes.xml for objects
-            layout.layout = new Dictionary<string, List<Layout.Item>>() { };
+            layout.layout = new Dictionary<string, List<Layout.Item>>();
 
             foreach (Layout.Item layer in staticLayout.layers)
             {

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using DYT;
 using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 using Text = DYT.Widgets.Text;
 
 public class FrontEnd : MonoBehaviour
 {
     public Text consoletext { get; private set; }
-    public Widget helptext { get; private set; }
+    public WidgetSelf helptext { get; private set; }
     
     public GameObject consoleScreen;
     public AudioClip click_mouseover_controller;
@@ -20,9 +19,9 @@ public class FrontEnd : MonoBehaviour
     private float MOUSE_SCROLL_REPEAT_TIME = 0;
     private float save_fade_time = 0.5f;
     
-    private List<Screen> screenstack = new();
+    private List<ScreenSelf> screenstack = new();
     private Transform screenroot;
-    private Widget overlayroot;
+    private WidgetSelf overlayroot;
     private List<int> ignoreups = new();
     private Image blackoverlay;
     private Image topblackoverlay;
@@ -37,7 +36,7 @@ public class FrontEnd : MonoBehaviour
     private float repeat_time;
     private float page_repeat_time;
     private bool topFadeHidden = false;
-    private List<Widget> updating_widgets = new();
+    private List<WidgetSelf> updating_widgets = new();
     private int num_pending_saves = 0;
     private int save_indicator_time_left = 0;
     private int save_indicator_fade_time = 0;
@@ -57,16 +56,16 @@ public class FrontEnd : MonoBehaviour
     
     private float fade_time = 2;
     private float scroll_repeat_time;
-    private List<Widget> updating_widgets_alt;
+    private List<WidgetSelf> updating_widgets_alt;
     
     private void Awake()
     {
         screenroot = transform.Find("ScreenRoot");
-        overlayroot = transform.Find("OverlayRoot").GetComponent<Widget>().Init();
+        overlayroot = transform.Find("OverlayRoot").GetComponent<WidgetSelf>().Init();
         consoletext = transform.Find("ConsoleText").GetComponent<Text>();
         blackoverlay = screenroot.Find("BlackOverlay").GetComponent<Image>();
         topblackoverlay = overlayroot.transform.Find("TopBlackOverlay").GetComponent<Image>();
-        helptext = overlayroot.transform.Find("HelpText").GetComponent<Widget>();
+        helptext = overlayroot.transform.Find("HelpText").GetComponent<WidgetSelf>();
         helptexttext = overlayroot.transform.Find("HelpText").Find("HelpTextText").GetComponent<Text>();
         title = overlayroot.transform.Find("Title").GetComponent<Text>();
         subtitle = overlayroot.transform.Find("SubTitle").GetComponent<Text>();
@@ -91,7 +90,7 @@ public class FrontEnd : MonoBehaviour
         topblackoverlay.Show();
     }
     
-    public Widget GetFocusWidget()
+    public WidgetSelf GetFocusWidget()
     {
         return screenstack.Count == 0 ? null : screenstack[^1].GetDeepestFocus();
     }
@@ -100,7 +99,7 @@ public class FrontEnd : MonoBehaviour
     {
         List<string> list = new List<string>();
 
-        Widget widget = GetFocusWidget();
+        WidgetSelf widget = GetFocusWidget();
         if (widget != null && widget.GetHelpText != null)
         {
             string str = widget.GetHelpText();
@@ -125,7 +124,7 @@ public class FrontEnd : MonoBehaviour
         {
             if (screenstack[^1].OnFocusMove(dir, down))
             {
-                Main.TheFrontEnd.GetSound().PlayOneShot(click_mouseover_controller);
+                MainSelf.TheFrontEnd.GetSound().PlayOneShot(click_mouseover_controller);
                 tracking_mouse = false;
                 return true;
             }
@@ -152,19 +151,19 @@ public class FrontEnd : MonoBehaviour
 
         if (screenstack.Count > 0)
         {
-            Screen screen = screenstack[^1];
+            ScreenSelf screen = screenstack[^1];
             // map this one for buttons
             if (control == Constant.CONTROL_PRIMARY) control = Constant.CONTROL_ACCEPT;
             if (screen.OnControl(control, down)) return true;
         }
 
-        if (Main.CONSOLE_ENABLED && !down && control == Constant.CONTROL_OPEN_DEBUG_CONSOLE)
+        if (MainSelf.CONSOLE_ENABLED && !down && control == Constant.CONTROL_OPEN_DEBUG_CONSOLE)
         {
             PushScreen(Instantiate(consoleScreen).GetComponent<ConsoleScreen>());
             return true;
         }
 
-        if (Main.SHOWLOG_ENABLED && !down && control == Constant.CONTROL_TOGGLE_LOG)
+        if (MainSelf.SHOWLOG_ENABLED && !down && control == Constant.CONTROL_TOGGLE_LOG)
         {
             if (consoletext.shown) HideConsoleLog();
             else ShowConsoleLog();
@@ -408,9 +407,9 @@ public class FrontEnd : MonoBehaviour
         if (tracking_mouse && !focus_locked)
         {
             List<GameObject> entitiesUnderMouse = TheInput.GetAllEntitiesUnderMouse();
-            if (entitiesUnderMouse.Count > 0 && entitiesUnderMouse[0].GetComponent<Widget>() != null)
+            if (entitiesUnderMouse.Count > 0 && entitiesUnderMouse[0].GetComponent<WidgetSelf>() != null)
             {
-                entitiesUnderMouse[0].GetComponent<Widget>().SetFocus();
+                entitiesUnderMouse[0].GetComponent<WidgetSelf>().SetFocus();
             }
             else
             {
@@ -418,15 +417,15 @@ public class FrontEnd : MonoBehaviour
             }
         }
 
-        if (updating_widgets_alt == null) updating_widgets_alt = new List<Widget>();
+        if (updating_widgets_alt == null) updating_widgets_alt = new List<WidgetSelf>();
         
-        foreach (Widget updatingWidget in updating_widgets) updating_widgets_alt.Add(updatingWidget);
+        foreach (WidgetSelf updatingWidget in updating_widgets) updating_widgets_alt.Add(updatingWidget);
         
-        foreach (Widget updatingWidgetAlt in updating_widgets_alt)
+        foreach (WidgetSelf updatingWidgetAlt in updating_widgets_alt)
         {
             if (updatingWidgetAlt.enabled)
             {
-                typeof(Widget).GetMethod("OnUpdate").Invoke(updatingWidgetAlt, new object[]{dt});
+                typeof(WidgetSelf).GetMethod("OnUpdate").Invoke(updatingWidgetAlt, new object[]{dt});
             }
         }
         updating_widgets_alt.Clear();
@@ -443,24 +442,24 @@ public class FrontEnd : MonoBehaviour
         }
     }
 
-    public void StartUpdatingWidget(Widget w)
+    public void StartUpdatingWidget(WidgetSelf w)
     {
         updating_widgets.Add(w);
     }
 
-    public void StopUpdatingWidget(Widget w)
+    public void StopUpdatingWidget(WidgetSelf w)
     {
         updating_widgets.Remove(w);
     }
 
     
-    public void PushScreen(Screen screen, bool forceOverBugScreen = false)
+    public void PushScreen(ScreenSelf screen, bool forceOverBugScreen = false)
     {
         focus_locked = false;
         
         // jcheng: don't allow any other screens to push if we're displaying an error
         // kaj: unless it's the bugreporter, then they're forced
-        if (!Main.TheFrontEnd.IsDisplayingError() || forceOverBugScreen)
+        if (!MainSelf.TheFrontEnd.IsDisplayingError() || forceOverBugScreen)
         {
             MainFunctions.Print(Constant.VERBOSITY.DEBUG, "FrontEnd:PushScreen", screen.name);
             
@@ -475,7 +474,7 @@ public class FrontEnd : MonoBehaviour
     {
         while (screenstack.Count > 0)
         {
-            Screen screen = screenstack[^1];
+            ScreenSelf screen = screenstack[^1];
             Destroy(screen.gameObject);
             screenstack.Remove(screen);
         }
@@ -515,15 +514,15 @@ public class FrontEnd : MonoBehaviour
         this.delayovercb = delayovercb;
     }
 
-    public void PopScreen(Screen screen = null)
+    public void PopScreen(ScreenSelf screen = null)
     {
-        Screen oldHead = screenstack.Count > 0 ? screenstack[^1] : null;
+        ScreenSelf oldHead = screenstack.Count > 0 ? screenstack[^1] : null;
         if (screen != null)
         {
             MainFunctions.Print(Constant.VERBOSITY.DEBUG, "FrontEnd:PopScreen", screen.name);
             for (int i = 0; i < screenstack.Count; i++)
             {
-                Screen v = screenstack[i];
+                ScreenSelf v = screenstack[i];
                 if (v == screen)
                 {
                     if (oldHead == screen) screen.OnBecomeInactive();
@@ -555,13 +554,13 @@ public class FrontEnd : MonoBehaviour
         }
     }
 
-    public Screen GetActiveScreen()
+    public ScreenSelf GetActiveScreen()
     {
         if (screenstack.Count > 0 && screenstack[^1]) return screenstack[^1];
         else return null;
     }
 
-    public void ShowScreen(Screen screen)
+    public void ShowScreen(ScreenSelf screen)
     {
         ClearScreens();
         if (screen) PushScreen(screen);
@@ -569,7 +568,7 @@ public class FrontEnd : MonoBehaviour
 
     public void OnRawKey(object key, object down)
     {
-        Screen screen = GetActiveScreen();
+        ScreenSelf screen = GetActiveScreen();
         if (screen != null)
         {
             if (!screen.OnRawKey(key, down)){}
@@ -578,11 +577,11 @@ public class FrontEnd : MonoBehaviour
 
     public void OnTextInput(string text)
     {
-        Screen screen = GetActiveScreen();
+        ScreenSelf screen = GetActiveScreen();
         if (screen != null) screen.OnTextInput(text);
     }
 
-    public void DisplayError(Screen screen)
+    public void DisplayError(ScreenSelf screen)
     {
         if (displayingerror == false)
         {

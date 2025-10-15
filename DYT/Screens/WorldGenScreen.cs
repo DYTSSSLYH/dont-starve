@@ -6,7 +6,6 @@ using DYT.Widgets;
 using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
@@ -15,7 +14,7 @@ namespace DYT.Screens
         public KnownModIndex.CachedData index;
     }
     
-    public class WorldGenScreen : Screen
+    public class WorldGenScreen : ScreenSelf
     {
         public GameObject movieDialog;
 
@@ -183,15 +182,15 @@ namespace DYT.Screens
             genparam = JsonConvert.SerializeObject(gen_parameters);
             modparam = JsonConvert.SerializeObject(modData);
 
-            TheSim.GenerateNewWorld(genparam, modparam, worldData =>
-            {
-                worlddata = worldData;
-                done = true;
-            });
+            // TheSim.GenerateNewWorld(genparam, modparam, worldData =>
+            // {
+            //     worlddata = worldData;
+            //     done = true;
+            // });
 
             total_time = 0;
             this.cb = cb;
-            Main.TheFrontEnd.DoFadeIn(2);
+            MainSelf.TheFrontEnd.DoFadeIn(2);
 
             verbs = Util.shuffleArray(STRINGS.UI.WORLDGEN.VERBS);
 
@@ -216,7 +215,7 @@ namespace DYT.Screens
             
             if (!PLAY_PRE_WORLDGEN_MOVIE)
             {
-                Main.TheFrontEnd.GetSound().PlayOneShot(ResourcesTool.Load<AudioClip>(backgroundSound));
+                MainSelf.TheFrontEnd.GetSound().PlayOneShot(ResourcesTool.Load<AudioClip>(backgroundSound));
             }
 
             return this;
@@ -247,17 +246,17 @@ namespace DYT.Screens
         {
             if (PLAY_PRE_WORLDGEN_MOVIE && !isPlaying)
             {
-                float movieStartTime = TheSim.GetTick() * TheSim.GetTickTime();
+                // float movieStartTime = TheSim.GetTick() * TheSim.GetTickTime();
                 string moviename = "movies/worldgen.ogv";
-                Main.TheFrontEnd.PushScreen(Instantiate(movieDialog).GetComponent<MovieDialog>()
+                MainSelf.TheFrontEnd.PushScreen(Instantiate(movieDialog).GetComponent<MovieDialog>()
                     .Init(moviename, () =>
                     {
                         MainFunctions.SetPause(false);
-                        Main.TheFrontEnd.GetSound().PlayOneShot(
+                        MainSelf.TheFrontEnd.GetSound().PlayOneShot(
                             ResourcesTool.Load<AudioClip>(backgroundSound));
-                        float movieEndTime = TheSim.GetTick() * TheSim.GetTickTime();
-                        float moviePlayTime = movieEndTime - movieStartTime;
-                        MIN_GEN_TIME -= moviePlayTime;
+                        // float movieEndTime = TheSim.GetTick() * TheSim.GetTickTime();
+                        // float moviePlayTime = movieEndTime - movieStartTime;
+                        // MIN_GEN_TIME -= moviePlayTime;
                         if (MIN_GEN_TIME < MIN_GEN_TIME_WITH_MOVIE_AT_START)
                         {
                             MIN_GEN_TIME = MIN_GEN_TIME_WITH_MOVIE_AT_START;
@@ -274,11 +273,11 @@ namespace DYT.Screens
                     DebugPrint.print("RESTARTING GENERATION");
                     done = false;
                     worlddata = null;
-                    TheSim.GenerateNewWorld(genparam, modparam, worlddata =>
-                    {
-                        this.worlddata = worlddata;
-                        done = true;
-                    });
+                    // TheSim.GenerateNewWorld(genparam, modparam, worlddata =>
+                    // {
+                    //     this.worlddata = worlddata;
+                    //     done = true;
+                    // });
                     return;
                 }
 
@@ -290,7 +289,7 @@ namespace DYT.Screens
                 else if (total_time > MIN_GEN_TIME && cb != null)
                 {
                     done = false;
-                    Main.TheFrontEnd.Fade(false, 1, () => cb(worlddata));
+                    MainSelf.TheFrontEnd.Fade(false, 1, () => cb(worlddata));
                 }
             }
         }

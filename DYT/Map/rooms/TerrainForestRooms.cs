@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainForestRooms
     {
@@ -6,7 +8,7 @@
         {
 	        Rooms.AddRoom("BGCrappyForest", new Room
 	        {
-		        colour = { r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
+		        colour = new Color{r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -31,7 +33,7 @@
 	        });
 	        Rooms.AddRoom("BGForest", new Room
 	        {
-		        colour = { r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
+		        colour = new Color{r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -58,7 +60,7 @@
 	        });
 	        Rooms.AddRoom("BGDeepForest", new Room
 	        {
-		        colour = { r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
+		        colour = new Color{r = 0.1f, g = 0.8f, b = 0.1f, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -67,7 +69,7 @@
 			        {
 				        ["MushroomRingSmall"] = () =>
 				        {
-					        if (WorldGenMain.random.Next(0, 1000) > 985)
+					        if (Random.Range(0, 1000) > 985)
 						        return 1;
 
 					        return 0;
@@ -90,7 +92,7 @@
 			        {
 				        ["spiderden"] = () =>
 				        {
-					        if (WorldGenMain.random.NextDouble() < 0.1f)
+					        if (Random.value < 0.1f)
 						        return "{growable = {stage = 2}}";
 					        else
 						        return "{growable = {stage = 1}}";
@@ -100,7 +102,7 @@
 	        });
 	        Rooms.AddRoom("BurntForest", new Room
 	        {
-		        colour = { r = 0.090f, g = 0.10f, b = 0.010f, a = 0.50f },
+		        colour = new Color{r = 0.090f, g = 0.10f, b = 0.010f, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -108,7 +110,7 @@
 			        distributepercent = 0.4f,
 			        distributeprefabs =
 			        {
-				        ["evergreen"] = 3 + WorldGenMain.random.Next(4),
+				        ["evergreen"] = 3 + Random.Range(0,4),
 			        },
 			        prefabdata =
 			        {
@@ -118,7 +120,7 @@
 	        });
 	        Rooms.AddRoom("CrappyDeepForest", new Room
 	        {
-		        colour = { r = 0, g = 0.9f, b = 0, a = 0.50f },
+		        colour = new Color{r = 0, g = 0.9f, b = 0, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -139,14 +141,14 @@
 	        });
 	        Rooms.AddRoom("DeepForest", new Room
 	        {
-		        colour = { r = 0, g = 0.9f, b = 0, a = 0.50f },
+		        colour = new Color{r = 0, g = 0.9f, b = 0, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["LivingTree"] = () => WorldGenMain.random.NextDouble() > Tuning.LIVINGTREE_CHANCE ? 1 : 0
+				        ["LivingTree"] = () => Random.value > Tuning.LIVINGTREE_CHANCE ? 1 : 0
 			        },
 
 			        //-- countprefabs =
@@ -172,7 +174,7 @@
 			//-- Trees, very few rocks, very few rabbit holes
 			Rooms.AddRoom("Forest", new Room
 			{
-				colour = { r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
+				colour = new Color{r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -196,7 +198,7 @@
 			//-- Trees, very few rocks, very few molehills
 			Rooms.AddRoom("ForestMole", new Room
 			{
-				colour = { r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
+				colour = new Color{r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -220,7 +222,7 @@
 			});
 			Rooms.AddRoom("CrappyForest", new Room
 			{
-				colour = { r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
+				colour = new Color{r = 0.5f, g = 0.6f, b = 0.080f, a = 0.10f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -243,7 +245,7 @@
 			});
 			Rooms.AddRoom("SpiderForest", new Room
 			{
-				colour = { r = 0.80f, g = 0.34f, b = 0.80f, a = 0.50f },
+				colour = new Color{r = 0.80f, g = 0.34f, b = 0.80f, a = 0.50f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -260,7 +262,7 @@
 					{
 						["spiderden"] = () =>
 						{
-							if (WorldGenMain.random.NextDouble() < 0.2f)
+							if (Random.value < 0.2)
 								return "{ growable={stage=2}}";
 							else
 								return "{ growable={stage=1}}";
@@ -270,7 +272,7 @@
 			});
 			Rooms.AddRoom("BurntClearing", new Room
 			{
-				colour = { r = 0.8f, g = 0.5f, b = 0.7f, a = 0.50f },
+				colour = new Color{r = 0.8f, g = 0.5f, b = 0.7f, a = 0.50f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -291,7 +293,7 @@
 			//-- Trees on the outside, empty in the middle
 			Rooms.AddRoom("Clearing", new Room
 			{
-				colour = { r = 0.8f, g = 0.5f, b = 0.6f, a = 0.50f },
+				colour = new Color{r = 0.8f, g = 0.5f, b = 0.6f, a = 0.50f },
 				value = Constant.GROUND.FOREST,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -300,7 +302,7 @@
 					{
 						["MushroomRingLarge"] = () =>
 						{
-							if (WorldGenMain.random.Next(0, 1000) > 985)
+							if (Random.Range(0, 1000) > 985)
 								return 1;
 
 							return 0;

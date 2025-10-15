@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainCaveRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGNoisyCave", new Room
             {
-                colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+                colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
                 value = Constant.GROUND.CAVE_NOISE,
                 contents =
                 {
@@ -22,7 +24,7 @@
             });
             Rooms.AddRoom("BGCaveRoom", new Room
             {
-                colour = { r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
+                colour = new Color{r = 0.25f, g = 0.28f, b = 0.25f, a = 0.50f },
                 value = Constant.GROUND.CAVE_NOISE,
                 //--tags = {"ForceConnected"},
                 contents =

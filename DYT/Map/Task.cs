@@ -5,14 +5,15 @@ namespace DYT.Map
 {
     public class Task
     {
-        public class Piece
-        {
-            public string name;
-        }
         public class MazeTiles
         {
             public List<string> rooms;
             public List<string> bosses;
+        }
+        public class Substitute
+        {
+            public string name;
+            public float percent;
         }
         
         public string id;
@@ -25,10 +26,14 @@ namespace DYT.Map
         public object background_room;
         public Color colour;
         public MazeTiles maze_tiles;
-        public List<Piece> set_pieces;
-        public int crosslink_factor;
+        public List<SetPiece> set_pieces;
+        public List<SetPiece> random_set_pieces;
+        public int? crosslink_factor;
         public bool make_loop;
         public string gen_method;
+        public Dictionary<string, Substitute> substitutes;
+        public List<TreasureHunt.Treasure> treasures;
+        public List<TreasureHunt.Treasure> random_treasures;
 
         public Task(){}
         public Task(string id, Task data)
@@ -49,7 +54,7 @@ namespace DYT.Map
             make_loop = data.make_loop;
             gen_method = string.IsNullOrWhiteSpace(data.gen_method) ? "default" : data.gen_method;
 
-            set_pieces = data.set_pieces ?? new List<Piece>();
+            set_pieces = data.set_pieces ?? new List<SetPiece>();
         }
     }
 }

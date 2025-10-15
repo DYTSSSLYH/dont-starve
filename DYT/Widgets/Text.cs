@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DYT.Widgets
 {
-    public class Text : Widget
+    public class Text : WidgetSelf
     {
         public TextMeshProUGUI TextWidget { get; private set; }
         public bool? closeonrun { get; set; }

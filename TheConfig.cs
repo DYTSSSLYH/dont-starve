@@ -43,6 +43,6 @@ public class TheConfig
         _options = new Dictionary<string, bool>();
         SetOptions(defaults);
         
-        if (platform_overrides.ContainsKey(Main.PLATFORM)) SetOptions(platform_overrides[Main.PLATFORM]);
+        if (platform_overrides.ContainsKey(MainSelf.PLATFORM)) SetOptions(platform_overrides[MainSelf.PLATFORM]);
     }
 }

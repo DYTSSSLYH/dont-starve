@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DYT.Map.tasks
 {
@@ -12,7 +13,7 @@ namespace DYT.Map.tasks
                 keys_given = { "WOOD" },
                 room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle1"] = 1,
-                    ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
                 },
                 room_bg = Constant.GROUND.MARSH,
                 background_room = "BGMarsh",
@@ -24,7 +25,7 @@ namespace DYT.Map.tasks
                 keys_given = { "WOOD" },
                 room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle2"] = 1,
-                    ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
                 },
                 room_bg = Constant.GROUND.MARSH,
                 background_room = "BGMarsh",
@@ -36,7 +37,7 @@ namespace DYT.Map.tasks
                 keys_given = { "WOOD" },
                 room_choices=new Dictionary<string, int>{
                     ["MaxPuzzle3"] = 1,
-                    ["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
                 },
                 room_bg = Constant.GROUND.MARSH,
                 background_room = "BGMarsh",

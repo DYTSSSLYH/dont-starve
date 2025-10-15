@@ -35,12 +35,12 @@ public class ModsScreen : MonoBehaviour
     {
         string modName = modNameList[currentMod];
         string url = KnownModIndex.GetModInfo(modName).forumThread;
-        Main.VisitURL(url);
+        MainSelf.VisitURL(url);
     }
 
     public void MoreMods()
     {
-        Main.VisitURL("https://steamcommunity.com/app/219740/workshop/");
+        MainSelf.VisitURL("https://steamcommunity.com/app/219740/workshop/");
     }
 
     public void ShowModDetails(int index)
@@ -274,7 +274,8 @@ public class ModsScreen : MonoBehaviour
                 _workshopUpdateNote = Instantiate(workshopUpdateNotePrefab, transform.root)
                     .transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
-            Dictionary<string, string> status = TheSim.GetWorkshopUpdateStatus();
+            // Dictionary<string, string> status = TheSim.GetWorkshopUpdateStatus();
+            Dictionary<string, string> status = null;
             string stateText = "";
             if (status["state"] == "list") stateText = "Checking Workshop subscriptions...";
             else if (status["state"] == "details") stateText = "Verifying mod details...";
@@ -322,7 +323,7 @@ public class ModsScreen : MonoBehaviour
             modConfigScreen.GetComponent<ModConfigScreen>().modName = modNameList[currentMod];
         });
         Button moreButton = mainMenu.Find("MoreButton").GetComponent<Button>();
-        moreButton.onClick.AddListener(() => Main.VisitURL("https://steamcommunity.com/app/219740/workshop/"));
+        moreButton.onClick.AddListener(() => MainSelf.VisitURL("https://steamcommunity.com/app/219740/workshop/"));
 
         optionOffset = 0;
         Transform optionsPanel = transform.Find("OptionsPanel");

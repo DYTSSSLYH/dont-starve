@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace DYT
 {
@@ -11,10 +13,32 @@ namespace DYT
         {
             return table?.Count ?? 0;
         }
+        public static int GetTableSize<K>(List<K> table)
+        {
+            return table?.Count ?? 0;
+        }
             
         public static T GetRandomItem<T>(List<T> choices)
         {
             return choices[Random.Range(0, choices.Count)];
+        }
+        public static V GetRandomItem<K, V>(Dictionary<K, V> choices)
+        {
+            int numChoices = GetTableSize(choices);
+
+            if (numChoices < 1) return default;
+
+            int choice = Random.Range(0, numChoices);
+            
+            V picked = default;
+            foreach ((K key, V value) in choices)
+            {
+                picked = value;
+                if (choice <= 0) break;
+                choice--;
+            }
+            Assert.IsFalse(Equals(picked, null));
+            return picked;
         }
         
         // concatenate two array-style tables
@@ -94,14 +118,14 @@ namespace DYT
         public static string softresolvefilepath(string filepath)
         {
             // it's already absolute, so just send it back
-            if (Main.PLATFORM == "NACL" || Main.PLATFORM == "PS4") return filepath;
+            if (MainSelf.PLATFORM == "NACL" || MainSelf.PLATFORM == "PS4") return filepath;
         
             // on PC platforms, search all the possible paths
         
             // mod folders don't have "data" in them, so we strip that off if necessary.
             // It will be added back on as one of the search paths.
             filepath = filepath.Replace("^/", "");
-            string searchPath = Main.packagePath;
+            string searchPath = MainSelf.packagePath;
             string fileName = searchPath + filepath;
             if (File.Exists(fileName)) return fileName;
 
@@ -143,6 +167,10 @@ namespace DYT
                 (array[i], array[j]) = (array[j], array[i]);
             }
             return array;
+        }
+        public static List<T> shuffleArray<T>(List<T> array)
+        {
+            return shuffleArray(array.ToArray()).ToList();
         }
         
         public static T deepcopy<T>(T obj)

@@ -36,5 +36,17 @@ namespace DYT
         {
             return new Vector2(Screen.width, Screen.height);
         }
+
+        public static void ResetAll(){}
+
+        public static void AddIslandRegionMapping(string a, string b){}
+        
+        public static void AddChild(
+            string parentGraphId, string childGraphId, int room_bg, float r, float g, float b, float a,
+            object type = null, int? internal_type = null
+        ){}
+        
+        public static void AddLink(string node1Id, string node2Id){}
+        public static void AddExternalLink(string node1Id, string node2Id){}
     }
 }

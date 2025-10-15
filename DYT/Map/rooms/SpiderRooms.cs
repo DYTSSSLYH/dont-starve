@@ -1,6 +1,9 @@
 ﻿// --------------------------------------------------------------------------------
 // -- Spider 
 // --------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class SpiderRooms
@@ -9,13 +12,13 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("SpiderCity", new Room
 	        {
-		        colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+		        colour = new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["goldnugget"] = () => 3 + WorldGenMain.random.Next(3),
+				        ["goldnugget"] = () => 3 + Random.Range(0,3),
 			        },
 			        distributepercent = 0.3f,
 			        distributeprefabs =
@@ -27,7 +30,7 @@ namespace DYT.Map.rooms
 			        {
 				        ["spiderden"] = ()=>
 				        {
-					        if (WorldGenMain.random.NextDouble() < 0.2)
+					        if (Random.value < 0.2)
 						        return "{ growable={stage=3}}";
 					        else
 						        return "{ growable={stage=2}}";
@@ -39,14 +42,14 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("SpiderVillage", new Room
 	        {
-		        colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+		        colour = new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["goldnugget"] = () => 3 + WorldGenMain.random.Next(3),
-				        ["spiderden"] = () => 5 + WorldGenMain.random.Next(3)
+				        ["goldnugget"] = () => 3 + Random.Range(0,3),
+				        ["spiderden"] = () => 5 + Random.Range(0,3)
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =
@@ -59,7 +62,7 @@ namespace DYT.Map.rooms
 			        {
 				        ["spiderden"] = ()=>
 				        {
-					        if (WorldGenMain.random.NextDouble() < 0.2)
+					        if (Random.value < 0.2)
 						        return "{ growable={stage=2}}";
 					        else
 						        return "{ growable={stage=1}}";
@@ -70,14 +73,14 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("SpiderVillageSwamp", new Room
 	        {
-		        colour = { r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
+		        colour = new Color{r = 0.30f, g = 0.20f, b = 0.50f, a = 0.50f },
 		        value = Constant.GROUND.MARSH,
 		        contents =
 		        {
 			        countprefabs =
 			        {
-				        ["goldnugget"] = () => 3 + WorldGenMain.random.Next(3),
-				        ["spiderden"] = () => 5 + WorldGenMain.random.Next(3)
+				        ["goldnugget"] = () => 3 + Random.Range(0,3),
+				        ["spiderden"] = () => 5 + Random.Range(0,3)
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =
@@ -89,7 +92,7 @@ namespace DYT.Map.rooms
 			        {
 				        ["spiderden"] = ()=>
 				        {
-					        if (WorldGenMain.random.NextDouble() < 0.2)
+					        if (Random.value < 0.2)
 						        return "{ growable={stage=2}}";
 					        else
 						        return "{ growable={stage=1}}";

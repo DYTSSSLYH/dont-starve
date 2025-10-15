@@ -1,230 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using UnityEngine.Assertions;
+using XLua;
 
 namespace DYT
 {
-    public class Main : MonoBehaviour
+    public static class Main
     {
-        public GameObject scriptErrorScreen;
-
-        public static string packagePath = Application.dataPath + "/";
-        public static string PLATFORM = "WIN32_STEAM";
-        public static string BRANCH = "release";
-        public static string CONFIGURATION = "PRODUCTION";
-        public static string APP_REGION = "NONE";
-        public static bool RUN_GLOBAL_INIT = true;
-        public static string APP_VERSION;
-        public static string GEN_PARAMETERS;
-
-        // defines
-        public static int MAIN = 1;
-        public static bool ENCODE_SAVES = BRANCH != "dev";
-        public static bool SOUNDDEBUG_ENABLED = false;
-        public static bool MODS_ENABLED = PLATFORM != "PS4" && PLATFORM != "NACL";
-        public static bool ACCOMPLISHMENTS_ENABLED = PLATFORM == "PS4";
-        public static bool CHEATS_ENABLED =
-            BRANCH == "dev" || (PLATFORM == "PS4" && CONFIGURATION != "PRODUCTION");
-        public static bool DEBUG_MENU_ENABLED =
-            BRANCH == "dev" || (PLATFORM == "PS4" && CONFIGURATION != "PRODUCTION");
-
-        public static bool POT_GENERATION = false;
-        public static bool CONSOLE_ENABLED = true;
-        public static bool SHOWLOG_ENABLED = true;
-        public static bool DEBUGRENDER_ENABLED = true;
-        public static bool SKIP_MAXWELL_INTRO = false;
-        // Notes(DW): Override the variable pushed by the engine.
-        public static bool ENABLE_BUG_REPORTER = false;
-    
-        public static bool USE_SEASON_DSP = true;
-    
-        public static int MEM_TRACKING_INTERVAL = 5*60;
-    
-        public static bool ExecutingLongUpdate = false;
-        public static bool ExecutingCaveCatchup = false;
-    
-        public static bool EARLYACCESS_ON = false;
-    
-        // return false
-        public static bool IsConsole()
+        [CSharpCallLua]
+        public static List<Type> C_SHARP_CALL_LUA_TYPE_LIST = new List<Type>()
         {
-            return (PLATFORM == "PS4") || (PLATFORM == "XBONE");
-        }
-        public static bool IsNotConsole()
-        {
-            return !IsConsole();
-        }
-    
-        public static bool IsSteam()
-        {
-            return PLATFORM == "WIN32_STEAM" || PLATFORM == "LINUX_STEAM" || PLATFORM == "OSX_STEAM";
-        }
-    
-        public static bool IsRail()
-        {
-            return PLATFORM == "WIN32_RAIL";
-        }
-    
-        public static bool DEBUGGER_ENABLED = IsNotConsole() && CONFIGURATION != "PRODUCTION";
-
-        private static Dictionary<string, string> servers = new()
-        {
-            {"release", "https://dontstarve-release.appspot.com"},
-            {"dev", "https://dontstarve-dev.appspot.com"},
-            {"staging", "https://dontstarve-staging.appspot.com"}
+            typeof(Action<bool, string>),
         };
-        public static string GAME_SERVER = servers.ContainsKey(BRANCH) ? servers[BRANCH] : servers["release"];
-    
-        public static void VisitURL(string url, bool notrack = false)
+
+        public static LuaEnv LUA_ENV;
+
+        public static void Start()
         {
-            Debug.Log(notrack ? $"VisitURLNoTrack:{url}" : $"VisitURL:{url}");
+            LUA_ENV = new LuaEnv();
+            LUA_ENV.AddLoader(Loader);
+            
+            LUA_ENV.DoString("package.path = 'scripts/?.lua;scriptlibs/?.lua'");
+            LUA_ENV.DoString("TheSim = CS.DYT.TheSim.INSTANCE");
+            LUA_ENV.DoString("loadstring = CS.Newtonsoft.Json.DeserializeObject");
+            LUA_ENV.DoString("CONFIGURATION = 'PRODUCTION'");
+            LUA_ENV.DoString("PLATFORM = 'WIN32_STEAM'");
+            LUA_ENV.DoString("APP_REGION = 'NONE'");
+            LUA_ENV.DoString("walltime = TheSim.getrealtime");
+            LUA_ENV.DoString("TheInputProxy = CS.DYT.TheInputProxy");
+            LUA_ENV.DoString("unpack = CS.DYT.Lua.unpack");
+            LUA_ENV.DoString("TheSystemService = CS.DYT.TheSystemService");
+            LUA_ENV.DoString("kleiloadlua = CS.DYT.Lua.kleiloadlua");
+            LUA_ENV.DoString("setfenv = CS.DYT.Lua.setfenv");
+            LUA_ENV.DoString("kleifileexists = CS.DYT.Lua.kleifileexists");
+            LUA_ENV.DoString("TheGameService = CS.DYT.TheGameService");
+            LUA_ENV.DoString("RUN_GLOBAL_INIT = true");
+            
+            LUA_ENV.DoString("require 'main'");
         }
 
-        // used for A/B testing and preview features. Gets serialized into and out of save games
-        public static object GameplayOptions = new object();
-    
-    
-        public static object RequiredFilesForReload = new object();
-
-        public static void loadfile(string filename){}
-    
-        public static Constant.VERBOSITY VERBOSITY_LEVEL = Constant.VERBOSITY.ERROR;
-
-        private static bool user_metrics_option = PlayerProfile.GetAgreementsSetting();
-        public static bool METRICS_ENABLED = (PLATFORM != "PS4") && user_metrics_option;
-
-
-        public static Dictionary<string, GameObject> Prefabs = new();
-        public static Dictionary<int, EntityScript> Ents = new();
-        public static object AwakeEnts = new object();
-        public static object UpdatingEnts = new object();
-        public static object NewUpdatingEnts = new object();
-        public static object StopUpdatingEnts = new object();
-    
-        public static object StopUpdatingComponents = new object();
-    
-        public static object WallUpdatingEnts = new object();
-        public static Dictionary<int, EntityScript> NewWallUpdatingEnts = new();
-        public static int num_updating_ents = 0;
-        public static int NumEnts = 0;
-    
-    
-        public static EntityScript TheGlobalInstance = null;
-    
-        public static FollowCamera TheCamera = null;
-        public static object SplatManager = null;
-        public static object ShadowManager = null;
-        public static object RoadManager = null;
-        public static object EnvelopeManager = null;
-        public static object PostProcessor = null;
-    
-        public static object FontManager = null;
-        public static object MapLayerManager = null;
-        // TODO: Ask Jason about how safe this is later, regarding non-Porkland builds.
-        public static object InteriorManager = null;
-        public static object Roads = null;
-        public static FrontEnd TheFrontEnd = null;
-    
-        public static bool inGamePlay = false;
-
-        private static void ModSafeStartup()
+        public static string GetFilePath(string postPath)
         {
-            // If we failed to boot last time, disable all mods
-            // Otherwise, set a flag file to test for boot success.
-        
-            // PREFABS AND ENTITY INSTANTIATION
-        
-            ModManager.LoadMods();
-        
-            // Apply translations
-            LanguageTranslator.TranslateStringTable();
-        
-            // Register every standard prefab with the engine
-        
-            // This one needs to be active from the get-go.
-            MainFunctions.LoadPrefabFile("Prefabs/Global");
-            MainFunctions.LoadAchievements();
+            string prePath = $"{Application.persistentDataPath}/data";
+            
+            string filePath = $"{prePath}/DLC0003/{postPath}";
+            if (File.Exists(filePath)) return filePath;
+            
+            filePath = $"{prePath}/DLC0002/{postPath}";
+            if (File.Exists(filePath)) return filePath;
+            
+            filePath = $"{prePath}/DLC0001/{postPath}";
+            if (File.Exists(filePath)) return filePath;
+            
+            filePath = $"{prePath}/{postPath}";
+            if (File.Exists(filePath)) return filePath;
 
-            TheCamera = new FollowCamera();
-
-            #region GLOBAL ENTITY
-
-            TheGlobalInstance = MainFunctions.CreateEntity();
-            DontDestroyOnLoad(TheGlobalInstance.entity);
-            TheGlobalInstance.AddTag("NOBLOCK");
-
-            #endregion
-        
-            if (RUN_GLOBAL_INIT) MainFunctions.GlobalInit();
-        
-            // TODO
-            // SplatManager = TheGlobalInstance.entity:AddSplatManager() //雨滴声
-            // ShadowManager = TheGlobalInstance.entity:AddShadowManager()
-            // ShadowManager:SetTexture( "images/shadow.tex" ) //人物脚下阴影
-            // RoadManager = TheGlobalInstance.entity:AddRoadManager() //岩石路等
-            // EnvelopeManager = TheGlobalInstance.entity:AddEnvelopeManager() //未知
-        
-            // PostProcessor = TheGlobalInstance.entity:AddPostProcessor() //后处理器
-            // local IDENTITY_COLOURCUBE = "images/colour_cubes/identity_colourcube.tex"
-            // PostProcessor:SetColourCubeData( 0, IDENTITY_COLOURCUBE, IDENTITY_COLOURCUBE )
-            // PostProcessor:SetColourCubeData( 1, IDENTITY_COLOURCUBE, IDENTITY_COLOURCUBE )
-            // PostProcessor:SetBlurEnabled(false)
-            // FontManager = TheGlobalInstance.entity:AddFontManager() //字体管理器
-        
-            // Ask Jason about this later to see if this is safe for non-Porkland builds.
-            // InteriorManager = TheGlobalInstance.entity:AddInteriorManager()
-            // MapLayerManager = TheGlobalInstance.entity:AddMapLayerManager() //小地图相关
+            return null;
         }
-
-
-    
-        private void Awake()
+        private static byte[] Loader(ref string name)
         {
-            APP_VERSION = Application.version;
-        }
-
-        private void Start1()
-        {
-            TheConfig.Init();
-        
-            // true to indicate minimal load required for language.lua to read the profile.
-            PlayerProfile.Load(null, true);
-        
-            Language.Init();
-        
-            STRINGS.Init();
-        
-            Actions.Init();
-        
-            Recipes.Init();
-        
-            TheInput.Init();
-        
-            if (METRICS_ENABLED) Overseer.Init();
-        
-            FontsDefault.Init();
-        
-            WorldTileDefs.Init();
-        
-            if (TheConfig.IsEnabled("force_netbookmode")){}
-        
-            Debug.Log("running main.lua\n");
-        
-            // uncomment this line to override
-            VERBOSITY_LEVEL = Constant.VERBOSITY.WARNING;
-
-            float SEED = TheSim.GetRealTime();
-            DebugPrint.print("Sim Seed = ", SEED);
-            // math.randomseed(SEED)
-        
-            // instantiate the mixer
-            Mixes.Init();
-            // TheMixer.PushMix("start");
-
-            if (!MODS_ENABLED) ModSafeStartup();
-            else KnownModIndex.Load(() => KnownModIndex.BeginStartupSequence(ModSafeStartup));
-
-            ModManager.scriptErrorScreen = scriptErrorScreen;
+            string packagePath = (string)LUA_ENV.DoString("return package.path")[0];
+            string[] postPathArray = packagePath.Replace("?", name).Split(";");
+            foreach (string postPath in postPathArray)
+            {
+                string filePath = GetFilePath(postPath);
+                if (filePath != null) return File.ReadAllBytes(filePath);
+            }
+            return null;
         }
     }
 }

@@ -76,18 +76,21 @@ public class PlayerProfile
 
     public static void GetVolume(out int ambient, out int sfx, out int music)
     {
-        string volumeString = TheSim.GetSetting("audio", "volume_ambient");
-        ambient = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
-        volumeString = TheSim.GetSetting("audio", "volume_sfx");
-        sfx = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
-        volumeString = TheSim.GetSetting("audio", "volume_music");
-        music = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
+        // string volumeString = TheSim.GetSetting("audio", "volume_ambient");
+        // ambient = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
+        // volumeString = TheSim.GetSetting("audio", "volume_sfx");
+        // sfx = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
+        // volumeString = TheSim.GetSetting("audio", "volume_music");
+        // music = int.Parse(string.IsNullOrWhiteSpace(volumeString) ? "10" : volumeString);
+        ambient = 0;
+        sfx = 0;
+        music = 0;
     }
     public static void SetVolume(int ambient, int sfx, int music)
     {
-        TheSim.SetSetting("audio", "volume_ambient", ambient.ToString());
-        TheSim.SetSetting("audio", "volume_sfx", sfx.ToString());
-        TheSim.SetSetting("audio", "volume_music", music.ToString());
+        // TheSim.SetSetting("audio", "volume_ambient", ambient.ToString());
+        // TheSim.SetSetting("audio", "volume_sfx", sfx.ToString());
+        // TheSim.SetSetting("audio", "volume_music", music.ToString());
     }
 
     #region SCREEN FLASH
@@ -96,103 +99,110 @@ public class PlayerProfile
     {
         Debug.Log("Loading Screen Flash");
 
-        string setting = TheSim.GetSetting("graphics", "screen-flash");
-        Debug.Log($"Use Setting File: {setting}");
-        return setting == null ? 1 : int.Parse(setting);
+        // string setting = TheSim.GetSetting("graphics", "screen-flash");
+        // Debug.Log($"Use Setting File: {setting}");
+        // return setting == null ? 1 : int.Parse(setting);
+        return 0;
     }
     public static void SetScreenFlash(int value)
     {
         Debug.Log("SETTING SCREEN FLASH");
-        TheSim.SetSetting("graphics", "screen-flash", value.ToString());
+        // TheSim.SetSetting("graphics", "screen-flash", value.ToString());
     }
 
     #endregion
     
     public static bool GetBloomEnabled()
     {
-        return TheSim.GetSetting("graphics", "bloom") == "true";
+        // return TheSim.GetSetting("graphics", "bloom") == "true";
+        return false;
     }
     public static void SetBloomEnabled(bool enabled)
     {
-        TheSim.SetSetting("graphics", "bloom", enabled.ToString());
+        // TheSim.SetSetting("graphics", "bloom", enabled.ToString());
     }
     
     public static int GetHUDSize()
     {
-        string hudSizeString = TheSim.GetSetting("graphics", "hud-size");
-        return hudSizeString == null ? 5 : int.Parse(hudSizeString);
+        // string hudSizeString = TheSim.GetSetting("graphics", "hud-size");
+        // return hudSizeString == null ? 5 : int.Parse(hudSizeString);
+        return 0;
     }
     public static void SetHUDSize(int hudSize)
     {
-        TheSim.SetSetting("graphics", "HUD-size", hudSize.ToString());
+        // TheSim.SetSetting("graphics", "HUD-size", hudSize.ToString());
     }
 
     public static bool GetDLCSetting(string dlcName, string name)
     {
-        string setting = TheSim.GetSetting(dlcName, name);
-        return setting == null ? true : setting == "true";
+        // string setting = TheSim.GetSetting(dlcName, name);
+        // return setting == null ? true : setting == "true";
+        return false;
     }
     public static void SetDLCSetting(string dlcName, string name, bool value)
     {
-        TheSim.SetSetting(dlcName, name, value.ToString());
+        // TheSim.SetSetting(dlcName, name, value.ToString());
     }
     
     public static bool GetDistortionEnabled()
     {
-        string bloom = TheSim.GetSetting("graphics", "distortion");
-        return bloom == null ? true : bloom == "true";
+        // string bloom = TheSim.GetSetting("graphics", "distortion");
+        // return bloom == null ? true : bloom == "true";
+        return false;
     }
     public static void SetDistortionEnabled(bool enabled)
     {
-        TheSim.SetSetting("graphics", "distortion", enabled.ToString());
+        // TheSim.SetSetting("graphics", "distortion", enabled.ToString());
     }
     
     public static bool IsScreenShakeEnabled()
     {
-        string screenShakeString = TheSim.GetSetting("graphics", "screen-shake");
-        if (screenShakeString != null) return screenShakeString == "true";
+        // string screenShakeString = TheSim.GetSetting("graphics", "screen-shake");
+        // if (screenShakeString != null) return screenShakeString == "true";
         return true;
     }
     public static void SetScreenShakeEnabled(bool enabled)
     {
-        TheSim.SetSetting("graphics", "screen-shake", enabled.ToString());
+        // TheSim.SetSetting("graphics", "screen-shake", enabled.ToString());
     }
     
     public static bool IsWathgrithrFontEnabled()
     {
-        string wathgrithrFont = TheSim.GetSetting("misc", "wathgrithr-font");
-        return wathgrithrFont == null ? true : wathgrithrFont == "true";
+        // string wathgrithrFont = TheSim.GetSetting("misc", "wathgrithr-font");
+        // return wathgrithrFont == null ? true : wathgrithrFont == "true";
+        return true;
     }
     public static void SetWathgrithrFontEnabled(bool enabled)
     {
-        TheSim.SetSetting("misc", "wathgrithr-font", enabled.ToString());
+        // TheSim.SetSetting("misc", "wathgrithr-font", enabled.ToString());
     }
 
     public static bool GetVibrationEnabled()
     {
-        string setting = TheSim.GetSetting("misc", "vibration");
-        if (setting != null) return setting == "true";
+        // string setting = TheSim.GetSetting("misc", "vibration");
+        // if (setting != null) return setting == "true";
         return false;
     }
     public static void SetVibrationEnabled(bool enabled)
     {
-        TheSim.SetSetting("misc", "vibration", enabled.ToString());
+        // TheSim.SetSetting("misc", "vibration", enabled.ToString());
     }
 
     public static bool GetAgreementsSetting()
     {
-        string setting = TheSim.GetSetting("data-collection", "enabled");
+        // string setting = TheSim.GetSetting("data-collection", "enabled");
         // Default to true this value hasn't been created yet
-        if (setting == null) return true;
-        else
-        {
-            DebugPrint.print("FOUND THE NEW DATA", setting);
-            return setting == "true";
-        }
+        // if (setting == null) return true;
+        // else
+        // {
+        //     DebugPrint.print("FOUND THE NEW DATA", setting);
+        //     return setting == "true";
+        // }
+        return true;
     }
     public static void SetAgreementsSetting(bool enabled)
     {
-        TheSim.SetSetting("data-collection", "enabled", enabled.ToString());
+        // TheSim.SetSetting("data-collection", "enabled", enabled.ToString());
     }
 
     
@@ -208,11 +218,12 @@ public class PlayerProfile
 
     public static void SetModsWarning(bool enabled)
     {
-        TheSim.SetSetting("misc", "modswarning", enabled.ToString());
+        // TheSim.SetSetting("misc", "modswarning", enabled.ToString());
     }
     public static bool GetModsWarning()
     {
-        return TheSim.GetSetting("misc", "modswarning") != "false";
+        // return TheSim.GetSetting("misc", "modswarning") != "false";
+        return false;
     }
     
     public List<Level> GetWorldCustomizationPresets(int worldIndex)
@@ -229,13 +240,13 @@ public class PlayerProfile
 
     public static bool GetIntegratedBackpack()
     {
-        string setting = TheSim.GetSetting("misc", "integrated-backpack");
-        if (setting != null) return setting == "true";
+        // string setting = TheSim.GetSetting("misc", "integrated-backpack");
+        // if (setting != null) return setting == "true";
         return false;
     }
     public static void SetIntegratedBackpack(bool enabled)
     {
-        TheSim.SetSetting("misc", "integrated-backpack", enabled.ToString());
+        // TheSim.SetSetting("misc", "integrated-backpack", enabled.ToString());
     }
     
     #endregion
@@ -277,14 +288,14 @@ public class PlayerProfile
         if (dirty)
         {
             string str = JsonConvert.SerializeObject(persistData);
-            TheSim.SetPersistentString("profile", str, Main.ENCODE_SAVES, () => callback(false));
+            // TheSim.SetPersistentString("profile", str, MainSelf.ENCODE_SAVES, () => callback(false));
         }
         else callback?.Invoke(true);
     }
 
     public static void Load(Action<bool> callback, bool minimalLoad = false)
     {
-        TheSim.GetPersistentString(GetSaveName(), (loadSuccess, str) => GameLogic.Profile.Set(str, callback, minimalLoad), false);
+        // TheSim.GetPersistentString(GetSaveName(), (loadSuccess, str) => GameLogic.Profile.Set(str, callback, minimalLoad), false);
     }
 
     private static object GetValueOrDefault(object value, object defaultValue)
@@ -326,7 +337,7 @@ public class PlayerProfile
             TheMixer.SetLevel("set_ambience", ambient / 10f);
             TheMixer.SetLevel("set_music", music / 10f);
 
-            if (Main.TheFrontEnd)
+            if (MainSelf.TheFrontEnd)
             {
                 bool bloom_enabled = GetBloomEnabled();
                 bool distortion_enabled = GetDistortionEnabled();
@@ -366,12 +377,13 @@ public class PlayerProfile
 
     public static bool SawControllerPopup()
     {
-        return TheSim.GetSetting("misc", "controller_popup") == "true";
+        // return TheSim.GetSetting("misc", "controller_popup") == "true";
+        return false;
     }
 
     public static void ShowedControllerPopup()
     {
-        TheSim.SetSetting("misc", "controller_popup", "true");
+        // TheSim.SetSetting("misc", "controller_popup", "true");
     }
 
     public Constant.LANGUAGE GetLanguageID()

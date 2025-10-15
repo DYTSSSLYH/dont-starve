@@ -12,10 +12,10 @@ namespace DYT.Map.levels
             bool rog_installed = false;
             string level_type = null;
 
-            if (!string.IsNullOrWhiteSpace(Main.GEN_PARAMETERS))
+            if (!string.IsNullOrWhiteSpace(MainSelf.GEN_PARAMETERS))
             {
                 GenParameters parameters =
-                    JsonConvert.DeserializeObject<GenParameters>(Main.GEN_PARAMETERS);
+                    JsonConvert.DeserializeObject<GenParameters>(MainSelf.GEN_PARAMETERS);
                 rog_installed = parameters.ROGEnabled;
                 level_type = parameters.level_type;
             }

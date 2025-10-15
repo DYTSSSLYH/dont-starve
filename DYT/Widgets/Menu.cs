@@ -4,14 +4,14 @@ using UnityEngine.Events;
 
 namespace DYT.Widgets
 {
-    public class Menu : Widget
+    public class Menu : WidgetSelf
     {
-        public List<Widget> items { get; set; }
+        public List<WidgetSelf> items { get; set; }
         
         private int offset;
         public class MenuItem
         {
-            public Widget widget;
+            public WidgetSelf widget;
             public string text;
             public UnityAction cb;
             public Vector3 offset;
@@ -26,7 +26,7 @@ namespace DYT.Widgets
         public Menu Init(List<MenuItem> menuitems, int offset, bool horizontal)
         {
             this.offset = offset;
-            items = new List<Widget>();
+            items = new List<WidgetSelf>();
             this.horizontal = horizontal;
 
             if (menuitems != null)
@@ -57,14 +57,14 @@ namespace DYT.Widgets
                 pos = new Vector3(offset * (items.Count - 1) * -1, 0, 0);
             }
             
-            foreach (Widget widget in items)
+            foreach (WidgetSelf widget in items)
             {
                 widget.SetPosition(pos);
                 pos.x += offset;
             }
         }
 
-        public Widget AddCustomItem(Widget widget, Vector3? offset = null)
+        public WidgetSelf AddCustomItem(WidgetSelf widget, Vector3? offset = null)
         {
             Vector3 pos = Vector3.zero;
             if (horizontal) pos.x += this.offset * items.Count;

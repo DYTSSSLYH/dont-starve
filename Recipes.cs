@@ -927,7 +927,7 @@ public class Recipes
                 new Ingredient("thulecite", 5)
             }, Constant.RECIPETABS.ANCIENT, Constant.TECH.ANCIENT_FOUR, mergedGameTypes.ToArray(), null, null, true);
 
-        if (Main.ACCOMPLISHMENTS_ENABLED)
+        if (MainSelf.ACCOMPLISHMENTS_ENABLED)
             new Recipe("accomplishment_shrine",
                 new[] { new Ingredient("goldnugget", 10), new Ingredient("cutstone", 1), new Ingredient("gears", 6) },
                 Constant.RECIPETABS.SCIENCE, Constant.TECH.SCIENCE_TWO, new[] { Constant.RECIPE_GAME_TYPE.COMMON },

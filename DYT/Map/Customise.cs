@@ -83,7 +83,7 @@ namespace DYT.Map
         
         protected Customise()
         {
-            if (Main.PLATFORM == "PS4")
+            if (MainSelf.PLATFORM == "PS4")
             {
                 freqency_descriptions = new List<SpinnerOption>
                 {
@@ -112,7 +112,7 @@ namespace DYT.Map
                 };
             }
 
-            if (Main.PLATFORM == "PS4")
+            if (MainSelf.PLATFORM == "PS4")
             {
                 size_descriptions = new List<SpinnerOption>
                 {
@@ -524,7 +524,7 @@ namespace DYT.Map
             };
             
             //-- Fixup for frequency spinners that are _actually_ frequency (not density)
-            if (Main.PLATFORM == "PS4")
+            if (MainSelf.PLATFORM == "PS4")
             {
 	            GROUP["monsters"].items["treeguard"] = new CustomiseItem
 	            {

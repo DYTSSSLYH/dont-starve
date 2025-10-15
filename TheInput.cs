@@ -82,8 +82,8 @@ public static class TheInput
     
     public static bool ControllerConnected()
     {
-        if (Main.PLATFORM == "PS4") return true;
-        else if (Main.PLATFORM == "NACL") return false;
+        if (MainSelf.PLATFORM == "PS4") return true;
+        else if (MainSelf.PLATFORM == "NACL") return false;
         else
         {
             // need to take enabled into account

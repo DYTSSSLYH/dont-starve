@@ -27,7 +27,7 @@ public class SaveTile : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Main.TheFrontEnd.GetSound().PlayOneShot(audioClip);
+        MainSelf.TheFrontEnd.GetSound().PlayOneShot(audioClip);
         backgroundRectTransform.localScale = new Vector3(1.05f, 0.87f, 1);
         backgroundImage.sprite = ResourcesTool.LoadSprite("Images/SaveTile", "over");
     }

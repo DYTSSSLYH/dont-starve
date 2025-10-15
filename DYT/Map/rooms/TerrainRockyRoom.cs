@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainRockyRoom
     {
@@ -6,16 +8,16 @@
         {
 	        Rooms.AddRoom("BGChessRocky", new Room
 	        {
-		        colour = { r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
+		        colour = new Color{r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =
@@ -30,7 +32,7 @@
 
 	        Rooms.AddRoom("BGRocky", new Room
 	        {
-		        colour = { r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
+		        colour = new Color{r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -49,7 +51,7 @@
 			//-- No trees, lots of rocks, rare tallbird nest, very rare spiderden
 			Rooms.AddRoom("Rocky", new Room
 			{
-				colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+				colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 				value = Constant.GROUND.ROCKY,
 				tags = { "ExitPiece", "Chester_Eyebone" },
 				contents =
@@ -75,7 +77,7 @@
 
 	        Rooms.AddRoom("RockyBuzzards", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -93,7 +95,7 @@
 
 	        Rooms.AddRoom("GenericRockyNoThreat", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
@@ -116,7 +118,7 @@
 	        Rooms.AddRoom("MolesvilleRocky", new Room
 	        {
 		        //-- Replaced for MolesvilleRockyIsland in island.lua
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -143,7 +145,7 @@
 	        Rooms.AddRoom("MolesvilleRockyIsland", new Room
 	        {
 		        //-- Exists in island.lua
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -169,7 +171,7 @@
 
 	        Rooms.AddRoom("RockySpiders", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -191,7 +193,7 @@
 
 	        Rooms.AddRoom("RockyGold", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -212,7 +214,7 @@
 
 	        Rooms.AddRoom("RockyFlint", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -231,7 +233,7 @@
 
 	        Rooms.AddRoom("RockyTallBird", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -251,7 +253,7 @@
 
 	        Rooms.AddRoom("RockyBlueMushroom", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -269,7 +271,7 @@
 
 	        Rooms.AddRoom("RockyGoldBoon", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        contents =
 		        {
@@ -291,7 +293,7 @@
 			//-- Shipwrecked version os Rocky (can be seen above)
 	        Rooms.AddRoom("RockyIsland", new Room
 	        {
-		        colour = { r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
+		        colour = new Color{r = 0.55f, g = 0.75f, b = 0.75f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =

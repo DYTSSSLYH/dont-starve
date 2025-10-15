@@ -1,6 +1,9 @@
 ﻿// ------------------------------------------------------------------------------------
 // -- TEST ROOMS -----------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class TestRooms
@@ -9,7 +12,7 @@ namespace DYT.Map.rooms
         {
             Rooms.AddRoom("MaxPuzzle1", new Room
             {
-                colour = {r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f},
+                colour =new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f},
                 value = Constant.GROUND.MARSH,
                 contents =
                 {
@@ -30,7 +33,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("MaxPuzzle2", new Room
             {
-                colour = {r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f},
+                colour =new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f},
                 value = Constant.GROUND.MARSH,
                 contents =
                 {
@@ -50,7 +53,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("MaxPuzzle3", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.MARSH,
 	            contents =
 	            {
@@ -71,7 +74,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("SymmetryRoom", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.GRASS,
 	            contents =
 	            {
@@ -84,7 +87,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("TEST_ROOM", new Room
             {
-	            colour = { r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
+	            colour = new Color{r = 0.3f, g = 0.2f, b = 0.1f, a = 0.3f },
 	            value = Constant.GROUND.FUNGUS,
 	            contents =
 	            {
@@ -94,7 +97,7 @@ namespace DYT.Map.rooms
 		            },
 		            countprefabs =
 		            {
-			            ["flower"] = () => 4 + WorldGenMain.random.Next(4),
+			            ["flower"] = () => 4 + Random.Range(0,4),
 			            ["adventure_portal"] = () => 1,
 		            },
 		            distributepercent = 0.01f,
@@ -106,7 +109,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("MaxHome", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.IMPASSABLE,
 	            contents =
 	            {
@@ -118,7 +121,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("TestMixedForest", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.FOREST,
 	            contents =
 	            {
@@ -132,7 +135,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("TestSparseForest", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.FOREST,
 	            contents =
 	            {
@@ -145,7 +148,7 @@ namespace DYT.Map.rooms
             });
             Rooms.AddRoom("TestPineForest", new Room
             {
-	            colour = { r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
+	            colour = new Color{r = 0.3f, g = 0.8f, b = 0.5f, a = 0.50f },
 	            value = Constant.GROUND.FOREST,
 	            contents =
 	            {

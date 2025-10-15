@@ -24,7 +24,7 @@ public class Language
         {
             string file = Loc.GetStringFile(currentLocale.id);
             LanguageTranslator.LoadPOFile(file, currentLocale.code);
-            TheSim.SetUseUnicode(Loc.GetUseUnicode());
+            // TheSim.SetUseUnicode(Loc.GetUseUnicode());
         }
     }
 }

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class ScriptErrorScreen : Screen
+    public class ScriptErrorScreen : ScreenSelf
     {
         public Menu menu { get; private set; }
         
@@ -52,15 +51,15 @@ namespace DYT.Screens
             }
 
             version = transform.Find("Version").GetComponent<Text>().Init(20);
-            version.SetString($"Rev. {Main.APP_VERSION} {Main.PLATFORM}");
+            version.SetString($"Rev. {MainSelf.APP_VERSION} {MainSelf.PLATFORM}");
 
-            if (Main.PLATFORM != "PS4")
+            if (MainSelf.PLATFORM != "PS4")
             {
                 menu = rootTransform.Find("Menu").GetComponent<Menu>().Init(buttons, 200, true);
                 menu.SetHRegPoint(Constant.ANCHOR_MIDDLE);
                 default_focus = menu;
             }
-            AddChild(Main.TheFrontEnd.helptext);
+            AddChild(MainSelf.TheFrontEnd.helptext);
 
             disablemodwarning = rootTransform.Find("DisableModWarning").GetComponent<TextButton>().Init();
             if (showdisablemodwarning)
@@ -95,7 +94,7 @@ namespace DYT.Screens
 
         public void DisableSubmitButton()
         {
-            foreach (Widget menuItem in menu.items)
+            foreach (WidgetSelf menuItem in menu.items)
             {
                 Button button = menuItem as Button;
                 if (button && button.GetText() == "报告漏洞") button.Disable();

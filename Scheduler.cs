@@ -10,7 +10,7 @@ public class Periodic
     public object limit;
     public float nexttick;
     public List<Periodic> list;
-    public Action<Periodic, bool, EntityScript> onfinish;
+    public Action<Periodic, bool, EntityScriptSelf> onfinish;
     public object[] arg;
 
     public Periodic(Action fn, float period, object limit, object id, float nexttick, params object[] arg)

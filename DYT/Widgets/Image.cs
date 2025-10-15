@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DYT.Widgets
 {
     [RequireComponent(typeof(UnityEngine.UI.Image))]
-    public class Image : Widget
+    public class Image : WidgetSelf
     {
         public string atlas;
         public string tex;

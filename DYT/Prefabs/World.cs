@@ -6,7 +6,8 @@
 
         public bool IsCave()
         {
-            return inst.HasTag("Cave");
+            // return inst.HasTag("Cave");
+            return false;
         }
 
         #endregion

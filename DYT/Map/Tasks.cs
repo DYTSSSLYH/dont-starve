@@ -57,7 +57,6 @@ namespace DYT.Map
         static Tasks()
         {
             new LockAndKey();
-            new Terrain();
 
             
             JObject parameters = null;

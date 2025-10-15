@@ -1,6 +1,9 @@
 ﻿// --------------------------------------------------------------------------------
 // -- Merms 
 // --------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class MermsRooms
@@ -10,15 +13,14 @@ namespace DYT.Map.rooms
             Rooms.AddRoom("MermTown", new Room
             {
                 colour =
-                {
-                    r = 0.5f, g = 0.18f, b = 0.35f, a = 0.50f
+                new Color{r = 0.5f, g = 0.18f, b = 0.35f, a = 0.50f
                 },
                 value = Constant.GROUND.MARSH,
                 contents =
                 {
                     countprefabs =
                     {
-                        ["pighead"] = () => WorldGenMain.random.Next(6),
+                        ["pighead"] = () => Random.Range(0,6),
                     },
                     distributepercent = 0.1f,
                     distributeprefabs =

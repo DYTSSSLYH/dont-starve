@@ -108,10 +108,10 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -149,10 +149,10 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsEntrance3" },
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "PigRuinsEntrance4" },
+			        new SetPiece { name = "PigRuinsEntrance3" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsEntrance4" },
 		        },
 		        room_bg = Constant.GROUND.GASJUNGLE,
 		        background_room = "deeprainforest_gas",
@@ -224,10 +224,10 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsEntrance2" },
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsEntrance2" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -242,7 +242,7 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsEntrance1" }
+			        new SetPiece { name = "PigRuinsEntrance1" }
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -301,10 +301,10 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsExit1" },
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsExit1" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -321,7 +321,7 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "mandraketown" },
+			        new SetPiece { name = "mandraketown" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -403,12 +403,12 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsExit2" },
-			        new Task.Piece { name = "PigRuinsHead" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "PigRuinsArtichoke" },
-			        new Task.Piece { name = "nettlegrove" },
-			        new Task.Piece { name = "nettlegrove" },
+			        new SetPiece { name = "PigRuinsExit2" },
+			        new SetPiece { name = "PigRuinsHead" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "PigRuinsArtichoke" },
+			        new SetPiece { name = "nettlegrove" },
+			        new SetPiece { name = "nettlegrove" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "BG_deeprainforest_base",
@@ -425,14 +425,14 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "fountain_of_youth" },
-			        new Task.Piece { name = "pig_ruins_nocanopy" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_2" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_2" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_3" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_3" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_4" },
-			        new Task.Piece { name = "pig_ruins_nocanopy_4" },
+			        new SetPiece { name = "fountain_of_youth" },
+			        new SetPiece { name = "pig_ruins_nocanopy" },
+			        new SetPiece { name = "pig_ruins_nocanopy_2" },
+			        new SetPiece { name = "pig_ruins_nocanopy_2" },
+			        new SetPiece { name = "pig_ruins_nocanopy_3" },
+			        new SetPiece { name = "pig_ruins_nocanopy_3" },
+			        new SetPiece { name = "pig_ruins_nocanopy_4" },
+			        new SetPiece { name = "pig_ruins_nocanopy_4" },
 		        },
 		        room_bg = Constant.GROUND.RAINFOREST,
 		        background_room = "BG_rainforest_base",
@@ -461,8 +461,8 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "roc_nest" },
-			        new Task.Piece { name = "roc_cave" },
+			        new SetPiece { name = "roc_nest" },
+			        new SetPiece { name = "roc_cave" },
 		        },
 		        room_bg = Constant.GROUND.ROCKY,
 		        background_room = "BG_pinacle_base",
@@ -495,7 +495,7 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsExit4" },
+			        new SetPiece { name = "PigRuinsExit4" },
 		        },
 		        room_bg = Constant.GROUND.DEEPRAINFOREST,
 		        background_room = "deeprainforest_base_nobatcave",
@@ -525,7 +525,7 @@ namespace DYT.Map.tasks
 		        },
 		        set_pieces =
 		        {
-			        new Task.Piece { name = "PigRuinsEntrance5" },
+			        new SetPiece { name = "PigRuinsEntrance5" },
 		        },
 		        room_bg = Constant.GROUND.RAINFOREST,
 		        background_room = "rainforest_base_nobatcave",

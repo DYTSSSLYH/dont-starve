@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainSavannaRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGSavanna", new Room
             {
-                colour = { r = 0.8f, g = 0.8f, b = 0.2f, a = 0.50f },
+                colour = new Color{r = 0.8f, g = 0.8f, b = 0.2f, a = 0.50f },
                 value = Constant.GROUND.SAVANNA,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =
@@ -24,7 +26,7 @@
             //-- Very few Trees, very few rocks, rabbit holes, some beefalow, some grass
             Rooms.AddRoom("Plain", new Room
             {
-                colour = { r = 0.8f, g = 0.4f, b = 0.4f, a = 0.50f },
+                colour = new Color{r = 0.8f, g = 0.4f, b = 0.4f, a = 0.50f },
                 value = Constant.GROUND.SAVANNA,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =
@@ -42,7 +44,7 @@
             //-- Rabbit holes, Beefalow hurds if bigger
             Rooms.AddRoom("BarePlain", new Room
             {
-                colour = { r = 0.5f, g = 0.5f, b = 0.45f, a = 0.50f },
+                colour = new Color{r = 0.5f, g = 0.5f, b = 0.45f, a = 0.50f },
                 value = Constant.GROUND.SAVANNA,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =

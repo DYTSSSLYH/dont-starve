@@ -7,6 +7,8 @@ using DYT.Widgets;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+public delegate void ActionParams(params object[] objects);
+
 public class ModManager
 {
     public static GameObject scriptErrorScreen;
@@ -15,10 +17,10 @@ public class ModManager
     private static List<string> modnames = new();
     public class PostInitFns
     {
-        public Dictionary<string, List<ParamObjectArrayHandler>> LevelPreInit;
-        public List<ParamObjectArrayHandler> LevelPreInitAny;
-        public Dictionary<string, List<ParamObjectArrayHandler>> ComponentPostInit;
-        public List<ParamObjectArrayHandler> GamePostInit;
+        public Dictionary<string, List<ActionParams>> LevelPreInit;
+        public List<ActionParams> LevelPreInitAny;
+        public Dictionary<string, List<ActionParams>> ComponentPostInit;
+        public List<ActionParams> GamePostInit;
     }
     public class Environment
     {
@@ -33,10 +35,10 @@ public class ModManager
         #region PostInit
 
         public PostInitFns postinitfns;
-        public Action<string, ParamObjectArrayHandler> AddLevelPreInit;
-        public Action<ParamObjectArrayHandler> AddLevelPreInitAny;
-        public Action<string, ParamObjectArrayHandler> AddComponentPostInit;
-        public Action<ParamObjectArrayHandler> AddGamePostInit;
+        public Action<string, ActionParams> AddLevelPreInit;
+        public Action<ActionParams> AddLevelPreInitAny;
+        public Action<string, ActionParams> AddComponentPostInit;
+        public Action<ActionParams> AddGamePostInit;
 
         #endregion
 
@@ -45,7 +47,7 @@ public class ModManager
         public Dictionary<string, Prefab> Prefabs;
         public List<string> PrefabFiles;
         public FrontEnd TheFrontEnd;
-        public EntityScript TheGlobalInstance;
+        public EntityScriptSelf TheGlobalInstance;
     }
     private static List<Environment> mods = new();
     private static List<object> records = new();
@@ -64,8 +66,7 @@ public class ModManager
     
     private static void modprint(params object[] objects){}
 
-    public delegate void ParamObjectArrayHandler(params object[] objects);
-    private static ParamObjectArrayHandler runmodfn(ParamObjectArrayHandler fn,
+    private static ActionParams runmodfn(ActionParams fn,
         Environment mod, string modtype)
     {
         return objects => fn?.Invoke(objects);
@@ -111,7 +112,7 @@ public class ModManager
     
     public static void LoadMods(bool worldGenParam = false)
     {
-        if (!Main.MODS_ENABLED) return;
+        if (!MainSelf.MODS_ENABLED) return;
 
         worldgen = worldGenParam;
         
@@ -197,23 +198,23 @@ public class ModManager
         // now is a safe place to save those changes.
         KnownModIndex.Save();
 
-        if (Main.TheFrontEnd)
+        if (MainSelf.TheFrontEnd)
         {
             foreach (FailedMod badmod in failedmods)
             {
-                Main.TheFrontEnd.DisplayError(Object.Instantiate(scriptErrorScreen)
+                MainSelf.TheFrontEnd.DisplayError(Object.Instantiate(scriptErrorScreen)
                     .GetComponent<ScriptErrorScreen>().Init("警告！",
                         "下列模组导致了故障： " +
                         $"{KnownModIndex.GetModFancyName(badmod.name)}\n{badmod.error}\n",
                         new List<Menu.MenuItem>
                         {
-                            new(){text = "退出游戏", cb = TheSim.ForceAbort},
+                            // new(){text = "退出游戏", cb = TheSim.ForceAbort},
                             new(){text = "禁用模组", cb = () =>
                             {
                                 KnownModIndex.DisableAllMods();
                                 KnownModIndex.Save(() => MainFunctions.SimReset());
                             }},
-                            new(){text = "模组论坛", nopop = true, cb = () => Main.VisitURL(
+                            new(){text = "模组论坛", nopop = true, cb = () => MainSelf.VisitURL(
                                 "http://forums.kleientertainment.com/index.php" +
                                 "?/forum/26-dont-starve-mods-and-tools/")}
                     }, Constant.ANCHOR_LEFT, "该模组将被禁用，请从模组菜单重新启用。", 20)
@@ -225,7 +226,7 @@ public class ModManager
 
     public static void RegisterPrefabs()
     {
-        if (!Main.MODS_ENABLED) return;
+        if (!MainSelf.MODS_ENABLED) return;
 
         foreach (string modname in enabledmods)
         {
@@ -259,18 +260,18 @@ public class ModManager
             {
                 prefabnames.Add(name);
                 // copy the prefabs back into the main environment
-                Main.Prefabs.Add(name, mod.Prefabs[name].gameObject);
+                // MainSelf.Prefabs.Add(name, mod.Prefabs[name].gameObject);
             }
             
             Debug.Log($"Mod: {ModUtil.ModInfoname(mod.modname)}  Registering default mod prefab");
             GameObject gameObject = new GameObject();
-            Prefab component = gameObject.AddComponent<Prefab>();
+            // Prefab component = gameObject.AddComponent<Prefab>();
             string newModName = $"MOD_{mod.modname}";
-            component.name = $"modbaseprefabs/{newModName}";
-            component.deps = prefabnames;
+            // component.name = $"modbaseprefabs/{newModName}";
+            // component.deps = prefabnames;
             MainFunctions.RegisterPrefabs(gameObject);
             
-            TheSim.LoadPrefabs(newModName);
+            // TheSim.LoadPrefabs(newModName);
             loadedprefabs.Add(modname);
         }
     }
@@ -280,7 +281,7 @@ public class ModManager
         foreach (string modname in loadedprefabs)
         {
             DebugPrint.print($"unloading prefabs for mod {ModUtil.ModInfoname(modname)}");
-            TheSim.UnloadPrefabs(new List<string>{modname});
+            // TheSim.UnloadPrefabs(new List<string>{modname});
         }
     }
 
@@ -311,10 +312,10 @@ public class ModManager
             else if (KnownModIndex.IsModForceEnabled(modName))
             {
                 modprint("@FORCEENABLED");
-                mod.TheFrontEnd = Main.TheFrontEnd;
-                mod.TheGlobalInstance = Main.TheGlobalInstance;
+                mod.TheFrontEnd = MainSelf.TheFrontEnd;
+                mod.TheGlobalInstance = MainSelf.TheGlobalInstance;
                 
-                foreach (ParamObjectArrayHandler modfn in mod.postinitfns.GamePostInit)
+                foreach (ActionParams modfn in mod.postinitfns.GamePostInit)
                 {
                     runmodfn(modfn, mod, "gamepostinit")();
                 }
@@ -324,10 +325,10 @@ public class ModManager
             else if (KnownModIndex.IsModEnabled(modName))
             {
                 modprint("@ENABLED");
-                mod.TheFrontEnd = Main.TheFrontEnd;
-                mod.TheGlobalInstance = Main.TheGlobalInstance;
+                mod.TheFrontEnd = MainSelf.TheFrontEnd;
+                mod.TheGlobalInstance = MainSelf.TheGlobalInstance;
                 
-                foreach (ParamObjectArrayHandler modfn in mod.postinitfns.GamePostInit)
+                foreach (ActionParams modfn in mod.postinitfns.GamePostInit)
                 {
                     runmodfn(modfn, mod, "gamepostinit")();
                 }
@@ -374,16 +375,16 @@ public class ModManager
             || !string.IsNullOrWhiteSpace(forcemodnames))
             && PlayerProfile.GetModsWarning())
         {
-            Main.TheFrontEnd.PushScreen(Object.Instantiate(scriptErrorScreen)
+            MainSelf.TheFrontEnd.PushScreen(Object.Instantiate(scriptErrorScreen)
                 .GetComponent<ScriptErrorScreen>().Init("模组已安装！", moddetail, new List<Menu.MenuItem>
                 {
-                    new(){text = "我明白", cb = () => Main.TheFrontEnd.PopScreen()},
+                    new(){text = "我明白", cb = () => MainSelf.TheFrontEnd.PopScreen()},
                     new(){text = "禁用模组", cb = () =>
                     {
                         KnownModIndex.DisableAllMods();
                         KnownModIndex.Save(() => MainFunctions.SimReset());
                     }},
-                    new(){text = "模组论坛", nopop = true, cb = () => Main.VisitURL(
+                    new(){text = "模组论坛", nopop = true, cb = () => MainSelf.VisitURL(
                         "http://forums.kleientertainment.com/index.php" +
                         "?/forum/26-dont-starve-mods-and-tools/")}
                 }, null, null, null, null, true)
@@ -391,13 +392,13 @@ public class ModManager
         }
         else if (KnownModIndex.WasLoadBad())
         {
-            Main.TheFrontEnd.PushScreen(Object.Instantiate(scriptErrorScreen)
+            MainSelf.TheFrontEnd.PushScreen(Object.Instantiate(scriptErrorScreen)
                 .GetComponent<ScriptErrorScreen>().Init("所有模组已禁用",
                     "游戏上次未正常启动。这可能是由于某个模组所致，因此所有模组已禁用。" +
                     "\n\n你可以从模组设置页面尝试重新启用这些模组。", new List<Menu.MenuItem>
                     {
-                        new(){text = "我明白", cb = () => Main.TheFrontEnd.PopScreen()},
-                        new(){text = "模组论坛", nopop = true, cb = () => Main.VisitURL(
+                        new(){text = "我明白", cb = () => MainSelf.TheFrontEnd.PopScreen()},
+                        new(){text = "模组论坛", nopop = true, cb = () => MainSelf.VisitURL(
                             "http://forums.kleientertainment.com/index.php" +
                             "?/forum/26-dont-starve-mods-and-tools/")}
                     }));
@@ -406,23 +407,23 @@ public class ModManager
         DisplayBadMods();
     }
 
-    public static List<ParamObjectArrayHandler> GetPostInitFns(string type, string id = null)
+    public static List<ActionParams> GetPostInitFns(string type, string id = null)
     {
-        List<ParamObjectArrayHandler> retfns = new();
+        List<ActionParams> retfns = new();
         foreach (string modname in enabledmods)
         {
             Environment mod = GetMod(modname);
             FieldInfo fieldInfo = typeof(PostInitFns).GetField(type);
             if (fieldInfo != null)
             {
-                List<ParamObjectArrayHandler> modfns;
+                List<ActionParams> modfns;
                 object value = fieldInfo.GetValue(mod.postinitfns);
                 if (!string.IsNullOrWhiteSpace(id))
-                    modfns = ((Dictionary<string, List<ParamObjectArrayHandler>>)value)[id];
-                else modfns = (List<ParamObjectArrayHandler>)value;
+                    modfns = ((Dictionary<string, List<ActionParams>>)value)[id];
+                else modfns = (List<ActionParams>)value;
                 if (modfns != null)
                 {
-                    foreach (ParamObjectArrayHandler modfn in modfns)
+                    foreach (ActionParams modfn in modfns)
                     {
                         retfns.Add(
                             runmodfn(modfn, mod, string.IsNullOrWhiteSpace(id) ? type : $"{type}: {id}"));

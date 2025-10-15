@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class BeefaloRooms
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BeefalowPlain", new Room
             {
-                colour = { r = 0.45f, g = 0.5f, b = 0.85f, a = 0.50f },
+                colour = new Color{r = 0.45f, g = 0.5f, b = 0.85f, a = 0.50f },
                 value = Constant.GROUND.SAVANNA,
                 contents =
                 {

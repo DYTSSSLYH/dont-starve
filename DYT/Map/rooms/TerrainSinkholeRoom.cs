@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainSinkholeRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGSinkholeRoom", new Room
             {
-                colour = { r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
+                colour = new Color{r = 0.15f, g = 0.18f, b = 0.15f, a = 0.50f },
                 value = Constant.GROUND.SINKHOLE,
                 //--tags = {"ForceConnected"},
                 contents =
@@ -30,7 +32,7 @@
                     {
                         ["spiderden"] = () =>
                         {
-                            if (WorldGenMain.random.NextDouble() < 0.1f)
+                            if (Random.value < 0.1)
                                 return "{ growable={stage=3}}";
                             else
                                 return "{ growable={stage=2}}";

@@ -153,8 +153,8 @@ public class SaveIndex
         // Will happen most of the time
         if (indexName == null) indexName = GetSaveIndexName();
 
-        TheSim.SetPersistentString(
-            indexName, JsonConvert.SerializeObject(data), Main.ENCODE_SAVES, callback, isbackup);
+        // TheSim.SetPersistentString(
+        //     indexName, JsonConvert.SerializeObject(data), MainSelf.ENCODE_SAVES, callback, isbackup);
     }
 
     public void Load(Action callback)
@@ -162,18 +162,18 @@ public class SaveIndex
         // This happens on game start.
         string filename = GetSaveIndexName();
         Debug.Log($"Attempting to load save file {filename}");
-        TheSim.GetPersistentString(filename, (load_success, str) =>
-        {
-            if (!string.IsNullOrWhiteSpace(str))
-            {
-                data = JsonConvert.DeserializeObject<Data>(str);
-                Debug.Log($"loaded {filename}");
-            }
-            else Debug.Log($"Could not load {filename}");
-
-            VerifyFiles(callback);
-            GuaranteeMinNumSlots(Constant.NUM_SAVE_SLOTS);
-        });
+        // TheSim.GetPersistentString(filename, (load_success, str) =>
+        // {
+        //     if (!string.IsNullOrWhiteSpace(str))
+        //     {
+        //         data = JsonConvert.DeserializeObject<Data>(str);
+        //         Debug.Log($"loaded {filename}");
+        //     }
+        //     else Debug.Log($"Could not load {filename}");
+        //
+        //     VerifyFiles(callback);
+        //     GuaranteeMinNumSlots(Constant.NUM_SAVE_SLOTS);
+        // });
     }
     
     // this also does recovery of pre-existing save files (sort of)
@@ -244,18 +244,18 @@ public class SaveIndex
 
     public void GetSaveDataForFile(string file, Action<SaveData> cb)
     {
-        TheSim.GetPersistentString(file, (load_success, str) =>
-        {
-            Assert.IsTrue(load_success, $"SaveIndex:GetSaveData: Load failed for file [{file}] " +
-                                        "please consider deleting this save slot and trying again.");
-            
-            Assert.IsNotNull(str, $"SaveIndex:GetSaveData: Encoded Savedata is NIL on load [{file}]");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(str),
-                $"SaveIndex:GetSaveData: Encoded Savedata is empty on load [{file}]");
-
-            SaveData savedata = JsonConvert.DeserializeObject<SaveData>(str);
-            cb(savedata);
-        });
+        // TheSim.GetPersistentString(file, (load_success, str) =>
+        // {
+        //     Assert.IsTrue(load_success, $"SaveIndex:GetSaveData: Load failed for file [{file}] " +
+        //                                 "please consider deleting this save slot and trying again.");
+        //     
+        //     Assert.IsNotNull(str, $"SaveIndex:GetSaveData: Encoded Savedata is NIL on load [{file}]");
+        //     Assert.IsFalse(string.IsNullOrWhiteSpace(str),
+        //         $"SaveIndex:GetSaveData: Encoded Savedata is empty on load [{file}]");
+        //
+        //     SaveData savedata = JsonConvert.DeserializeObject<SaveData>(str);
+        //     cb(savedata);
+        // });
     }
 
     public void GetSaveData(int slot, string mode, Action<SaveData> cb, bool ignoreslot = false)
@@ -345,8 +345,8 @@ public class SaveIndex
         current_slot = saveslot;
         string filename = GetSaveGameName(data.slotList[current_slot].currentMode, current_slot);
         
-        TheSim.SetPersistentString(filename, savedata, Main.ENCODE_SAVES,
-            () => onsavedatasaved(filename, cb));
+        // TheSim.SetPersistentString(filename, savedata, MainSelf.ENCODE_SAVES,
+        //     () => onsavedatasaved(filename, cb));
     }
 
 
@@ -396,7 +396,8 @@ public class SaveIndex
     {
         DateTime startTime = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
         long timeStamp = (long)(DateTime.Now - startTime).TotalSeconds;
-        return $"{TheSim.GetUserID()}-{timeStamp}-{slot}";
+        // return $"{TheSim.GetUserID()}-{timeStamp}-{slot}";
+        return null;
     }
     
     // The WORLD is the "depth" the player has traversed through the teleporters. 1, 2, 3, 4...

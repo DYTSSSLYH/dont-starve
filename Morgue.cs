@@ -63,11 +63,11 @@ public class Morgue
 
     public static void Load(Action<bool> callback)
     {
-        TheSim.GetPersistentString(GetSaveName(), (load_success, str) =>
-        {
-            // Can ignore the successfulness cause we check the string
-            Set(str, callback);
-        }, false);
+        // TheSim.GetPersistentString(GetSaveName(), (load_success, str) =>
+        // {
+        //     // Can ignore the successfulness cause we check the string
+        //     Set(str, callback);
+        // }, false);
     }
 
     public static void Set(string str, Action<bool> callback)

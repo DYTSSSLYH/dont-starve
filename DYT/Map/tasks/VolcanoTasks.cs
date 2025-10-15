@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DYT.Map.tasks
 {
@@ -15,25 +16,25 @@ namespace DYT.Map.tasks
                 gen_method = "volcano",
                 room_choices = new List<Dictionary<string, int>>
                 {
-                    new()
+                    new Dictionary<string, int>
                     {
-                        ["VolcanoLava"] = 6 + WorldGenMain.random.Next(0, 1)
+                        ["VolcanoLava"] = 6 + Random.Range(0, 1),
                     },
-                    new()
+                    new Dictionary<string, int>
                     {
-                        ["VolcanoNoise"] = 10 + WorldGenMain.random.Next(0, 1)
+                        ["VolcanoNoise"] = 10 + Random.Range(0, 1),
                     },
-                    new()
+                    new Dictionary<string, int>
                     {
-                        ["VolcanoNoise"] = 13 + WorldGenMain.random.Next(0, 1)
+                        ["VolcanoNoise"] = 13 + Random.Range(0, 1),
                     },
-                    new()
+                    new Dictionary<string, int>
                     {
                         ["VolcanoStart"] = 1,
                         ["VolcanoAltar"] = 1,
                         ["VolcanoObsidianBench"] = 1,
                         ["VolcanoCage"] = 1,
-                        ["VolcanoNoise"] = 13 + WorldGenMain.random.Next(0, 1)
+                        ["VolcanoNoise"] = 13 + Random.Range(0, 1),
                     },
                 },
                 room_bg = Constant.GROUND.VOLCANO,

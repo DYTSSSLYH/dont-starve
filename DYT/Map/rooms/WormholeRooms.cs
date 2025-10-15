@@ -1,6 +1,9 @@
 ﻿// ------------------------------------------------------------------------------------
 // -- WORMHOLE ------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class WormholeRooms
@@ -9,7 +12,7 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("Wormhole_Swamp", new Room
 	        {
-		        colour = { r = 1, g = 0, b = 0, a = 0.3f },
+		        colour =new Color{r = 1, g = 0, b = 0, a = 0.3f },
 		        value = Constant.GROUND.MARSH,
 		        contents =
 		        {
@@ -28,7 +31,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Wormhole_Plains", new Room
 	        {
-		        colour = { r = 1, g = 0, b = 0, a = 0.3f },
+		        colour =new Color{r = 1, g = 0, b = 0, a = 0.3f },
 		        value = Constant.GROUND.SAVANNA,
 		        contents =
 		        {
@@ -48,7 +51,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Wormhole_Burnt", new Room
 	        {
-		        colour = { r = 1, g = 0, b = 0, a = 0.3f },
+		        colour =new Color{r = 1, g = 0, b = 0, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
@@ -72,7 +75,7 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("Wormhole", new Room
 	        {
-		        colour = { r = 1, g = 0, b = 0, a = 0.3f },
+		        colour =new Color{r = 1, g = 0, b = 0, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
@@ -95,7 +98,7 @@ namespace DYT.Map.rooms
 	        Rooms.AddRoom("Sinkhole", new Room
 	        {
 		        //-- This room is used to tag for the caves - it will be removed later
-		        colour = { r = 0, g = 0, b = 0, a = 0.9f },
+		        colour =new Color{r = 0, g = 0, b = 0, a = 0.9f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
@@ -118,7 +121,7 @@ namespace DYT.Map.rooms
 
 	        Rooms.AddRoom("GrassySinkhole", new Room
 	        {
-		        colour = { r = 0, g = 0, b = 0, a = 0.9f },
+		        colour =new Color{r = 0, g = 0, b = 0, a = 0.9f },
 		        value = Constant.GROUND.GRASS,
 		        contents =
 		        {

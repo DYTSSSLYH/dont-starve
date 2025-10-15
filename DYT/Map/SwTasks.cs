@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DYT.Map.tasks;
+using UnityEngine;
 
 namespace DYT.Map
 {
@@ -14,9 +15,9 @@ namespace DYT.Map
 		        locks = { "NONE" },
 		        keys_given = { "PICKAXE", "AXE", "GRASS", "WOOD", "TIER1" },
 		        room_choices=new Dictionary<string, int>{
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["BarePlain"] = 1,
-			        ["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 1,
 		        },
 		        room_bg = Constant.GROUND.GRASS,
@@ -28,9 +29,9 @@ namespace DYT.Map
 		        locks = { "NONE" }, //-- Special story starting node
 		        keys_given = { "PICKAXE", "AXE", "GRASS", "WOOD", "TIER1", "TIER2" },
 		        room_choices=new Dictionary<string, int>{
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["BarePlain"] = 1,
-			        ["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 1,
 		        },
 		        room_bg = Constant.GROUND.GRASS,
@@ -42,9 +43,9 @@ namespace DYT.Map
 		        locks = { "NONE" },
 		        keys_given = { "TIER1" }, //-- Special story node has only one key
 		        room_choices=new Dictionary<string, int>{
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["BarePlain"] = 1,
-			        ["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 1,
 		        },
 		        room_bg = Constant.GROUND.GRASS,
@@ -59,7 +60,7 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        ["Pondopolis"] = 1,
 			        ["BeeClearing"] = 1,
-			        ["EvilFlowerPatch"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["EvilFlowerPatch"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 2,
 		        },
 		        room_bg = Constant.GROUND.GRASS,
@@ -73,7 +74,7 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        ["Pondopolis"] = 1,
 			        ["BeeClearing"] = 1,
-			        ["FlowerPatch"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["FlowerPatch"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 2,
 			        ["GrassyMoleColony"] = 1,
 		        },
@@ -176,7 +177,7 @@ namespace DYT.Map
 		        entrance_room = BlockerSets.all_walls,
 		        room_choices=new Dictionary<string, int>{
 			        ["Graveyard"] = 3,
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["DeepForest"] = 2,
 		        },
 		        room_bg = Constant.GROUND.ROCKY,
@@ -189,7 +190,7 @@ namespace DYT.Map
 		        keys_given = { "TRINKETS", "WOOD", "TIER3" },
 		        room_choices=new Dictionary<string, int>{
 			        ["Graveyard"] = 3,
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["DeepForest"] = 2,
 		        },
 		        room_bg = Constant.GROUND.ROCKY,
@@ -206,9 +207,9 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        ["Graveyard"] = 1,
 			        //--["Wormhole"] = 1,
-			        ["Rocky"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Clearing"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION)
+			        ["Rocky"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Clearing"] = Random.Range(0,Tasks.SIZE_VARIATION)
 		        },
 		        room_bg = Constant.GROUND.ROCKY,
 		        background_room = "BGNoise",
@@ -222,9 +223,9 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        ["Graveyard"] = 1,
 			        ["Sinkhole"] = 1,
-			        ["Rocky"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Clearing"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION)
+			        ["Rocky"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Clearing"] = Random.Range(0,Tasks.SIZE_VARIATION)
 		        },
 		        room_bg = Constant.GROUND.ROCKY,
 		        background_room = "BGNoise",
@@ -239,9 +240,9 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        //--["Wormhole"] = 1,
 			        ["PigVillage"] = 1,
-			        ["BGForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Marsh"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["BGForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Marsh"] = Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 1
 		        },
 		        room_bg = Constant.GROUND.FOREST,
@@ -255,9 +256,9 @@ namespace DYT.Map
 		        room_choices=new Dictionary<string, int>{
 			        //--["Wormhole"] = 1,
 			        ["PigVillage"] = 1,
-			        ["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["Marsh"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-			        ["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+			        ["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["Marsh"] = Random.Range(0,Tasks.SIZE_VARIATION),
+			        ["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 			        ["Clearing"] = 1,
 			        ["Sinkhole"] = 1
 		        },
@@ -292,7 +293,7 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["RockyBuzzards"] = 1,
 					//--["Wormhole"] = 1,
-					["GenericRockyNoThreat"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["GenericRockyNoThreat"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["MolesvilleRocky"] = 1,
 				},
 				room_bg = Constant.GROUND.ROCKY,
@@ -311,9 +312,9 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["PigVillage"] = 1,
 					//--["Wormhole"] = 1,
-					["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Marsh"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["DeepForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Marsh"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["DeepForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 1
 				},
 				room_bg = Constant.GROUND.FOREST,
@@ -327,9 +328,9 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["PigVillage"] = 1,
 					//--["Wormhole"] = 1,
-					["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Marsh"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["DeepForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Marsh"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["DeepForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 1
 				},
 				room_bg = Constant.GROUND.FOREST,
@@ -342,8 +343,8 @@ namespace DYT.Map
 				keys_given = { "PIGS" },
 				room_choices=new Dictionary<string, int>{
 					["PigCity"] = 1,
-					["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Clearing"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Clearing"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["DeepForest"] = 1,
 				},
 				room_bg = Constant.GROUND.SAVANNA,
@@ -356,8 +357,8 @@ namespace DYT.Map
 				keys_given = { "PIGS" },
 				room_choices=new Dictionary<string, int>{
 					["PigTown"] = 1,
-					["Forest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Clearing"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Clearing"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["DeepForest"] = 1,
 				},
 				room_bg = Constant.GROUND.GRASS,
@@ -388,7 +389,7 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["PigKingdom"] = 1,
 					//--["Wormhole"] = 1,
-					["DeepForest"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["DeepForest"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.FOREST,
 				background_room = "BGForest",
@@ -417,7 +418,7 @@ namespace DYT.Map
 					["PigKingdom"] = 1,
 					["GrassySinkhole"] = 1,
 					["MagicalDeciduous"] = 1,
-					["DeepDeciduous"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["DeepDeciduous"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGDeciduous",
@@ -432,10 +433,10 @@ namespace DYT.Map
 				keys_given = { "MEAT", "WOOL", "POOP", "HOUNDS", "WALRUS", "TIER4" },
 				entrance_room = BlockerSets.all_hounds,
 				room_choices=new Dictionary<string, int>{
-					["BeefalowPlain"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BeefalowPlain"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole_Plains"] = 1,
 					["WalrusHut_Plains"] = 1,
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.SAVANNA,
 				background_room = "BGSavanna",
@@ -446,10 +447,10 @@ namespace DYT.Map
 				locks = { "ADVANCED_COMBAT", "TIER3" },
 				keys_given = { "MEAT", "WOOL", "POOP", "WALRUS", "TIER4" },
 				room_choices=new Dictionary<string, int>{
-					["BeefalowPlain"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BeefalowPlain"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole_Plains"] = 1,
 					["WalrusHut_Plains"] = 1,
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.SAVANNA,
 				background_room = "BGSavanna",
@@ -461,9 +462,9 @@ namespace DYT.Map
 				keys_given = { "MEAT", "POOP", "WOOL", "GRASS", "TIER2" },
 				entrance_room = { "SanityWall" },
 				room_choices=new Dictionary<string, int>{
-					["BeefalowPlain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BeefalowPlain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole_Plains"] = 1,
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 2,
 				},
 				room_bg = Constant.GROUND.SAVANNA,
@@ -475,9 +476,9 @@ namespace DYT.Map
 				locks = { "ROCKS", "BASIC_COMBAT", "TIER1" },
 				keys_given = { "MEAT", "POOP", "WOOL", "GRASS", "TIER2" },
 				room_choices=new Dictionary<string, int>{
-					["BeefalowPlain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BeefalowPlain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole_Plains"] = 1,
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 2,
 				},
 				room_bg = Constant.GROUND.SAVANNA,
@@ -493,8 +494,8 @@ namespace DYT.Map
 				keys_given = { "MEAT" },
 				entrance_room = { "DenseRocks" },
 				room_choices=new Dictionary<string, int>{
-					["Moundfield"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Moundfield"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.FOREST,
 				background_room = "BGRocky",
@@ -505,8 +506,8 @@ namespace DYT.Map
 				locks = { "MEAT" },
 				keys_given = { "MEAT" },
 				room_choices=new Dictionary<string, int>{
-					["Moundfield"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Plain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Moundfield"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Plain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.FOREST,
 				background_room = "BGRocky",
@@ -520,10 +521,10 @@ namespace DYT.Map
 				locks = { "SPIDERDENS", "BASIC_COMBAT", "MONSTERS_DEFEATED", "TIER3" },
 				keys_given = { "MERMS", "MEAT", "SPIDERS", "SILK", "TIER4" },
 				room_choices=new Dictionary<string, int>{
-					["MermTown"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["SpiderMarsh"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Marsh"] = 3 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["DeepForest"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["MermTown"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["SpiderMarsh"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Marsh"] = 3 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["DeepForest"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.MARSH,
 				background_room = "BGMarsh",
@@ -536,9 +537,9 @@ namespace DYT.Map
 				entrance_room = { "SanityWall" },
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole"] = 1,
-					["Marsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Marsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.MARSH,
 				background_room = "BGMarsh",
@@ -552,9 +553,9 @@ namespace DYT.Map
 				entrance_room = BlockerSets.all_marsh,
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole"] = 1,
-					["Marsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Marsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["SlightlyMermySwamp"] = 1,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -567,9 +568,9 @@ namespace DYT.Map
 				keys_given = { "MEAT", "SILK", "SPIDERS", "TIER3" },
 				room_choices=new Dictionary<string, int>{
 					["Sinkhole"] = 1,
-					["Marsh"] = 5 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					//--["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION), 
-					//--["DeepForest"] = 1+WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Marsh"] = 5 + Random.Range(0,Tasks.SIZE_VARIATION),
+					//--["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION), 
+					//--["DeepForest"] = 1+Random.Range(0,Tasks.SIZE_VARIATION),
 					["SlightlyMermySwamp"] = 1,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -583,7 +584,7 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["SafeSwamp"] = 2,
 					//--["Wormhole_Swamp"] = 1,
-					["Marsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Marsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["SlightlyMermySwamp"] = 1,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -597,7 +598,7 @@ namespace DYT.Map
 				entrance_room = BlockerSets.all_tentacles,
 				room_choices=new Dictionary<string, int>{
 					["SpiderVillageSwamp"] = 1,
-					["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["SpiderMarsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["Forest"] = 2,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -615,7 +616,7 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["SpiderCity"] = 1,
 					["SpiderVillage"] = 2,
-					["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["SpiderMarsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["CrappyForest"] = 2,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -632,8 +633,8 @@ namespace DYT.Map
 				entrance_room = { "TentaclelandA" },
 				room_choices=new Dictionary<string, int>{
 					["MermTown"] = 1,
-					["Marsh"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["SlightlyMermySwamp"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Marsh"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["SlightlyMermySwamp"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.MARSH,
 				background_room = "BGMarsh",
@@ -650,8 +651,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["WalrusHut_Rocky"] = 1,
 					["WalrusHut_Plains"] = 1,
-					["BeefalowPlain"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["TallbirdNests"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BeefalowPlain"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["TallbirdNests"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.ROCKY,
 				background_room = "BGRocky",
@@ -666,9 +667,9 @@ namespace DYT.Map
 				keys_given = { "CHESSMEN", "GEARS", "WOOL", "POOP", "TIER3", "TIER4", "GOLD" },
 				entrance_room = BlockerSets.all_chess,
 				room_choices=new Dictionary<string, int>{
-					["ChessForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["ChessBarrens"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["ChessMarsh"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["ChessForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["ChessBarrens"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["ChessMarsh"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.ROCKY,
 				background_room = "BGChessRocky",
@@ -681,7 +682,7 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole_Swamp"] = 1,
 					["SpiderVillageSwamp"] = 1,
-					["SpiderMarsh"] = 2 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["SpiderMarsh"] = 2 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["Forest"] = 2,
 				},
 				room_bg = Constant.GROUND.MARSH,
@@ -695,7 +696,7 @@ namespace DYT.Map
 				//--},
 				//--room_choices=new Dictionary<string, int>{
 					//--["Forest"] = 1, 
-					//--["Nothing"] = 1+WorldGenMain.random.Next(Tasks.SIZE_VARIATION)
+					//--["Nothing"] = 1+Random.Range(0,Tasks.SIZE_VARIATION)
 				//--},  
 				//--room_bg=GROUND.IMPASSABLE,
 				//--colour={r=0.05f,g=0.05f,b=0.05f,a=1}
@@ -737,10 +738,10 @@ namespace DYT.Map
 				entrance_room = Util.ArrayUnion(BlockerSets.forest_easy, BlockerSets.all_grass, BlockerSets.walls_easy),
 				room_choices=new Dictionary<string, int>{
 					["BeefalowPlain"] = 1,
-					["MandrakeHome"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["MandrakeHome"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole"] = 1,
-					["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.FOREST,
 				background_room = "BGForest",
@@ -752,10 +753,10 @@ namespace DYT.Map
 				keys_given = { "POOP", "WOOL", "WOOD", "GRASS", "TIER2" },
 				room_choices=new Dictionary<string, int>{
 					["BeefalowPlain"] = 1,
-					["MandrakeHome"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["MandrakeHome"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					//--["Wormhole"] = 1,
-					["DeepForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["DeepForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.FOREST,
 				background_room = "BGForest",
@@ -848,8 +849,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["SpiderVillage"] = 2,
 					//--["Wormhole"] = 1,
-					["CrappyForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["CrappyDeepForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["CrappyForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["CrappyDeepForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 1
 				},
 				room_bg = Constant.GROUND.ROCKY,
@@ -863,8 +864,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["SpiderVillage"] = 2,
 					//--["Wormhole"] = 1,
-					["CrappyForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["CrappyDeepForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["CrappyForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["CrappyDeepForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
 					["Clearing"] = 1
 				},
 				room_bg = Constant.GROUND.ROCKY,
@@ -880,8 +881,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["BeeClearing"] = 1,
 					//--["Wormhole"] = 1,
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["FlowerPatch"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["FlowerPatch"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrass",
@@ -894,8 +895,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					["BeeClearing"] = 1,
 					//--["Wormhole"] = 1,
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["FlowerPatch"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["FlowerPatch"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrass",
@@ -908,9 +909,9 @@ namespace DYT.Map
 				entrance_room = { "Waspnests" },
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole"] = 1,
-					["Waspnests"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Forest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["FlowerPatch"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Waspnests"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["Forest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["FlowerPatch"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrass",
@@ -922,8 +923,8 @@ namespace DYT.Map
 				keys_given = { "BEEHAT" },
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole_Plains"] = 1,
-					["Rocky"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["FlowerPatch"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Rocky"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["FlowerPatch"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrassBurnt",
@@ -935,8 +936,8 @@ namespace DYT.Map
 				keys_given = { "BEEHAT", "GRASS", "TIER1" },
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole_Plains"] = 1,
-					["Rocky"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["FlowerPatch"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Rocky"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["FlowerPatch"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrass",
@@ -949,8 +950,8 @@ namespace DYT.Map
 				room_choices=new Dictionary<string, int>{
 					//--["Wormhole_Burnt"] = 1,
 					["BurntForestStart"] = 1,
-					["BurntForest"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["BurntClearing"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["BurntForest"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["BurntClearing"] = Random.Range(0,Tasks.SIZE_VARIATION),
 				},
 				room_bg = Constant.GROUND.GRASS,
 				background_room = "BGGrassBurnt",
@@ -982,18 +983,18 @@ namespace DYT.Map
 				keys_given = { "NONE" },
 				entrance_room = { "SanityWormholeBlocker" },
 				room_choices=new Dictionary<string, int>{
-					["Graveyard"] = WorldGenMain.random.Next(2),
-					["SpiderCity"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["Graveyard"] = Random.Range(0,2),
+					["SpiderCity"] = Random.Range(0,Tasks.SIZE_VARIATION),
 					["Waspnests"] = 1,
-					["WalrusHut_Rocky"] = WorldGenMain.random.Next(1),
-					["Pondopolis"] = WorldGenMain.random.Next(2),
-					["Tentacleland"] = WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Moundfield"] = WorldGenMain.random.Next(2),
-					["MermTown"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
-					["Trapfield"] = 1 + WorldGenMain.random.Next(2),
-					["ChessArea"] = WorldGenMain.random.Next(2),
+					["WalrusHut_Rocky"] = Random.Range(0,1),
+					["Pondopolis"] = Random.Range(0,2),
+					["Tentacleland"] = Random.Range(0,Tasks.SIZE_VARIATION),
+					["Moundfield"] = Random.Range(0,2),
+					["MermTown"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
+					["Trapfield"] = 1 + Random.Range(0,2),
+					["ChessArea"] = Random.Range(0,2),
 					["ChessMarsh"] = 1,
-					["SpiderMarsh"] = 2 + WorldGenMain.random.Next(2),
+					["SpiderMarsh"] = 2 + Random.Range(0,2),
 				},
 				room_bg = Constant.GROUND.MARSH,
 				background_room = "BGMarsh",
@@ -1006,7 +1007,7 @@ namespace DYT.Map
 				entrance_room = BlockerSets.all_chess,
 				room_choices=new Dictionary<string, int>{
 					["ChessArea"] = 2,
-					["MarbleForest"] = 1 + WorldGenMain.random.Next(Tasks.SIZE_VARIATION),
+					["MarbleForest"] = 1 + Random.Range(0,Tasks.SIZE_VARIATION),
 					["ChessBarrens"] = 2,
 				},
 				room_bg = Constant.GROUND.MARSH,

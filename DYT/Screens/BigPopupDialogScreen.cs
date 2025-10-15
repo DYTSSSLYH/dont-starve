@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class BigPopupDialogScreen : Screen
+    public class BigPopupDialogScreen : ScreenSelf
     {
         public Menu menu { get; private set; }
         

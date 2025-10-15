@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using DYT.Map;
 using Newtonsoft.Json;
+using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace DYT
 {
@@ -15,21 +17,22 @@ namespace DYT
         public PlayerProfile.Data profiledata;
         public bool[] DLCEnabled;
         public bool ROGEnabled;
+        public bool show_debug;
     }
     
     public class WorldGenMain
     {
         public static string GEN_PARAMETERS;
         
-        public static long SEED = TheSim.getrealtime();
+        // public static long SEED = TheSim.getrealtime();
         public static bool DEBUGSIGNS_ENABLED = false;
-        public static Random random = new((int)SEED);
         public static int WORLDGEN_MAIN = 1;
         public static bool POT_GENERATION = false;
     
         
         static WorldGenMain()
         {
+            // Random.InitState((int)SEED);
             DebugPrint.print("worldgen_main.lua MAIN = 1");
             
             // require("simutil")
@@ -57,12 +60,17 @@ namespace DYT
             new Tasks();
             DebugPrint.print("worldgen_main.lua MAIN = 2");
             
-            DebugPrint.print("SEED = ", SEED);
+            // DebugPrint.print("SEED = ", SEED);
             
             LoadParametersAndGenerate(false);
         }
 
 
+        public static void ShowDebug(object savedata)
+        {
+            
+        }
+        
         private static void OverrideTweaks(Level level, CustomScreen.ChangedOption world_gen_choices)
         {
             Customise customise = CustomisePork.Instance();
@@ -143,14 +151,14 @@ namespace DYT
             if (chosen["target_area"] == "Water")
             {
                 if (level.water_setpieces == null)
-                    level.water_setpieces = new Dictionary<string, Level.Piece>();
+                    level.water_setpieces = new Dictionary<string, SetPiece>();
                 if (level.water_setpieces[(string)chosen["choice"]] == null)
-                    level.water_setpieces[(string)chosen["choice"]] = new Level.Piece() { count = 0 };
+                    level.water_setpieces[(string)chosen["choice"]] = new SetPiece() { count = 0 };
                 level.water_setpieces[(string)chosen["choice"]].count += 1;
             }
             else
             {
-                if (level.set_pieces == null) level.set_pieces = new Dictionary<string, Level.Piece>();
+                if (level.set_pieces == null) level.set_pieces = new Dictionary<string, SetPiece>();
                 List<string> areas = GetAreasForChoice(chosen["target_area"], level);
                 if (areas == null) return;
 
@@ -158,7 +166,7 @@ namespace DYT
                 if (level.set_pieces[(string)chosen["choice"]] != null)
                     num_peices = level.set_pieces[(string)chosen["choice"]].count + 1;
                 level.set_pieces[(string)chosen["choice"]] =
-                    new Level.Piece { count = num_peices, tasks = areas };
+                    new SetPiece { count = num_peices, tasks = areas };
             }
         }
 
@@ -190,6 +198,50 @@ namespace DYT
             
             if (traps_override != "never") AddSingleSetPeice(level, "map/traps");
             if (poi_override != "never") AddSingleSetPeice(level, "map/pointsofinterest");
+            if (protected_override != "never") AddSingleSetPeice(level, "map/protected_resources");
+
+            Dictionary<string, float> multiply = new()
+            {
+                ["rare"] = 0.5f,
+                ["default"] = 1,
+                ["often"] = 1.5f,
+                ["mostly"] = 2.2f,
+                ["always"] = 3,
+            };
+
+            if (touchstone_override != "default" && level.set_pieces != null)
+            {
+                if (level.set_pieces["ResurrectionStone"] != null)
+                {
+                    if (touchstone_override != "never") level.set_pieces["ResurrectionStone"] = null;
+                    else
+                    {
+                        level.set_pieces["ResurrectionStone"].count = Mathf.CeilToInt(
+                            level.set_pieces["ResurrectionStone"].count * multiply[touchstone_override]
+                        );
+                    }
+                }
+                if (level.set_pieces["ResurrectionStoneSw"] != null)
+                {
+                    if (touchstone_override != "never") level.set_pieces["ResurrectionStoneSw"] = null;
+                    else
+                    {
+                        level.set_pieces["ResurrectionStoneSw"].count = Mathf.CeilToInt(
+                            level.set_pieces["ResurrectionStoneSw"].count * multiply[touchstone_override]
+                        );
+                    }
+                }
+            }
+
+            if (boons_override != "never")
+            {
+                //--Quick hack to get the boons in
+                int boons = UnityEngine.Random.Range(
+                    Mathf.FloorToInt(3 * multiply[boons_override]),
+                    Mathf.CeilToInt(8 * multiply[boons_override])
+                );
+                for (int idx = 1; idx <= boons; idx++ ) AddSingleSetPeice(level, "map/boons");
+            }
         }
 
         private static void FixWesUnlock(Level level, int progress, PlayerProfile.Data profile)
@@ -202,6 +254,27 @@ namespace DYT
                 level.set_pieces.Remove("WesUnlock");
             }
             else DebugPrint.print("Wes setpiece allowed in this level.");
+        }
+
+        private static void GetStartTask(Dictionary<string, Level.StartTask> start_tasks,
+            out string last_task, out Level.StartTask last_data)
+        {
+            last_task = null;
+            last_data = null;
+            
+            if (start_tasks == null) return;
+
+            float totalweight = 0;
+            foreach ((string task, Level.StartTask data) in start_tasks) totalweight += data.weight;
+            float thres = Random.Range(0, totalweight);
+            foreach ((string task, Level.StartTask data) in start_tasks)
+            {
+                thres -= data.weight;
+                if (thres > 0) continue;
+                last_task = task;
+                last_data = data;
+                return;
+            }
         }
 
         public static object GenerateNew(bool debug, GenParameters parameters)
@@ -334,15 +407,15 @@ namespace DYT
                                  "\n#\n#######\n");
             }
 
-            List<ModManager.ParamObjectArrayHandler> modfns =
+            List<ActionParams> modfns =
                 ModManager.GetPostInitFns("LevelPreInit", level.id);
-            foreach (ModManager.ParamObjectArrayHandler modfn in modfns)
+            foreach (ActionParams modfn in modfns)
             {
                 DebugPrint.print($"Applying mod to level '{level.id}'");
                 modfn(level);
             }
             modfns = ModManager.GetPostInitFns("LevelPreInitAny");
-            foreach (ModManager.ParamObjectArrayHandler modfn in modfns)
+            foreach (ActionParams modfn in modfns)
             {
                 DebugPrint.print("Applying mod to current level");
                 modfn(level);
@@ -350,6 +423,77 @@ namespace DYT
             
             OverrideTweaks(level, parameters.world_gen_choices);
             Dictionary<string,List<List<string>>> level_area_triggers = level.override_triggers;
+            AddSetPeices(level, parameters.world_gen_choices);
+
+            string id = level.id;
+            bool override_level_string = level.override_level_string;
+            string name = level.name ?? "ERROR";
+            bool hideminimap = level.hideminimap;
+
+            object teleportaction = level.teleportaction;
+            string teleportmaxwell = level.teleportmaxwell;
+            bool nomaxwell = level.nomaxwell;
+
+            string prefab = "forest";
+            if (
+                parameters.world_gen_choices.tweak != null
+                && parameters.world_gen_choices.tweak.ContainsKey("misc")
+            )
+            {
+                prefab = parameters.world_gen_choices.tweak["misc"]
+                    .GetValueOrDefault("location", "forest");
+            }
+            
+            GetStartTask(level.start_tasks, out string start_task, out Level.StartTask start_data);
+            if (start_task != null)
+            {
+                parameters.world_gen_choices.tweak["misc"]["start_task"] = start_task;
+                parameters.world_gen_choices.tweak["misc"]["start_setpeice"] = start_data.start_setpiece;
+                parameters.world_gen_choices.tweak["misc"]["start_node"] = start_data.start_node;
+                level.tasks.Add(start_task);
+            }
+
+            List<Task> choose_tasks = level.GetTasksForLevel(Tasks.sampletasks);
+            if (debug) choose_tasks = Tasks.oneofeverything;
+            //--print ("Generating new world","forest", max_map_width, max_map_height, choose_tasks)
+
+            object savedata = null;
+
+            int max_map_width = 1024; //-- 1024--256
+            int max_map_height = 1024; //-- 1024--256
+            
+            int tryNum = 0;
+            int maxtries = 5;
+
+            while (savedata == null)
+            {
+                tryNum++;
+                savedata = ForestMap.Generate(
+                    prefab, max_map_width, max_map_height, choose_tasks, parameters.world_gen_choices,
+                    parameters.level_type, level
+                );
+
+                if (savedata == null)
+                {
+                    if (tryNum > maxtries)
+                    {
+                        DebugPrint.print(string.Format(
+                            "An error occured during world gen, giving up! [try %d of %d]\\n\\n\\n\\n",
+                            tryNum, maxtries
+                        ));
+                        return null;
+                    }
+                    DebugPrint.print(string.Format(
+                        "An error occured during world gen, we will retry! [try %d of %d]\n\n\n\n",
+                        tryNum, maxtries
+                    ));
+                    //--assert(try <= maxtries, "Maximum world gen retries reached!")
+                    WorldSim.ResetAll();
+                }
+                else if (GEN_PARAMETERS == "" || parameters.show_debug) ShowDebug(savedata);
+            }
+            
+            DebugPrint.print(string.Format("Generated a world [try %d of %d]", tryNum, maxtries));
 
             return null;
         }

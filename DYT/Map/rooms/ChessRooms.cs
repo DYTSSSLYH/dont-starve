@@ -1,6 +1,9 @@
 ﻿// ------------------------------------------------------------------------------------
 // -- CHESS CORRUPTION ----------------------------------------------------------------
 // ------------------------------------------------------------------------------------
+
+using UnityEngine;
+
 namespace DYT.Map.rooms
 {
     public class ChessRooms
@@ -9,21 +12,21 @@ namespace DYT.Map.rooms
         {
 	        Rooms.AddRoom("ChessArea", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
+		        colour = new Color{r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
 		        value = Constant.GROUND.CHECKER,
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Maxwell1"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell2"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell3"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell4"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell6"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell7"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["Maxwell1"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell2"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell3"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell4"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell6"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell7"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.25f,
 			        distributeprefabs =
@@ -39,21 +42,21 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("MarbleForest", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
+		        colour = new Color{r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
 		        value = Constant.GROUND.CHECKER,
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Maxwell1"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell2"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell3"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell4"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell6"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell7"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["Maxwell1"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell2"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell3"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell4"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell6"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell7"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.75f,
 			        distributeprefabs =
@@ -69,18 +72,18 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("ChessMarsh", new Room
 	        {
-		        colour = { r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
+		        colour = new Color{r = 0.5f, g = 0.7f, b = 0.5f, a = 0.3f },
 		        value = Constant.GROUND.MARSH,
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Maxwell1"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell2"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell3"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["Maxwell1"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell2"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell3"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.2f,
 			        distributeprefabs =
@@ -94,18 +97,18 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("ChessForest", new Room
 	        {
-		        colour = { r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
+		        colour = new Color{r = 0.2f, g = 0.0f, b = 0.2f, a = 0.3f },
 		        value = Constant.GROUND.FOREST,
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Maxwell2"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell3"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell5"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["Maxwell2"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell3"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell5"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.3f,
 			        distributeprefabs =
@@ -129,19 +132,19 @@ namespace DYT.Map.rooms
 	        });
 	        Rooms.AddRoom("ChessBarrens", new Room
 	        {
-		        colour = { r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
+		        colour = new Color{r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
 		        value = Constant.GROUND.ROCKY,
 		        tags = { "ExitPiece", "Chester_Eyebone" },
 		        contents =
 		        {
 			        countstaticlayouts =
 			        {
-				        ["Maxwell1"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell3"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["Maxwell5"] = () => WorldGenMain.random.Next(0, 3) < 1 ? 1 : 0,
-				        ["ChessSpot1"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot2"] = () => WorldGenMain.random.Next(0, 3),
-				        ["ChessSpot3"] = () => WorldGenMain.random.Next(0, 3),
+				        ["Maxwell1"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell3"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["Maxwell5"] = () => Random.Range(0, 3) < 1 ? 1 : 0,
+				        ["ChessSpot1"] = () => Random.Range(0, 3),
+				        ["ChessSpot2"] = () => Random.Range(0, 3),
+				        ["ChessSpot3"] = () => Random.Range(0, 3),
 			        },
 			        distributepercent = 0.1f,
 			        distributeprefabs =

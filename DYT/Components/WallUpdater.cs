@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace DYT.Components
 {
-    [RequireComponent(typeof(EntityScript))]
+    [RequireComponent(typeof(EntityScriptSelf))]
     public class WallUpdater : MonoBehaviour
     {
-        public EntityScript inst;
+        public EntityScriptSelf inst;
         
         private Action<object, float> wallupdatefunc;
 
         public void Start()
         {
-            inst = GetComponent<EntityScript>();
+            inst = GetComponent<EntityScriptSelf>();
         }
         
         public void StartWallUpdating(Action<object, float> func)

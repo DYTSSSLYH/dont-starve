@@ -98,9 +98,9 @@ namespace DYT
             float py = dy * (-distance) + currentpos.y;
             float pz = dz * (-distance) + currentpos.z;
             
-            TheSim.instance.SetCameraPos(px, py, pz);
-            TheSim.instance.SetCameraDir(dx, dy, dz);
-            TheSim.instance.SetCameraFOV(fov);
+            TheSim.INSTANCE.SetCameraPos(px, py, pz);
+            TheSim.INSTANCE.SetCameraDir(dx, dy, dz);
+            TheSim.INSTANCE.SetCameraFOV(fov);
         }
 
         private float lerp(float lower, float upper, float t)

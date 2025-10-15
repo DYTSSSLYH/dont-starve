@@ -279,7 +279,7 @@ public class CustomScreen : MonoBehaviour
                         {
                             new(){text = "Yes", cb = () =>
                             {
-                                Main.TheFrontEnd.PopScreen();
+                                MainSelf.TheFrontEnd.PopScreen();
                                 optionOffset = 0;
                                 LoadPreset(newData);
                             }}
@@ -311,10 +311,10 @@ public class CustomScreen : MonoBehaviour
                 {
                     new(){text = "Yes", cb = () =>
                     {
-                        Main.TheFrontEnd.PopScreen();
+                        MainSelf.TheFrontEnd.PopScreen();
                         Destroy(gameObject);
                     }},
-                    new(){text = "No", cb = () => Main.TheFrontEnd.PopScreen()}
+                    new(){text = "No", cb = () => MainSelf.TheFrontEnd.PopScreen()}
                 });
         }
         else Destroy(gameObject);

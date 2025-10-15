@@ -21,7 +21,7 @@ public class Mix
 
     public void Apply()
     {
-        foreach (string key in levels.Keys) TheSim.instance.SetSoundVolume(key, levels[key]);
+        foreach (string key in levels.Keys) TheSim.INSTANCE.SetSoundVolume(key, levels[key]);
     }
     
     public void SetLevel(string channel, float level)
@@ -61,7 +61,7 @@ public class TheMixer
         if (top != null)
         {
             Mix snap = new Mix();
-            foreach (string key in top.levels.Keys) snap.SetLevel(key, TheSim.instance.GetSoundVolume(key));
+            foreach (string key in top.levels.Keys) snap.SetLevel(key, TheSim.INSTANCE.GetSoundVolume(key));
             return snap;
         }
 
@@ -76,12 +76,12 @@ public class TheMixer
     
     public static float GetLevel(string level)
     {
-        return TheSim.instance.GetSoundVolume(level);
+        return TheSim.INSTANCE.GetSoundVolume(level);
     }
     
     public static void SetLevel(string name, float level)
     {
-        TheSim.instance.SetSoundVolume(name, level);
+        TheSim.INSTANCE.SetSoundVolume(name, level);
     }
     
     public static void PopMix(string mixname)

@@ -1,4 +1,6 @@
-﻿namespace DYT.Map.rooms
+﻿using UnityEngine;
+
+namespace DYT.Map.rooms
 {
     public class TerrainNoiseRoom
     {
@@ -6,7 +8,7 @@
         {
             Rooms.AddRoom("BGNoise", new Room
             {
-                colour = { r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
+                colour = new Color{r = 0.66f, g = 0.66f, b = 0.66f, a = 0.50f },
                 value = Constant.GROUND.GROUND_NOISE,
                 tags = { "ExitPiece", "Chester_Eyebone" },
                 contents =

@@ -7,133 +7,89 @@ namespace DYT.Map
         private Dictionary<string, Layout>
             Rare = new()
             {
-                //--["Dev Graveyard"] = StaticLayout.Get("map/static_layouts/dev_graveyard"),
-            },
-            Jungle = new()
-            {
-                ["PoisonVines"] = new Layout
-                {
-                    type = Constant.LAYOUT.STATIC,
-                    width = 8,
-                    height = 8,
-                    start_mask = Constant.PLACE_MASK.NORMAL,
-                    fill_mask = Constant.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
-                    layout_position = Constant.LAYOUT_POSITION.CENTER,
-                    layout =
-                    {
-                        ["bush_vine"] =
-                        {
-                            new Layout.Item() { x = 0.866f, y = 0.5f, properties = { ["scenario"] = "vine_hideout" } },
-                            new Layout.Item() { x = 0.866f, y = -0.5f, properties = { ["scenario"] = "vine_hideout" } },
-                            new Layout.Item() { x = 0, y = -1, properties = { ["scenario"] = "vine_hideout" } },
-                            new Layout.Item()
-                                { x = -0.866f, y = -0.5f, properties = { ["scenario"] = "vine_hideout" } },
-                            new Layout.Item() { x = -0.866f, y = 0.5f, properties = { ["scenario"] = "vine_hideout" } },
-                            new Layout.Item() { x = 0, y = 1, properties = { ["scenario"] = "vine_hideout" } }
-                        },
-                        ["item_area"] =
-                        {
-                            new Layout.Item()
-                            {
-                                x = 0, y = 0, width = 0.4f, height = 0.4f,
-                                properties = { ["scenario"] = "snake_ambush" }
-                            }
-                        }
-                    },
-                    areas =
-                    {
-                        item_area = { "venomgland", "venomgland", "venomgland" }
-                    },
+                ["skeleton_dapper"] = StaticLayout.Get("map/static_layouts/skeleton_dapper"),
 
-                    scale = 2
-                },
+                //-- Prebuilt bases
+	            ["skeleton_researchlab1"] = StaticLayout.Get("map/static_layouts/skeleton_researchlab1"),
+	            ["skeleton_researchlab2"] = StaticLayout.Get("map/static_layouts/skeleton_researchlab2"),
+	            ["skeleton_researchlab3"] = StaticLayout.Get("map/static_layouts/skeleton_researchlab3"),
             },
-            TidalMarsh = new()
-            {
-                ["AirPollution"] =
-                {
-                    type = Constant.LAYOUT.CIRCLE_EDGE,
-                    width = 8,
-                    height = 8,
-                    start_mask = Constant.PLACE_MASK.NORMAL,
-                    fill_mask = Constant.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
-                    layout_position = Constant.LAYOUT_POSITION.CENTER,
-                    count =
-                    {
-                        ["poisonhole"] = 6,
-                    },
-                    layout =
-                    {
-                        ["item_area"] = { new Layout.Item() { x = 0, y = 0, width = 0.4f, height = 0.4f } }
-                    },
-                    areas =
-                    {
-                        item_area = { "spear_poison", "venomgland", "venomgland", "tentacle", "tentacle", "tentacle" }
-                    },
+            
+            Forest = new(){
+                ["skeleton_lumberjack"] = StaticLayout.Get("map/static_layouts/skeleton_lumberjack"),
+                ["skeleton_trapper"] = StaticLayout.Get("map/static_layouts/skeleton_trapper"),
+            },
+            
+            Grasslands = new(){
+                ["skeleton_entomologist"] = StaticLayout.Get("map/static_layouts/skeleton_entomologist"),
+                ["skeleton_farmer"] = StaticLayout.Get("map/static_layouts/skeleton_farmer"),
 
-                    scale = 3,
-                },
+                //-- Point of no interest
+                ["grass_spots"] = StaticLayout.Get("map/static_layouts/grass_spots"),
             },
-            OceanDeep = new()
+            
+            Dirt = new()
             {
-                ["FeedingFrenzy"] =
-                {
-                    type = Constant.LAYOUT.STATIC,
-                    water = true,
-                    layout =
-                    {
-                        ["cargoboat"] =
-                            { new Layout.Item { x = 0, y = 0, properties = { ["scenario"] = "sharx_ambush" } } },
-                    },
-                    scale = 1,
-                },
+                ["skeleton_miner_dirt"] = StaticLayout.Get("map/static_layouts/skeleton_miner_dirt"), //-- Protected by leifs
             },
-            AnyGround = new()
+            
+            Swamp = new()
             {
-                //-- ["Airstrike"] = StaticLayout.Get("map/static_layouts/traps/airstrike"),
-                ["Airstrike"] =
-                {
-                    type = Constant.LAYOUT.CIRCLE_EDGE,
-                    width = 8,
-                    height = 8,
-                    start_mask = Constant.PLACE_MASK.NORMAL,
-                    fill_mask = Constant.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
-                    layout_position = Constant.LAYOUT_POSITION.CENTER,
-                    count =
-                    {
-                        ["obsidian"] = 6,
-                    },
-                    layout =
-                    {
-                        ["volcanostaff"] =
-                            { new Layout.Item() { x = 0, y = 0, properties = { ["scenario"] = "staff_erruption" } } },
-                    },
-
-                    scale = 2,
-                },
+                ["skeleton_hunter_swamp"] = StaticLayout.Get("map/static_layouts/skeleton_hunter_swamp"), //-- Protected by tentcles
+            },
+            
+            Rocky = new()
+            {
+                ["skeleton_miner"] = StaticLayout.Get("map/static_layouts/skeleton_miner"),
+            },
+            
+            Savanna = new()
+            {
+                ["skeleton_camper"] = StaticLayout.Get("map/static_layouts/skeleton_camper"),
+                ["skeleton_hunter"] = StaticLayout.Get("map/static_layouts/skeleton_hunter"),
+            },
+            
+            Any = new()
+            {
+                //-- Professions
+                ["skeleton_wizard_ice"] = StaticLayout.Get("map/static_layouts/skeleton_wizard_ice"),
+                ["skeleton_wizard_fire"] = StaticLayout.Get("map/static_layouts/skeleton_wizard_fire"),
+                ["skeleton_warrior"] = StaticLayout.Get("map/static_layouts/skeleton_warrior"),
+                ["skeleton_construction"] = StaticLayout.Get("map/static_layouts/skeleton_construction"),
+                ["skeleton_fisher"] = StaticLayout.Get("map/static_layouts/skeleton_fisher"),
+                ["skeleton_graverobber"] = StaticLayout.Get("map/static_layouts/skeleton_graverobber"),
+                ["skeleton_night_hunter"] = StaticLayout.Get("map/static_layouts/skeleton_night_hunter"),
+                ["skeleton_summer"] = StaticLayout.Get("map/static_layouts/skeleton_summer"),
+                ["skeleton_rain_coat"] = StaticLayout.Get("map/static_layouts/skeleton_rain_coat"),
+            },
+            
+            //-- TODO: Add winter/summer, nighttime/dusk/day filters
+            Winter = new()
+            {
+                ["skeleton_winter_easy"] = StaticLayout.Get("map/static_layouts/skeleton_winter_easy"),
+                ["skeleton_winter_medium"] = StaticLayout.Get("map/static_layouts/skeleton_winter_medium"),
+                ["skeleton_winter_hard"] = StaticLayout.Get("map/static_layouts/skeleton_winter_hard"),
             };
         
         public Pointsofinterest()
         {
             new StaticLayout();
 
-            Dictionary<object, Dictionary<string, Layout>> SandboxModeTraps = new()
+            Dictionary<object, Dictionary<string, Layout>> SandboxModePointsofInterest = new()
             {
                 ["Rare"] = Rare,
-                ["Shipwrecked_Any"] = AnyGround,
-                [Constant.GROUND.JUNGLE] = Jungle,
-                [Constant.GROUND.TIDALMARSH] = TidalMarsh,
-                [Constant.GROUND.OCEAN_DEEP] = OceanDeep,
-                //--[GROUND.ROCKY] = Rocky,
-                //--[GROUND.SAVANNA] = Savanna,
-                //--[GROUND.GRASS] = Grasslands,
-                //--[GROUND.FOREST] = Forest,
-                //--[GROUND.MARSH] = Swamp,
-                //--[GROUND.DIRT] = Badlands,
+                ["Any"] = Any,
+                //--["Winter"] = Winter,
+                [Constant.GROUND.ROCKY] = Rocky,
+                [Constant.GROUND.DIRT] = Dirt,
+                [Constant.GROUND.SAVANNA] = Savanna,
+                [Constant.GROUND.GRASS] = Grasslands,
+                [Constant.GROUND.FOREST] = Forest,
+                [Constant.GROUND.MARSH] = Swamp,
             };
 
             Dictionary<string, Layout> layouts = new();
-            foreach ((object key, Dictionary<string, Layout> area) in SandboxModeTraps)
+            foreach ((object key, Dictionary<string, Layout> area) in SandboxModePointsofInterest)
             {
                 if (Util.GetTableSize(area) == 0) continue;
                 foreach ((string name, Layout layout) in area)
@@ -144,7 +100,7 @@ namespace DYT.Map
             }
 
             
-            Sandbox = SandboxModeTraps;
+            Sandbox = SandboxModePointsofInterest;
             Layouts = layouts;
         }
     }

@@ -4,7 +4,7 @@ using DYT;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class EntityScript : MonoBehaviour
+public class EntityScriptSelf : MonoBehaviour
 {
     public static object StopUpdatingComponents = new();
     public static object nearsightednames = null;
@@ -31,7 +31,7 @@ public class EntityScript : MonoBehaviour
     private Dictionary<MonoBehaviour, string> wallupdatecomponents;
     private List<string> _tagList = new();
 
-    public EntityScript Init()
+    public EntityScriptSelf Init()
     {
         entity = gameObject;
         components = new Dictionary<string, MonoBehaviour>();
@@ -60,7 +60,7 @@ public class EntityScript : MonoBehaviour
         if (wallupdatecomponents == null)
         {
             wallupdatecomponents = new Dictionary<MonoBehaviour, string>();
-            Main.NewWallUpdatingEnts.Add(GUID, this);
+            MainSelf.NewWallUpdatingEnts.Add(GUID, this);
         }
 
         string cmpname = null;
@@ -93,14 +93,14 @@ public class EntityScript : MonoBehaviour
         Assert.IsNotNull(monoBehaviour, $"component {name} does not exist!");
         
         components.Add(name, monoBehaviour);
-        List<ModManager.ParamObjectArrayHandler> postinitfns =
+        List<ActionParams> postinitfns =
             ModManager.GetPostInitFns("ComponentPostInit", name);
 
-        foreach (ModManager.ParamObjectArrayHandler fn in postinitfns) fn(monoBehaviour, this);
+        foreach (ActionParams fn in postinitfns) fn(monoBehaviour, this);
     }
 
 
-    private void task_finish(Periodic task, bool success, EntityScript inst)
+    private void task_finish(Periodic task, bool success, EntityScriptSelf inst)
     {
         if (inst && inst.pendingtasks != null && inst.pendingtasks.Contains(task))
         {

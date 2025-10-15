@@ -24,7 +24,7 @@ public class DLCButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     // Start is called before the first frame update
     private void Start()
     {
-        audioSource = Main.TheFrontEnd.GetSound();
+        audioSource = MainSelf.TheFrontEnd.GetSound();
     }
     
     public void OnPointerEnter(PointerEventData eventData)

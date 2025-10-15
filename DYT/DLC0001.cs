@@ -4,7 +4,7 @@
     {
         public static void Setup()
         {
-            TheSim.LoadPrefabs("DLC0001");
+            // TheSim.LoadPrefabs("DLC0001");
         }
     }
 }

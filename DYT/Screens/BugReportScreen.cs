@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using DYT.Components;
 using DYT.Widgets;
 using UnityEngine;
-using Screen = DYT.Widgets.Screen;
 
 namespace DYT.Screens
 {
-    public class BugReportScreen : Screen
+    public class BugReportScreen : ScreenSelf
     {
         private static string VALID_CHARS = @"[ a-zA-Z0-9.,:;\[\]\@!#$%&()'*+-/=?^_{|}~" + "\"]";
         
@@ -125,7 +124,7 @@ namespace DYT.Screens
             edit_button.Enable();
             DoTaskInTime_Hack(0.1f, () =>
             {
-                Main.TheFrontEnd.LockFocus(false);
+                MainSelf.TheFrontEnd.LockFocus(false);
                 SetFocus();
             });
         }
@@ -138,7 +137,7 @@ namespace DYT.Screens
             
             console_edit.SetFocus();
             console_edit.SetEditing(true);
-            Main.TheFrontEnd.LockFocus(true);
+            MainSelf.TheFrontEnd.LockFocus(true);
         }
 
         public void CancelButton()
@@ -146,16 +145,16 @@ namespace DYT.Screens
             string str = description_text.GetString().Trim();
             if (!string.IsNullOrWhiteSpace(str))
             {
-                Main.TheFrontEnd.PushScreen(Instantiate(cancelSubmitPopupDialogScreen)
+                MainSelf.TheFrontEnd.PushScreen(Instantiate(cancelSubmitPopupDialogScreen)
                     .GetComponent<PopupDialogScreen>().Init("取消错误报告？", "报告还未提交。\n确定要取消吗？",
                         new List<Menu.MenuItem>
                         {
-                            new(){text = "否", cb = () => Main.TheFrontEnd.PopScreen()},
+                            new(){text = "否", cb = () => MainSelf.TheFrontEnd.PopScreen()},
                             new(){text = "是", cb = () =>
                                 {
                                     UnPauseIfNeeded();
-                                    Main.TheFrontEnd.PopScreen();
-                                    Main.TheFrontEnd.PopScreen();
+                                    MainSelf.TheFrontEnd.PopScreen();
+                                    MainSelf.TheFrontEnd.PopScreen();
                                 }
                             }
                         }), true);
@@ -163,7 +162,7 @@ namespace DYT.Screens
             else
             {
                 UnPauseIfNeeded();
-                Main.TheFrontEnd.PopScreen(this);
+                MainSelf.TheFrontEnd.PopScreen(this);
             }
         }
 
@@ -176,19 +175,19 @@ namespace DYT.Screens
                     {
                         new(){text = "提交", cb = () =>
                         {
-                            Main.TheFrontEnd.PopScreen();
+                            MainSelf.TheFrontEnd.PopScreen();
                             FileBugReport();
                         }},
-                        new(){text = "取消", cb = () => Main.TheFrontEnd.PopScreen()}
+                        new(){text = "取消", cb = () => MainSelf.TheFrontEnd.PopScreen()}
                     });
             
-            Main.TheFrontEnd.PushScreen(bigPopupDialogScreen, true);
+            MainSelf.TheFrontEnd.PushScreen(bigPopupDialogScreen, true);
         }
 
         public void FileBugReport()
         {
-            TheSim.FileBugReport(description_text.GetString());
-            Main.TheFrontEnd.PushScreen(Instantiate(submittingBugReportPopup)
+            // TheSim.FileBugReport(description_text.GetString());
+            MainSelf.TheFrontEnd.PushScreen(Instantiate(submittingBugReportPopup)
                 .GetComponent<SubmittingBugReportPopup>().Init(needsUnPause), true);
         }
     }
