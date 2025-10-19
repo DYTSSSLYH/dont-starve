@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using Unity.SharpZipLib.Utils;
 using Unity.SharpZipLib.Zip;
 using UnityEngine;
@@ -142,6 +143,25 @@ namespace DYT
             return null;
         }
 
+        // NEW: Expose a helper to Lua that reuses our Loader to read a module as text
+        [LuaCallCSharp]
+        public static string KleiloadText(string name)
+        {
+            try
+            {
+                string tmp = name; // Loader requires ref string
+                var bytes = Loader(ref tmp);
+                if (bytes == null || bytes.Length == 0) return null;
+                // Most DS scripts are UTF-8
+                return Encoding.UTF8.GetString(bytes);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[KleiloadText] Failed to load '{name}': {e}");
+                return null;
+            }
+        }
+
         /* 2. 启动 xLua 并设置路径 */
         void StartLua()
         {
@@ -149,11 +169,99 @@ namespace DYT
 
             // 让 Lua 从 persistentDataPath 加载脚本
             luaEnv.AddLoader(Loader);
+
+            // Lua 5.1 兼容：提供 loadstring / unpack 等缺失全局
+            // 注意：必须在 require 任何脚本之前注入，避免 strict.lua 报未声明变量
+            luaEnv.DoString(@"
+                local g = _G
+                -- Lua 5.1: loadstring → Lua 5.2/5.3 的 load
+                if g.loadstring == nil then
+                    g.loadstring = function(src, chunkname)
+                        return load(src, chunkname)
+                    end
+                end
+                -- Lua 5.1: unpack → Lua 5.2/5.3 的 table.unpack
+                if g.unpack == nil then
+                    g.unpack = table.unpack
+                end
+            ", "compat_lua51");
+
+            // Lua 5.1: module / package.seeall 兼容垫片（legacy: module('xxx', package.seeall)）
+            // 注意：使用 rawset 避开 strict.lua 的 __newindex
+            luaEnv.DoString(@"
+                local g = _G
+                if rawget(g, 'module') == nil then
+                    local function _seeall(m)
+                        local mt = getmetatable(m)
+                        if not mt then
+                            mt = {}
+                            setmetatable(m, mt)
+                        end
+                        mt.__index = g
+                        return m
+                    end
+
+                    if rawget(package, 'seeall') == nil then
+                        rawset(package, 'seeall', _seeall)
+                    end
+
+                    local function _module(name, ...)
+                        assert(type(name) == 'string', 'bad argument #1 to module (string expected)')
+                        local m = package.loaded[name]
+                        if type(m) ~= 'table' then
+                            m = {}
+                            package.loaded[name] = m
+                        end
+                        -- 关键：在 strict 开启时，必须用 rawset 才能写入全局而不触发 __newindex
+                        rawset(g, name, m)
+                        for i = 1, select('#', ...) do
+                            local arg = select(i, ...)
+                            if arg == package.seeall then _seeall(m) end
+                        end
+                        return m
+                    end
+                    -- 同样用 rawset 安全注册 module 全局
+                    rawset(g, 'module', _module)
+                end
+            ", "compat_module51");
             
+            luaEnv.DoString(
+                $"package.cpath = '{Application.persistentDataPath}/dont_starve_copy/bin/lualib/?.dll'"
+            );
             luaEnv.DoString("package.path = 'scripts/?.lua;scriptlibs/?.lua'");
+
+            // 注入 Lua 5.1 兼容：loaders -> searchers；并提供 kleiloadlua 的空实现（让搜索链继续）
+            luaEnv.DoString(@"
+                local pkg = package
+                pkg.loaders = pkg.loaders or pkg.searchers
+            ", "compat_preload");
+
+            // NEW: Provide global kleiloadlua using C# KleiloadText helper
+            luaEnv.DoString(@"
+                if rawget(_G, 'kleiloadlua') == nil then
+                    function kleiloadlua(name)
+                        local src = CS.DYT.GameLaunch.KleiloadText(name)
+                        if not src or src == '' then
+                            return '\n\tno file ' .. tostring(name) .. ' in package.path'
+                        end
+                        local chunk, err = load(src, name)
+                        if not chunk then
+                            return err or ('\n\tfailed to compile ' .. tostring(name))
+                        end
+                        return chunk
+                    end
+                end
+            ", "compat_kleiloadlua");
 
             // 注入 C# 桥接类（实例）——支持 Lua 冒号语法 TheSim:Func(...)
             luaEnv.Global.Set("TheSim", new TheSimBridge());
+
+            // 注入 FRAMES（与 DST 兼容：1/30 秒每帧）
+            luaEnv.DoString(@"
+                if rawget(_G, 'FRAMES') == nil then
+                    FRAMES = TheSim:GetTickTime()
+                end
+            ", "compat_frames");
 
             // 其他桥接/常量
             luaEnv.Global.Set("DATA", typeof(DataPath));
@@ -179,10 +287,16 @@ namespace DYT
     {
         public static string Root => Application.persistentDataPath;
     }
+    
+    // Delegates for Lua callbacks (xLua will map Lua functions to these)
+    [CSharpCallLua] public delegate void PersistentStringCallback(bool success, string data);
+    [CSharpCallLua] public delegate void SimpleCallback(bool success);
 
     [LuaCallCSharp]
     public class TheSimBridge
     {
+        private readonly string _saveRoot;
+        
         private readonly GameObject _audioGo;
         private readonly AudioReverbFilter _reverb;
 
@@ -197,6 +311,124 @@ namespace DYT
             _reverb = _audioGo.AddComponent<AudioReverbFilter>();
             _reverb.enabled = false;
             _reverb.reverbPreset = AudioReverbPreset.Off;
+        }
+        
+        // TheSim:LuaPrint → used by debugprint.lua/print(...)
+        public void LuaPrint(string message)
+        {
+            // Unity 控制台标准输出
+            Debug.Log(message ?? string.Empty);
+        }
+        
+        // Settings: simple persistence via PlayerPrefs
+        public void SetSetting(string section, string key, string value)
+        {
+            PlayerPrefs.SetString($"{section}-{key}", value ?? "");
+            PlayerPrefs.Save();
+        }
+
+        public string GetSetting(string section, string key)
+        {
+            string k = $"{section}-{key}";
+            return PlayerPrefs.HasKey(k) ? PlayerPrefs.GetString(k) : null;
+        }
+
+        public void DeleteSetting(string section, string key)
+        {
+            string k = $"{section}-{key}";
+            if (!PlayerPrefs.HasKey(k)) return;
+            
+            PlayerPrefs.DeleteKey(k);
+            PlayerPrefs.Save();
+        }
+
+        public void SetAgreementsSetting(string section, string key, string value)
+        {
+            PlayerPrefs.SetString($"agreements:{section}:{key}", value ?? "");
+            PlayerPrefs.Save();
+        }
+
+        public string GetAgreementsSetting(string section, string key)
+        {
+            string k = $"agreements:{section}:{key}";
+            return PlayerPrefs.HasKey(k) ? PlayerPrefs.GetString(k) : null;
+        }
+
+        // Lua: TheSim:GetPersistentString(name, function(success, data) ... end, allow_po)
+        public void GetPersistentString(string name, PersistentStringCallback callback, bool _allowPo)
+        {
+            string path = Path.Combine(Application.persistentDataPath, name);
+            try
+            {
+                if (File.Exists(path))
+                {
+                    string data = File.ReadAllText(path);
+                    callback?.Invoke(true, data);
+                }
+                else
+                {
+                    callback?.Invoke(false, "");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[TheSimBridge] GetPersistentString('{name}') error: {e}");
+                callback?.Invoke(false, "");
+            }
+        }
+
+        // Lua: TheSim:SetPersistentString(name, data, encode, function(success) ... end)
+        // Note: encode is ignored here (data is already encoded/decoded by Lua if needed).
+        public void SetPersistentString(string name, string data, bool _encode, SimpleCallback callback)
+        {
+            string path = Path.Combine(Application.persistentDataPath, name);
+            try
+            {
+                File.WriteAllText(path, data ?? "");
+                callback?.Invoke(true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[TheSimBridge] SetPersistentString('{name}') error: {e}");
+                callback?.Invoke(false);
+            }
+        }
+
+        // Return multiple values to Lua: object[] becomes multiple return values in xLua
+        public object[] UpdateDeviceCaps(int a, int b)
+        {
+            // Minimal no-op implementation: just echo back what came in
+            return new object[] { a, b };
+        }
+
+        // 与 DST 语义对齐：每逻辑帧时长 = 1/30 秒
+        // Lua 侧经常用 FRAMES = TheSim:GetTickTime()
+        public float GetTickTime()
+        {
+            return 1f / 30f;
+        }
+
+        // 可选：补充常见时间相关 API，避免下一个脚本再缺
+        public double GetTime()            => Time.timeAsDouble;                 // 受 timeScale 影响
+        public double GetRealTime()        => Time.realtimeSinceStartupAsDouble; // 不受 timeScale 影响
+        public float  GetTimeScale()       => Time.timeScale;
+        public void   SetTimeScale(float s)=> Time.timeScale = Mathf.Clamp(s, 0f, 10f);
+
+        // 兼容脚本：获取文件修改时间（秒，UTC）
+        public long GetFileModificationTime(string relativePath)
+        {
+            try
+            {
+                string p = GameLaunch.GetFilePath(relativePath) ?? relativePath;
+                if (!File.Exists(p)) return 0;
+                DateTime t = File.GetLastWriteTimeUtc(p);
+                return new DateTimeOffset(t).ToUnixTimeSeconds();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[TheSim] GetFileModificationTime('{relativePath}') 失败：{e.Message}");
+                return 0;
+            }
         }
 
         // Lua: TheSim:LoadTexture("relative/path.png")
