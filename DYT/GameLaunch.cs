@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Text;
-using Unity.SharpZipLib.Utils;
 using Unity.SharpZipLib.Zip;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using XLua;
 using ZipFile = Unity.SharpZipLib.Zip.ZipFile;
 
@@ -14,8 +14,43 @@ namespace DYT
 {
     public class GameLaunch : MonoBehaviour
     {
+        // 说明：
+        // - 把需要“Lua 调 C#”的类型放进 LuaCallCSharp 列表
+        // - 把需要“C# 调 Lua”的委托/接口签名放进 CSharpCallLua 列表
+        // - 修改后执行菜单 XLua/Generate Code
+        
+        [LuaCallCSharp]
+        public static List<Type> LuaCallCSharp = new List<Type>
+        {
+            // 你在 Lua 里直接访问到的类型
+            typeof(GameLaunch),               // Lua: CS.DYT.GameLaunch.KleiloadText(...)
+            typeof(TheSimBridge),             // Lua: TheSim:Method(...)
+            typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
+            typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
+            typeof(DataPath),                 // Lua: DATA = CS.DYT.DataPath
+
+            // 委托类型：Lua 将直接调用该 C# 委托（如 walltime）
+            typeof(Func<double>),
+        };
+
+        [CSharpCallLua]
+        public static List<Type> CSharpCallLua = new List<Type>
+        {
+            // 仅当你从 Lua 传函数进 C# 并由 C# 回调时才需要。
+            // 示例：如果 TheSimBridge 有如下签名：
+            // public delegate void PersistentStringCallback(bool success, string data);
+            // public delegate void SimpleCallback(bool success);
+            // 则把这些委托类型加入列表：
+            typeof(TheSimBridge.PersistentStringCallback),
+            typeof(TheSimBridge.SimpleCallback),
+
+            // 如果你用系统委托来收 Lua 回调（例如 Action<bool,string>），也需要列出来：
+            // typeof(System.Action<bool, string>),
+            // typeof(System.Action<bool>),
+        };
+        
         [Header("UI 可选：拖一个 Slider 进来显示进度")]
-        [SerializeField] UnityEngine.UI.Slider slider;
+        [SerializeField] Slider slider;
 
         public string RES_ZIP = "dont_starve_copy";          // StreamingAssets 里的资源包
         static string FlagFile => $"{Application.persistentDataPath}/.unpacked";
@@ -144,7 +179,7 @@ namespace DYT
         }
 
         // NEW: Expose a helper to Lua that reuses our Loader to read a module as text
-        [LuaCallCSharp]
+        
         public static string KleiloadText(string name)
         {
             try
@@ -161,7 +196,9 @@ namespace DYT
                 return null;
             }
         }
-
+        
+        Func<double> walltime = () => Time.realtimeSinceStartupAsDouble;
+        
         /* 2. 启动 xLua 并设置路径 */
         void StartLua()
         {
@@ -255,6 +292,9 @@ namespace DYT
 
             // 注入 C# 桥接类（实例）——支持 Lua 冒号语法 TheSim:Func(...)
             luaEnv.Global.Set("TheSim", new TheSimBridge());
+            luaEnv.Global.Set("DATA", typeof(DataPath));
+            luaEnv.Global.Set("TheInputProxy", new TheInputProxyBridge());
+            luaEnv.Global.Set("TheSystemService", new TheSystemServiceBridge());
 
             // 注入 FRAMES（与 DST 兼容：1/30 秒每帧）
             luaEnv.DoString(@"
@@ -264,9 +304,11 @@ namespace DYT
             ", "compat_frames");
 
             // 其他桥接/常量
-            luaEnv.Global.Set("DATA", typeof(DataPath));
             luaEnv.Global.Set("CONFIGURATION", "PRODUCTION");
             luaEnv.Global.Set("PLATFORM", "WIN32_STEAM");
+            luaEnv.Global.Set("APP_REGION", "NONE");
+            
+            luaEnv.Global.Set("walltime", walltime);
 
             // 启动主脚本
             luaEnv.DoString("require 'main'");
@@ -286,253 +328,5 @@ namespace DYT
     public static class DataPath
     {
         public static string Root => Application.persistentDataPath;
-    }
-    
-    // Delegates for Lua callbacks (xLua will map Lua functions to these)
-    [CSharpCallLua] public delegate void PersistentStringCallback(bool success, string data);
-    [CSharpCallLua] public delegate void SimpleCallback(bool success);
-
-    [LuaCallCSharp]
-    public class TheSimBridge
-    {
-        private readonly string _saveRoot;
-        
-        private readonly GameObject _audioGo;
-        private readonly AudioReverbFilter _reverb;
-
-        public TheSimBridge()
-        {
-            // 独立的音频节点，常驻场景
-            _audioGo = new GameObject("TheSimAudio");
-            UnityEngine.Object.DontDestroyOnLoad(_audioGo);
-
-            // 使用全局 ReverbFilter 控制环境混响
-            _audioGo.AddComponent<AudioSource>();
-            _reverb = _audioGo.AddComponent<AudioReverbFilter>();
-            _reverb.enabled = false;
-            _reverb.reverbPreset = AudioReverbPreset.Off;
-        }
-        
-        // TheSim:LuaPrint → used by debugprint.lua/print(...)
-        public void LuaPrint(string message)
-        {
-            // Unity 控制台标准输出
-            Debug.Log(message ?? string.Empty);
-        }
-        
-        // Settings: simple persistence via PlayerPrefs
-        public void SetSetting(string section, string key, string value)
-        {
-            PlayerPrefs.SetString($"{section}-{key}", value ?? "");
-            PlayerPrefs.Save();
-        }
-
-        public string GetSetting(string section, string key)
-        {
-            string k = $"{section}-{key}";
-            return PlayerPrefs.HasKey(k) ? PlayerPrefs.GetString(k) : null;
-        }
-
-        public void DeleteSetting(string section, string key)
-        {
-            string k = $"{section}-{key}";
-            if (!PlayerPrefs.HasKey(k)) return;
-            
-            PlayerPrefs.DeleteKey(k);
-            PlayerPrefs.Save();
-        }
-
-        public void SetAgreementsSetting(string section, string key, string value)
-        {
-            PlayerPrefs.SetString($"agreements:{section}:{key}", value ?? "");
-            PlayerPrefs.Save();
-        }
-
-        public string GetAgreementsSetting(string section, string key)
-        {
-            string k = $"agreements:{section}:{key}";
-            return PlayerPrefs.HasKey(k) ? PlayerPrefs.GetString(k) : null;
-        }
-
-        // Lua: TheSim:GetPersistentString(name, function(success, data) ... end, allow_po)
-        public void GetPersistentString(string name, PersistentStringCallback callback, bool _allowPo)
-        {
-            string path = Path.Combine(Application.persistentDataPath, name);
-            try
-            {
-                if (File.Exists(path))
-                {
-                    string data = File.ReadAllText(path);
-                    callback?.Invoke(true, data);
-                }
-                else
-                {
-                    callback?.Invoke(false, "");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[TheSimBridge] GetPersistentString('{name}') error: {e}");
-                callback?.Invoke(false, "");
-            }
-        }
-
-        // Lua: TheSim:SetPersistentString(name, data, encode, function(success) ... end)
-        // Note: encode is ignored here (data is already encoded/decoded by Lua if needed).
-        public void SetPersistentString(string name, string data, bool _encode, SimpleCallback callback)
-        {
-            string path = Path.Combine(Application.persistentDataPath, name);
-            try
-            {
-                File.WriteAllText(path, data ?? "");
-                callback?.Invoke(true);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[TheSimBridge] SetPersistentString('{name}') error: {e}");
-                callback?.Invoke(false);
-            }
-        }
-
-        // Return multiple values to Lua: object[] becomes multiple return values in xLua
-        public object[] UpdateDeviceCaps(int a, int b)
-        {
-            // Minimal no-op implementation: just echo back what came in
-            return new object[] { a, b };
-        }
-
-        // 与 DST 语义对齐：每逻辑帧时长 = 1/30 秒
-        // Lua 侧经常用 FRAMES = TheSim:GetTickTime()
-        public float GetTickTime()
-        {
-            return 1f / 30f;
-        }
-
-        // 可选：补充常见时间相关 API，避免下一个脚本再缺
-        public double GetTime()            => Time.timeAsDouble;                 // 受 timeScale 影响
-        public double GetRealTime()        => Time.realtimeSinceStartupAsDouble; // 不受 timeScale 影响
-        public float  GetTimeScale()       => Time.timeScale;
-        public void   SetTimeScale(float s)=> Time.timeScale = Mathf.Clamp(s, 0f, 10f);
-
-        // 兼容脚本：获取文件修改时间（秒，UTC）
-        public long GetFileModificationTime(string relativePath)
-        {
-            try
-            {
-                string p = GameLaunch.GetFilePath(relativePath) ?? relativePath;
-                if (!File.Exists(p)) return 0;
-                DateTime t = File.GetLastWriteTimeUtc(p);
-                return new DateTimeOffset(t).ToUnixTimeSeconds();
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning($"[TheSim] GetFileModificationTime('{relativePath}') 失败：{e.Message}");
-                return 0;
-            }
-        }
-
-        // Lua: TheSim:LoadTexture("relative/path.png")
-        public string LoadTexture(string relPath)
-        {
-            // 这里只是返回路径，真正解码可再包一层
-            return Path.Combine(DataPath.Root, relPath);
-        }
-
-        // Lua: TheSim:SetReverbPreset("default")
-        // 语义：根据预设名切换环境混响；"off"/nil 关闭混响；未知值降级为 Generic
-        public void SetReverbPreset(string presetName)
-        {
-            if (string.IsNullOrEmpty(presetName) || presetName.Equals("off", StringComparison.OrdinalIgnoreCase) ||
-                presetName.Equals("none", StringComparison.OrdinalIgnoreCase))
-            {
-                _reverb.enabled = false;
-                _reverb.reverbPreset = AudioReverbPreset.Off;
-                Debug.Log("[TheSim] Reverb OFF");
-                return;
-            }
-
-            AudioReverbPreset preset = MapPresetName(presetName);
-            _reverb.reverbPreset = preset;
-            _reverb.enabled = preset != AudioReverbPreset.Off;
-            Debug.Log($"[TheSim] Reverb set to {preset} (input='{presetName}')");
-        }
-
-        private static AudioReverbPreset MapPresetName(string raw)
-        {
-            // 依据 Don't Starve 的常见环境名进行直观映射；大小写不敏感
-            string key = raw.Trim().ToLowerInvariant();
-            switch (key)
-            {
-                case "default":
-                case "generic":
-                case "normal":
-                    return AudioReverbPreset.Generic;
-
-                case "cave":
-                case "ruins":
-                case "stone":
-                case "stone_room":
-                    return AudioReverbPreset.Cave;
-
-                case "forest":
-                case "woods":
-                    return AudioReverbPreset.Forest;
-
-                case "hallway":
-                case "corridor":
-                case "stonecorridor":
-                    return AudioReverbPreset.Hallway;
-
-                case "bathroom":
-                case "bath_room":
-                    return AudioReverbPreset.Bathroom;
-
-                case "room":
-                case "livingroom":
-                    return AudioReverbPreset.Livingroom;
-
-                case "arena":
-                case "auditorium":
-                case "concerthall":
-                case "concert_hall":
-                    return AudioReverbPreset.Concerthall;
-
-                case "alley":
-                    return AudioReverbPreset.Alley;
-
-                case "city":
-                    return AudioReverbPreset.City;
-
-                case "mountains":
-                case "mountain":
-                    return AudioReverbPreset.Mountains;
-
-                case "underwater":
-                    return AudioReverbPreset.Underwater;
-
-                case "hangar":
-                    return AudioReverbPreset.Hangar;
-
-                case "sewer":
-                case "sewerpipe":
-                    return AudioReverbPreset.SewerPipe;
-
-                case "plain":
-                case "plains":
-                    return AudioReverbPreset.Plain;
-
-                case "parkinglot":
-                case "parking_lot":
-                    return AudioReverbPreset.ParkingLot;
-
-                case "off":
-                case "none":
-                    return AudioReverbPreset.Off;
-
-                default:
-                    Debug.LogWarning($"[TheSim] Unknown reverb preset '{raw}', fallback to Generic");
-                    return AudioReverbPreset.Generic;
-            }
-        }
     }
 }
