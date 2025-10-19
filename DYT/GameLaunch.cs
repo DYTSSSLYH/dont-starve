@@ -27,7 +27,6 @@ namespace DYT
             typeof(TheSimBridge),             // Lua: TheSim:Method(...)
             typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
             typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
-            typeof(DataPath),                 // Lua: DATA = CS.DYT.DataPath
 
             // 委托类型：Lua 将直接调用该 C# 委托（如 walltime）
             typeof(Func<double>),
@@ -51,6 +50,8 @@ namespace DYT
         
         [Header("UI 可选：拖一个 Slider 进来显示进度")]
         [SerializeField] Slider slider;
+        
+        public TheSimBridge theSimBridge;
 
         public string RES_ZIP = "dont_starve_copy";          // StreamingAssets 里的资源包
         static string FlagFile => $"{Application.persistentDataPath}/.unpacked";
@@ -60,7 +61,7 @@ namespace DYT
         public static event Action onLuaStartDone; // Lua 已 ready
 
         /* 单例供外部取 LuaEnv */
-        public static LuaEnv luaEnv { get; private set; }
+        public static LuaEnv LUA_ENV;
 
         private IEnumerator Start()
         {
@@ -168,48 +169,63 @@ namespace DYT
         }
         private static byte[] Loader(ref string name)
         {
-            string packagePath = luaEnv.Global.Get<LuaTable>("package").Get<string>("path");;
+            string packagePath = LUA_ENV.Global.Get<LuaTable>("package").Get<string>("path");;
             string[] postPathArray = packagePath.Replace("?", name).Split(';');
             foreach (string postPath in postPathArray)
             {
                 string filePath = GetFilePath(postPath);
                 if (filePath != null) return File.ReadAllBytes(filePath);
             }
+            
+            Debug.LogError($"GameLaunch.cs -> Loader()\nParam: {name}");
             return null;
         }
+        
+        // kleifileexists 的具体实现
+        private static bool KleiFileExistsImpl(string kleiPath)
+        {
+            if (string.IsNullOrEmpty(kleiPath))
+                return false;
 
-        // NEW: Expose a helper to Lua that reuses our Loader to read a module as text
+            // 规范化路径分隔符
+            string norm = kleiPath.Replace('\\', '/');
+
+            // 1) 使用你已有的解析方法（应当把 Klei 的相对路径映射到磁盘实际路径）
+            string resolved = GetFilePath(norm);
+            if (!string.IsNullOrEmpty(resolved))
+                return true;
+
+            return false;
+        }
         
         public static string KleiloadText(string name)
         {
-            try
+            string filePath = GetFilePath(name);
+            if (filePath != null)
             {
-                string tmp = name; // Loader requires ref string
-                var bytes = Loader(ref tmp);
-                if (bytes == null || bytes.Length == 0) return null;
+                byte[] bytes = File.ReadAllBytes(filePath);
+                
                 // Most DS scripts are UTF-8
                 return Encoding.UTF8.GetString(bytes);
             }
-            catch (Exception e)
-            {
-                Debug.LogWarning($"[KleiloadText] Failed to load '{name}': {e}");
-                return null;
-            }
+            
+            Debug.LogError($"GameLaunch.cs -> KleiloadText()\nParam: {name}");
+            return null;
         }
         
         Func<double> walltime = () => Time.realtimeSinceStartupAsDouble;
         
         /* 2. 启动 xLua 并设置路径 */
-        void StartLua()
+        private void StartLua()
         {
-            luaEnv = new LuaEnv();
+            LUA_ENV = new LuaEnv();
 
             // 让 Lua 从 persistentDataPath 加载脚本
-            luaEnv.AddLoader(Loader);
+            LUA_ENV.AddLoader(Loader);
 
             // Lua 5.1 兼容：提供 loadstring / unpack 等缺失全局
             // 注意：必须在 require 任何脚本之前注入，避免 strict.lua 报未声明变量
-            luaEnv.DoString(@"
+            LUA_ENV.DoString(@"
                 local g = _G
                 -- Lua 5.1: loadstring → Lua 5.2/5.3 的 load
                 if g.loadstring == nil then
@@ -225,7 +241,7 @@ namespace DYT
 
             // Lua 5.1: module / package.seeall 兼容垫片（legacy: module('xxx', package.seeall)）
             // 注意：使用 rawset 避开 strict.lua 的 __newindex
-            luaEnv.DoString(@"
+            LUA_ENV.DoString(@"
                 local g = _G
                 if rawget(g, 'module') == nil then
                     local function _seeall(m)
@@ -262,19 +278,19 @@ namespace DYT
                 end
             ", "compat_module51");
             
-            luaEnv.DoString(
+            LUA_ENV.DoString(
                 $"package.cpath = '{Application.persistentDataPath}/dont_starve_copy/bin/lualib/?.dll'"
             );
-            luaEnv.DoString("package.path = 'scripts/?.lua;scriptlibs/?.lua'");
+            LUA_ENV.DoString("package.path = 'scripts/?.lua;scriptlibs/?.lua'");
 
             // 注入 Lua 5.1 兼容：loaders -> searchers；并提供 kleiloadlua 的空实现（让搜索链继续）
-            luaEnv.DoString(@"
+            LUA_ENV.DoString(@"
                 local pkg = package
                 pkg.loaders = pkg.loaders or pkg.searchers
             ", "compat_preload");
 
             // NEW: Provide global kleiloadlua using C# KleiloadText helper
-            luaEnv.DoString(@"
+            LUA_ENV.DoString(@"
                 if rawget(_G, 'kleiloadlua') == nil then
                     function kleiloadlua(name)
                         local src = CS.DYT.GameLaunch.KleiloadText(name)
@@ -291,42 +307,31 @@ namespace DYT
             ", "compat_kleiloadlua");
 
             // 注入 C# 桥接类（实例）——支持 Lua 冒号语法 TheSim:Func(...)
-            luaEnv.Global.Set("TheSim", new TheSimBridge());
-            luaEnv.Global.Set("DATA", typeof(DataPath));
-            luaEnv.Global.Set("TheInputProxy", new TheInputProxyBridge());
-            luaEnv.Global.Set("TheSystemService", new TheSystemServiceBridge());
+            LUA_ENV.Global.Set("TheSim", theSimBridge);
+            LUA_ENV.Global.Set("TheInputProxy", new TheInputProxyBridge());
+            LUA_ENV.Global.Set("TheSystemService", new TheSystemServiceBridge());
+            LUA_ENV.Global.Set("TheGameService", new TheGameServiceBridge());
 
             // 注入 FRAMES（与 DST 兼容：1/30 秒每帧）
-            luaEnv.DoString(@"
+            LUA_ENV.DoString(@"
                 if rawget(_G, 'FRAMES') == nil then
                     FRAMES = TheSim:GetTickTime()
                 end
             ", "compat_frames");
 
             // 其他桥接/常量
-            luaEnv.Global.Set("CONFIGURATION", "PRODUCTION");
-            luaEnv.Global.Set("PLATFORM", "WIN32_STEAM");
-            luaEnv.Global.Set("APP_REGION", "NONE");
+            LUA_ENV.Global.Set("CONFIGURATION", "PRODUCTION");
+            LUA_ENV.Global.Set("PLATFORM", "WIN32_STEAM");
+            LUA_ENV.Global.Set("APP_REGION", "NONE");
             
-            luaEnv.Global.Set("walltime", walltime);
+            LUA_ENV.Global.Set("walltime", walltime);
+            LUA_ENV.Global.Set("kleifileexists", new Func<string, bool>(KleiFileExistsImpl));
 
             // 启动主脚本
-            luaEnv.DoString("require 'main'");
+            LUA_ENV.DoString("require 'main'");
 
             onLuaStartDone?.Invoke();
             Debug.Log(">>> Lua 虚拟机启动完成");
         }
-
-        void OnDestroy()
-        {
-            luaEnv?.Dispose();
-            luaEnv = null;
-        }
-    }
-
-    /* 供 Lua 调用的示例桥 */
-    public static class DataPath
-    {
-        public static string Root => Application.persistentDataPath;
     }
 }

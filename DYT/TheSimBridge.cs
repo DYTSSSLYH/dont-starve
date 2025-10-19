@@ -2,12 +2,95 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Audio;
 using XLua;
 
 namespace DYT
 {
-    public class TheSimBridge
+    public class TheSimBridge : MonoBehaviour
     {
+        // ========= 新增：资产路径解析映射 =========
+
+        // Klei 脚本在 RegisterPrefabs 时调用 TheSim:OnAssetPathResolve(virtual, resolved)
+        // 我们记录这张映射表，后续需要时可查询
+        private readonly Dictionary<string, string> _assetPathMap =
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        // Lua: TheSim:OnAssetPathResolve(originalPath, resolvedPath)
+        public void OnAssetPathResolve(string originalPath, string resolvedPath)
+        {
+            if (string.IsNullOrEmpty(originalPath) || string.IsNullOrEmpty(resolvedPath))
+                return;
+
+            // 规范化分隔符
+            var key = originalPath.Replace('\\', '/');
+            var val = resolvedPath.Replace('\\', '/');
+
+            _assetPathMap[key] = val;
+            // 可选日志：Debug.Log($"[TheSimBridge] AssetPathResolve: {key} -> {val}");
+        }
+
+        // ========= 新增：Prefab 注册/加载占位 =========
+
+        // 记录注册过/加载中的 prefab 名称，避免 NRE
+        private readonly HashSet<string> _registeredPrefabs =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _loadedPrefabs =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Lua: TheSim:RegisterPrefab(name, assets, deps)
+        // 这里不做实际加载（Lua 已管理 Prefabs），仅登记名称，防止方法缺失
+        public void RegisterPrefab(string name, LuaTable assets, LuaTable deps)
+        {
+            if (string.IsNullOrEmpty(name)) return;
+            _registeredPrefabs.Add(name);
+        }
+        
+        public GameObject FindFirstEntityWithTag(string tag)
+        {
+            GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+            return objs.Length > 0 ? objs[0] : null;
+        }
+        
+        
+        // 可选：关联 Unity 的 AudioMixer 参数（比如 "volume_master" 等）
+        // 你可以在 Inspector 里把 channel->exposed parameter 对应起来
+        [Serializable]
+        public class ChannelMapping
+        {
+            public string channel;          // Lua侧的通道名
+            public string mixerParam;       // AudioMixer 暴露的参数名（比如 "vol_master"）
+        }
+
+        [Serializable]
+        public class DspParamMapping
+        {
+            [Tooltip("Lua 侧类别（category）")]
+            public string category;
+
+            [Tooltip("低通滤波的暴露参数名（单位：Hz；中性值一般为 22000）")]
+            public string lowPassParam;
+
+            [Tooltip("高通滤波的暴露参数名（单位：Hz；中性值一般为 10 或 20）")]
+            public string highPassParam;
+        }
+
+        [Header("Optional: Hook Unity AudioMixer")]
+        public AudioMixer audioMixer;
+        public AudioListener audioListener;
+
+        // 通道名 -> AudioMixer音量参数 的映射
+        private readonly Dictionary<string, string> _channelMap = new Dictionary<string, string>();
+
+        [Tooltip("类别 -> AudioMixer滤波参数 的映射")]
+        private readonly Dictionary<string, DspParamMapping> _dspParamMappings = new Dictionary<string, DspParamMapping>();
+        
+        // 以纯内存方式保存音量，未接入 AudioMixer 时也能工作
+        private readonly Dictionary<string, float> _volumes = new Dictionary<string, float>(StringComparer.Ordinal);
+
+        // 音效：简单的全局 Reverb（可被 SetReverbPreset 控制）
+        public AudioReverbFilter reverb;
+        
         // Delegates for Lua callbacks (xLua will map Lua functions to these)
         public delegate void PersistentStringCallback(bool success, string data);
         public delegate void SimpleCallback(bool success);
@@ -15,19 +98,141 @@ namespace DYT
         private readonly string _saveRoot;
         
         private readonly GameObject _audioGo;
-        private readonly AudioReverbFilter _reverb;
 
-        public TheSimBridge()
+        // =========================
+        // 生命周期与初始化
+        // =========================
+
+        private void Awake()
         {
-            // 独立的音频节点，常驻场景
-            _audioGo = new GameObject("TheSimAudio");
-            UnityEngine.Object.DontDestroyOnLoad(_audioGo);
-
             // 使用全局 ReverbFilter 控制环境混响
-            _audioGo.AddComponent<AudioSource>();
-            _reverb = _audioGo.AddComponent<AudioReverbFilter>();
-            _reverb.enabled = false;
-            _reverb.reverbPreset = AudioReverbPreset.Off;
+            reverb.enabled = false;
+            reverb.reverbPreset = AudioReverbPreset.Off;
+
+            // 示例映射（如需改为 Inspector 配置，可删除这里并改为通过序列化列表构建）
+            _channelMap.Add("set_sfx/HUD", "set_sfx/HUD");
+            _channelMap.Add("set_sfx/sfx", "set_sfx/sfx");
+            _channelMap.Add("set_music/soundtrack", "set_music/soundtrack");
+            _channelMap.Add("set_ambience/cloud", "set_ambience/cloud");
+            _channelMap.Add("set_sfx/movement", "set_sfx/movement");
+            _channelMap.Add("set_sfx/shadow", "set_sfx/shadow");
+            _channelMap.Add("set_sfx/creature", "set_sfx/creature");
+            _channelMap.Add("set_sfx/twister_attack", "set_sfx/twister_attack");
+            _channelMap.Add("set_sfx/voice", "set_sfx/voice");
+            _channelMap.Add("set_ambience/ambience", "set_ambience/ambience");
+            _channelMap.Add("set_sfx/player", "set_sfx/player");
+            _channelMap.Add("set_sfx/everything_else_muted", "set_sfx/everything_else_muted");
+            
+            // _dspParamMappings.Add();
+        }
+        
+        // scripts/modindex.lua 期望 TheSim:GetModDirectoryNames() 返回 Lua table（1..n）
+        public LuaTable GetModDirectoryNames()
+        {
+            string modsPath = Path.Combine(Application.persistentDataPath, "dont_starve_copy", "mods");
+            
+            string[] dirs = Directory.GetDirectories(modsPath);
+            List<string> names = new List<string>(dirs.Length);
+            foreach (string d in dirs)
+            {
+                try
+                {
+                    string fileName = Path.GetFileName(d);
+                    if (string.IsNullOrEmpty(fileName)) continue;
+                    if (fileName.StartsWith(".")) continue; // 忽略隐藏目录
+                    names.Add(fileName);
+                }
+                catch
+                {
+                    // 忽略单个目录的异常，继续扫描
+                }
+            }
+
+            // 将 C# 列表拷贝为 1-based Lua 表
+            LuaTable tbl = GameLaunch.LUA_ENV.NewTable();
+            for (int i = 0; i < names.Count; i++)
+            {
+                tbl.Set(i + 1, names[i]);
+            }
+            return tbl;
+        }
+
+        // =========================
+        // 音量 / 滤波 / 混响
+        // =========================
+
+        // 0..1 线性音量 → dB（AudioMixer 使用 dB）
+        private static float LinearToDb(float v)
+        {
+            const float minDb = -80f;
+            v = Mathf.Clamp01(v);
+            if (v <= 0.0001f) return minDb;
+            return Mathf.Lerp(minDb, 0f, Mathf.Log10(v) + 1f); // 简单映射，可按需调整
+        }
+
+        // Lua: TheSim:SetSoundVolume(channel, volume)
+        public void SetSoundVolume(string channel, float volume)
+        {
+            if (!_channelMap.TryGetValue(channel, out var pair))
+            {
+                Debug.LogError($"{channel} 音量参数未设置");
+                return;
+            }
+            
+            float v = Mathf.Clamp01(volume);
+            _volumes[channel] = v;
+
+            audioMixer.SetFloat(pair, LinearToDb(v));
+        }
+
+        // Lua: local v = TheSim:GetSoundVolume(channel)
+        public float GetSoundVolume(string channel)
+        {
+            return _volumes[channel];
+        }
+
+        // Lua: TheSim:SetLowPassFilter(category, cutoffHz)
+        public void SetLowPassFilter(string category, float cutoffHz)
+        {
+            if (!_dspParamMappings.TryGetValue(category, out var pair))
+            {
+                Debug.LogError($"{category} 滤波参数未设置");
+                return;
+            }
+            
+            // cutoffHz 通常范围 10..22000
+            float hz = Mathf.Clamp(cutoffHz, 10f, 22000f);
+            audioMixer.SetFloat(pair.lowPassParam, hz);
+        }
+
+        // Lua: TheSim:SetHighPassFilter(category, cutoffHz)
+        public void SetHighPassFilter(string category, float cutoffHz)
+        {
+            if (!_dspParamMappings.TryGetValue(category, out var pair))
+            {
+                Debug.LogError($"{category} 滤波参数未设置");
+                return;
+            }
+            
+            // cutoffHz 通常范围 10..22000
+            float hz = Mathf.Clamp(cutoffHz, 10f, 22000f);
+            audioMixer.SetFloat(pair.highPassParam, hz);
+        }
+
+        // Lua: TheSim:ClearDSP(category)
+        // 将该 category 的滤波参数恢复到“中性值”
+        // low-pass: 22000Hz（基本不影响）
+        // high-pass: 10Hz（基本不影响）
+        public void ClearDSP(string category)
+        {
+            if (!_dspParamMappings.TryGetValue(category, out var pair))
+            {
+                Debug.LogError($"{category} 滤波参数未设置");
+                return;
+            }
+            
+            audioMixer.SetFloat(pair.lowPassParam, 22000f);
+            audioMixer.SetFloat(pair.highPassParam, 10f);
         }
         
         // 返回按当前 Time.timeScale 缩放后的模拟 tick 计数（从 0 开始）
@@ -48,15 +253,6 @@ namespace DYT
             // 可选：持久化，防止下次启动丢失（看你是否需要）
             PlayerPrefs.SetInt("user_data_collection", enabled ? 1 : 0);
             PlayerPrefs.Save();
-
-            // 可选：在此处接入你的埋点/分析开关
-            // 例如 Unity Analytics、GameAnalytics、自研埋点等
-            // #if USE_UNITY_ANALYTICS
-            // AnalyticsService.Instance.SetAnalyticsEnabled(enabled);
-            // #endif
-
-            Debug.Log($"[TheSim] User data collection {(enabled ? "ENABLED" : "DISABLED")}");
-
         }
         
         // Default installed DLCs (match dlcsupport.lua: 1,2,3)
@@ -90,6 +286,10 @@ namespace DYT
             else
                 _installed.Remove(index);
         }
+
+        // =========================
+        // 日志 / 设置 / 持久化
+        // =========================
         
         // TheSim:LuaPrint → used by debugprint.lua/print(...)
         public void LuaPrint(string message)
@@ -179,6 +379,10 @@ namespace DYT
             return new object[] { a, b };
         }
 
+        // =========================
+        // 时间相关
+        // =========================
+
         // 与 DST 语义对齐：每逻辑帧时长 = 1/30 秒
         // Lua 侧经常用 FRAMES = TheSim:GetTickTime()
         public float GetTickTime()
@@ -209,13 +413,6 @@ namespace DYT
             }
         }
 
-        // Lua: TheSim:LoadTexture("relative/path.png")
-        public string LoadTexture(string relPath)
-        {
-            // 这里只是返回路径，真正解码可再包一层
-            return Path.Combine(DataPath.Root, relPath);
-        }
-
         // Lua: TheSim:SetReverbPreset("default")
         // 语义：根据预设名切换环境混响；"off"/nil 关闭混响；未知值降级为 Generic
         public void SetReverbPreset(string presetName)
@@ -223,15 +420,15 @@ namespace DYT
             if (string.IsNullOrEmpty(presetName) || presetName.Equals("off", StringComparison.OrdinalIgnoreCase) ||
                 presetName.Equals("none", StringComparison.OrdinalIgnoreCase))
             {
-                _reverb.enabled = false;
-                _reverb.reverbPreset = AudioReverbPreset.Off;
+                reverb.enabled = false;
+                reverb.reverbPreset = AudioReverbPreset.Off;
                 Debug.Log("[TheSim] Reverb OFF");
                 return;
             }
 
             AudioReverbPreset preset = MapPresetName(presetName);
-            _reverb.reverbPreset = preset;
-            _reverb.enabled = preset != AudioReverbPreset.Off;
+            reverb.reverbPreset = preset;
+            reverb.enabled = preset != AudioReverbPreset.Off;
             Debug.Log($"[TheSim] Reverb set to {preset} (input='{presetName}')");
         }
 
@@ -312,5 +509,59 @@ namespace DYT
                     return AudioReverbPreset.Generic;
             }
         }
+
+        // =========================
+        // Camera API
+        // =========================
+
+        private Vector3 cameraDir = Vector3.forward;
+        private Vector3 cameraUp = Vector3.up;
+
+        public void SetCameraPos(float x, float y, float z)
+        {
+            if (Camera.main != null)
+            {
+                Camera.main.transform.position = new Vector3(x, y, z);
+            }
+        }
+
+        public void SetCameraDir(float x, float y, float z)
+        {
+            cameraDir = new Vector3(x, y, z).normalized;
+            UpdateCameraRotation();
+        }
+
+        public void SetCameraUp(float x, float y, float z)
+        {
+            cameraUp = new Vector3(x, y, z).normalized;
+            UpdateCameraRotation();
+        }
+
+        private void UpdateCameraRotation()
+        {
+            if (Camera.main != null && cameraDir != Vector3.zero && cameraUp != Vector3.zero)
+            {
+                Camera.main.transform.rotation = Quaternion.LookRotation(cameraDir, cameraUp);
+            }
+        }
+
+        public void SetCameraFOV(float fov)
+        {
+            if (Camera.main != null)
+            {
+                Camera.main.fieldOfView = fov;
+            }
+        }
+
+        // =========================
+        // Audio Listener API
+        // =========================
+
+        public void SetListener(float lx, float ly, float lz, float dx, float dy, float dz, float ux, float uy, float uz)
+        {
+            audioListener.transform.position = new Vector3(lx, ly, lz);
+            audioListener.transform.rotation = Quaternion.LookRotation(new Vector3(dx, dy, dz).normalized, new Vector3(ux, uy, uz).normalized);
+        }
+
     }
 }
