@@ -9,6 +9,17 @@ namespace DYT
 {
     public class TheSimBridge : MonoBehaviour
     {
+        // 简短说明：按文件读入并用 LuaEnv.DoString 执行，chunk 名用真实路径/文件名，避免 require 的缓存与路径映射问题。
+        public void LoadPrefabs(string[] names)
+        {
+            foreach (string n in names)
+            {
+                string filePath = GameLaunch.GetFilePath($"scripts/prefabs/{n}.lua");
+
+                GameLaunch.LUA_ENV.DoString(File.ReadAllText(filePath), n);
+            }
+        }
+        
         // ========= 新增：资产路径解析映射 =========
 
         // Klei 脚本在 RegisterPrefabs 时调用 TheSim:OnAssetPathResolve(virtual, resolved)
@@ -51,8 +62,14 @@ namespace DYT
             GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
             return objs.Length > 0 ? objs[0] : null;
         }
-        
-        
+
+        // CreateEntity 改为返回 EntityScriptBridge，供 Lua CreateEntity() 使用
+        public EntityBridge CreateEntity()
+        {
+            return new EntityBridge();
+        }
+
+
         // 可选：关联 Unity 的 AudioMixer 参数（比如 "volume_master" 等）
         // 你可以在 Inspector 里把 channel->exposed parameter 对应起来
         [Serializable]

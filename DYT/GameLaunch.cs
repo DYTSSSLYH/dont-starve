@@ -25,6 +25,7 @@ namespace DYT
             // 你在 Lua 里直接访问到的类型
             typeof(GameLaunch),               // Lua: CS.DYT.GameLaunch.KleiloadText(...)
             typeof(TheSimBridge),             // Lua: TheSim:Method(...)
+            typeof(EntityBridge),   // 新增：允许 Lua 调用 entity:SetCanSleep(...)
             typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
             typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
 
@@ -167,7 +168,7 @@ namespace DYT
 
             return null;
         }
-        private static byte[] Loader(ref string name)
+        public static byte[] Loader(ref string name)
         {
             string packagePath = LUA_ENV.Global.Get<LuaTable>("package").Get<string>("path");;
             string[] postPathArray = packagePath.Replace("?", name).Split(';');
@@ -323,6 +324,7 @@ namespace DYT
             LUA_ENV.Global.Set("CONFIGURATION", "PRODUCTION");
             LUA_ENV.Global.Set("PLATFORM", "WIN32_STEAM");
             LUA_ENV.Global.Set("APP_REGION", "NONE");
+            LUA_ENV.Global.Set("RUN_GLOBAL_INIT", true);
             
             LUA_ENV.Global.Set("walltime", walltime);
             LUA_ENV.Global.Set("kleifileexists", new Func<string, bool>(KleiFileExistsImpl));

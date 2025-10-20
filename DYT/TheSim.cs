@@ -332,11 +332,6 @@ namespace DYT
             audioListenerGameObject.transform.up = new Vector3(ux, uy, uz);
         }
 
-        public Entity CreateEntity()
-        {
-            return new Entity(new GameObject());
-        }
-
     
     
         private int statusState;
