@@ -446,7 +446,7 @@ namespace DYT
             AudioReverbPreset preset = MapPresetName(presetName);
             reverb.reverbPreset = preset;
             reverb.enabled = preset != AudioReverbPreset.Off;
-            Debug.Log($"[TheSim] Reverb set to {preset} (input='{presetName}')");
+            Debug.LogWarning($"TheSim.cs -> SetReverbPreset() -> presetName='{presetName}'");
         }
 
         private static AudioReverbPreset MapPresetName(string raw)
@@ -578,6 +578,38 @@ namespace DYT
         {
             audioListener.transform.position = new Vector3(lx, ly, lz);
             audioListener.transform.rotation = Quaternion.LookRotation(new Vector3(dx, dy, dz).normalized, new Vector3(ux, uy, uz).normalized);
+        }
+
+        // =========================
+        // Font Management API
+        // =========================
+
+        // Lua: TheSim:LoadFont(filename, alias)
+        // Load a font file and register it with an alias for later use
+        public void LoadFont(string filename, string alias)
+        {
+            FontManager.Instance.LoadFont(filename, alias);
+        }
+
+        // Lua: TheSim:UnloadFont(alias)
+        // Unload a previously loaded font by its alias
+        public void UnloadFont(string alias)
+        {
+            FontManager.Instance.UnloadFont(alias);
+        }
+
+        // Lua: TheSim:SetupFontFallbacks(alias, fallback)
+        // Setup fallback fonts for a given font alias
+        public void SetupFontFallbacks(string alias, string fallback)
+        {
+            FontManager.Instance.SetupFontFallbacks(alias, fallback);
+        }
+
+        // Lua: TheSim:AdjustFontAdvance(alias, advance)
+        // Adjust the advance width of a font
+        public void AdjustFontAdvance(string alias, float advance)
+        {
+            FontManager.Instance.AdjustFontAdvance(alias, advance);
         }
 
     }

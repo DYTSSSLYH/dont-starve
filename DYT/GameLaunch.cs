@@ -178,7 +178,7 @@ namespace DYT
                 if (filePath != null) return File.ReadAllBytes(filePath);
             }
             
-            Debug.LogError($"GameLaunch.cs -> Loader()\nParam: {name}");
+            Debug.LogError($"GameLaunch.cs -> Loader() -> name='{name}'");
             return null;
         }
         

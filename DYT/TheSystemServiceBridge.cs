@@ -91,7 +91,7 @@ namespace DYT
                 Debug.LogWarning($"[TheSystemServiceBridge] OnStallingChanged 回调异常: {e}");
             }
 
-            Debug.Log($"[TheSystemServiceBridge] Stalling={_stalling}, bgLoad={Application.backgroundLoadingPriority}, vSync={QualitySettings.vSyncCount}, fps={Application.targetFrameRate}");
+            Debug.LogWarning($"TheSystemService.cs -> SetStalling() -> stalling='{stalling}'");
         }
 
         /// <summary>
