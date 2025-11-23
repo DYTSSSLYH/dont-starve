@@ -285,10 +285,7 @@ namespace DYT
             LUA_ENV.DoString("package.path = 'scripts/?.lua;scriptlibs/?.lua'");
 
             // 注入 Lua 5.1 兼容：loaders -> searchers；并提供 kleiloadlua 的空实现（让搜索链继续）
-            LUA_ENV.DoString(@"
-                local pkg = package
-                pkg.loaders = pkg.loaders or pkg.searchers
-            ", "compat_preload");
+            LUA_ENV.DoString("package.loaders = package.loaders or package.searchers", "compat_preload");
 
             // NEW: Provide global kleiloadlua using C# KleiloadText helper
             LUA_ENV.DoString(@"
@@ -331,6 +328,7 @@ namespace DYT
 
             // 启动主脚本
             LUA_ENV.DoString("require 'main'");
+            LUA_ENV.DoString("Start()");
 
             onLuaStartDone?.Invoke();
             Debug.Log(">>> Lua 虚拟机启动完成");

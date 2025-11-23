@@ -611,6 +611,7 @@ namespace DYT
         {
             FontManager.Instance.AdjustFontAdvance(alias, advance);
         }
-
+        
+        public void SendHardwareStats() {}
     }
 }
