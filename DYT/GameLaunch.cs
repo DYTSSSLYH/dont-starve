@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DYT.Bridges;
 using Unity.SharpZipLib.Zip;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -19,35 +20,35 @@ namespace DYT
         // - 把需要“C# 调 Lua”的委托/接口签名放进 CSharpCallLua 列表
         // - 修改后执行菜单 XLua/Generate Code
         
-        [LuaCallCSharp]
-        public static List<Type> LuaCallCSharp = new List<Type>
-        {
-            // 你在 Lua 里直接访问到的类型
-            typeof(GameLaunch),               // Lua: CS.DYT.GameLaunch.KleiloadText(...)
-            typeof(TheSimBridge),             // Lua: TheSim:Method(...)
-            typeof(EntityBridge),   // 新增：允许 Lua 调用 entity:SetCanSleep(...)
-            typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
-            typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
-
-            // 委托类型：Lua 将直接调用该 C# 委托（如 walltime）
-            typeof(Func<double>),
-        };
-
-        [CSharpCallLua]
-        public static List<Type> CSharpCallLua = new List<Type>
-        {
-            // 仅当你从 Lua 传函数进 C# 并由 C# 回调时才需要。
-            // 示例：如果 TheSimBridge 有如下签名：
-            // public delegate void PersistentStringCallback(bool success, string data);
-            // public delegate void SimpleCallback(bool success);
-            // 则把这些委托类型加入列表：
-            typeof(TheSimBridge.PersistentStringCallback),
-            typeof(TheSimBridge.SimpleCallback),
-
-            // 如果你用系统委托来收 Lua 回调（例如 Action<bool,string>），也需要列出来：
-            // typeof(System.Action<bool, string>),
-            // typeof(System.Action<bool>),
-        };
+        // [LuaCallCSharp]
+        // public static List<Type> LuaCallCSharp = new List<Type>
+        // {
+        //     // 你在 Lua 里直接访问到的类型
+        //     typeof(GameLaunch),               // Lua: CS.DYT.GameLaunch.KleiloadText(...)
+        //     typeof(TheSimBridge),             // Lua: TheSim:Method(...)
+        //     typeof(EntityBridge),   // 新增：允许 Lua 调用 entity:SetCanSleep(...)
+        //     typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
+        //     typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
+        //
+        //     // 委托类型：Lua 将直接调用该 C# 委托（如 walltime）
+        //     typeof(Func<double>),
+        // };
+        //
+        // [CSharpCallLua]
+        // public static List<Type> CSharpCallLua = new List<Type>
+        // {
+        //     // 仅当你从 Lua 传函数进 C# 并由 C# 回调时才需要。
+        //     // 示例：如果 TheSimBridge 有如下签名：
+        //     // public delegate void PersistentStringCallback(bool success, string data);
+        //     // public delegate void SimpleCallback(bool success);
+        //     // 则把这些委托类型加入列表：
+        //     typeof(DYT.Bridges.PersistentStringCallback),
+        //     typeof(SimpleCallback),
+        //
+        //     // 如果你用系统委托来收 Lua 回调（例如 Action<bool,string>），也需要列出来：
+        //     // typeof(System.Action<bool, string>),
+        //     // typeof(System.Action<bool>),
+        // };
         
         [Header("UI 可选：拖一个 Slider 进来显示进度")]
         [SerializeField] Slider slider;
@@ -111,8 +112,8 @@ namespace DYT
         /* 核心：FileStream + SharpZipLib 解压 */
         IEnumerator UnzipWithFileStream(string zipPath, string targetDir)
         {
-            using (var fs   = new FileStream(zipPath, FileMode.Open, FileAccess.Read))
-            using (var zip  = new ZipFile(fs))        // SharpZipLib 入口
+            using (FileStream fs   = new FileStream(zipPath, FileMode.Open, FileAccess.Read))
+            using (ZipFile zip  = new ZipFile(fs))        // SharpZipLib 入口
             {
                 long totalBytes = 0;
                 long doneBytes  = 0;

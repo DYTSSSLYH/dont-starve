@@ -55,8 +55,6 @@ namespace DYT
             }
 #endif
             IniTool.LoadConfigFile(path);
-
-            Main.Start();
             yield return null;
         }
     
@@ -291,20 +289,6 @@ namespace DYT
         }
         
         public void EnableUserDataCollection(bool enable){}
-
-        public object GetFileModificationTime(string filename)
-        {
-            string filePath = Main.GetFilePath(filename);
-            return File.GetLastWriteTime(filePath);
-        }
-
-        private readonly Dictionary<string, byte[]> _assetCache = new Dictionary<string, byte[]>();
-        public void OnAssetPathResolve(string name, string path)
-        {
-            string filePath = Main.GetFilePath(path);
-            _assetCache.TryAdd(name, File.ReadAllBytes(filePath));
-            _assetCache[name] = File.ReadAllBytes(filePath);
-        }
         
         private readonly List<Prefab> _prefabList = new List<Prefab>();
         public void RegisterPrefab(string prefabName, List<Asset> assetList, List<object> deps)

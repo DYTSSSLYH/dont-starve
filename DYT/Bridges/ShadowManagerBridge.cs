@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using DYT.Bridges;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -341,14 +342,6 @@ namespace DYT
             }
 
             return sprites;
-        }
-
-        private struct MipmapInfo
-        {
-            public int width;
-            public int height;
-            public int pitch;
-            public int dataSize;
         }
     }
 }

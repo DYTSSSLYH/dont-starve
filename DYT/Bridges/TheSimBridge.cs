@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.Audio;
 using XLua;
 
-namespace DYT
+namespace DYT.Bridges
 {
+    // Delegates for Lua callbacks (xLua will map Lua functions to these)
+    public delegate void SimpleCallback(bool success);
+    
     public class TheSimBridge : MonoBehaviour
     {
         // 简短说明：按文件读入并用 LuaEnv.DoString 执行，chunk 名用真实路径/文件名，避免 require 的缓存与路径映射问题。
@@ -34,8 +37,8 @@ namespace DYT
                 return;
 
             // 规范化分隔符
-            var key = originalPath.Replace('\\', '/');
-            var val = resolvedPath.Replace('\\', '/');
+            string key = originalPath.Replace('\\', '/');
+            string val = resolvedPath.Replace('\\', '/');
 
             _assetPathMap[key] = val;
             // 可选日志：Debug.Log($"[TheSimBridge] AssetPathResolve: {key} -> {val}");
@@ -107,10 +110,6 @@ namespace DYT
 
         // 音效：简单的全局 Reverb（可被 SetReverbPreset 控制）
         public AudioReverbFilter reverb;
-        
-        // Delegates for Lua callbacks (xLua will map Lua functions to these)
-        public delegate void PersistentStringCallback(bool success, string data);
-        public delegate void SimpleCallback(bool success);
         
         private readonly string _saveRoot;
         
@@ -353,21 +352,13 @@ namespace DYT
         public void GetPersistentString(string name, PersistentStringCallback callback, bool _allowPo)
         {
             string path = Path.Combine(Application.persistentDataPath, name);
-            try
+            if (File.Exists(path))
             {
-                if (File.Exists(path))
-                {
-                    string data = File.ReadAllText(path);
-                    callback?.Invoke(true, data);
-                }
-                else
-                {
-                    callback?.Invoke(false, "");
-                }
+                string data = File.ReadAllText(path);
+                callback?.Invoke(true, data);
             }
-            catch (Exception e)
+            else
             {
-                Debug.LogError($"[TheSimBridge] GetPersistentString('{name}') error: {e}");
                 callback?.Invoke(false, "");
             }
         }
@@ -588,28 +579,28 @@ namespace DYT
         // Load a font file and register it with an alias for later use
         public void LoadFont(string filename, string alias)
         {
-            FontManager.Instance.LoadFont(filename, alias);
+            FontBridge.Instance.LoadFont(filename, alias);
         }
 
         // Lua: TheSim:UnloadFont(alias)
         // Unload a previously loaded font by its alias
         public void UnloadFont(string alias)
         {
-            FontManager.Instance.UnloadFont(alias);
+            FontBridge.Instance.UnloadFont(alias);
         }
 
         // Lua: TheSim:SetupFontFallbacks(alias, fallback)
         // Setup fallback fonts for a given font alias
         public void SetupFontFallbacks(string alias, string fallback)
         {
-            FontManager.Instance.SetupFontFallbacks(alias, fallback);
+            FontBridge.Instance.SetupFontFallbacks(alias, fallback);
         }
 
         // Lua: TheSim:AdjustFontAdvance(alias, advance)
         // Adjust the advance width of a font
         public void AdjustFontAdvance(string alias, float advance)
         {
-            FontManager.Instance.AdjustFontAdvance(alias, advance);
+            FontBridge.Instance.AdjustFontAdvance(alias, advance);
         }
         
         public void SendHardwareStats() {}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DYT.Bridges;
 using DYT.Widgets;
 using TMPro;
 using UnityEngine;
@@ -106,7 +107,7 @@ namespace DYT
 
         public FontManagerBridge AddFontManager()
         {
-            return new FontManagerBridge();
+            return _gameObject.AddComponent<FontManagerBridge>();
         }
 
         public InteriorManagerBridge AddInteriorManager()
@@ -127,7 +128,6 @@ namespace DYT
         public class SplatManagerBridge { }
         public class RoadManagerBridge { }
         public class EnvelopeManagerBridge { }
-        public class FontManagerBridge { }
         public class InteriorManagerBridge { }
         public class MapLayerManagerBridge { }
     }
