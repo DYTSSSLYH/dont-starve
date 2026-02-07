@@ -34,7 +34,6 @@ namespace DYT.Bridges
         private void Awake()
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         /// <summary>
@@ -148,10 +147,6 @@ namespace DYT.Bridges
             int scaleH = customFntParse.textureHeight;
             float lineHeight = customFntParse.lineHeight;
             float size = customFntParse.fontSize;
-            
-            // 加载 PNG 为 Texture2D
-            Texture2D fontTexture = new Texture2D(scaleW, scaleH);
-            fontTexture.LoadImage(texBytes);
 
             // 设置 FaceInfo
             FaceInfo faceInfo = new FaceInfo
@@ -170,7 +165,7 @@ namespace DYT.Bridges
             if (versionField != null) versionField.SetValue(fontAsset, "1.1.0");
             
             // 4. 配置资源
-            fontAsset.atlasTextures = new[] { fontTexture };
+            fontAsset.atlasTextures = new[] { texture };
             FieldInfo atlasWidth = typeof(TMP_FontAsset).GetField(
                 "m_AtlasWidth", BindingFlags.NonPublic | BindingFlags.Instance);
             if (atlasWidth != null) atlasWidth.SetValue(fontAsset, scaleW);
@@ -181,7 +176,7 @@ namespace DYT.Bridges
             Shader bitmapShader = Shader.Find("TextMeshPro/Bitmap");
             Material fontMaterial = new Material(bitmapShader);
             fontMaterial.name = fontName + " Material";
-            fontMaterial.mainTexture = fontTexture;
+            fontMaterial.mainTexture = texture;
             fontAsset.material = fontMaterial;
 
             // 3. 填充字形和字符

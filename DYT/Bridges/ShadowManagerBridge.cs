@@ -227,41 +227,41 @@ namespace DYT
         /// <summary>
         /// 根据XML文件切割图集
         /// </summary>
-        private void SliceTextureAtlas(Texture2D texture, string xmlFilePath, string texturePath)
-        {
-            try
-            {
-                // 1. 保存PNG到Assets目录
-                string assetPath = SaveTextureAsAsset(texture, texturePath);
-                if (string.IsNullOrEmpty(assetPath))
-                {
-                    Debug.LogError("保存纹理失败");
-                    return;
-                }
-
-                // 2. 解析XML获取切割信息
-                List<SpriteMetaData> spriteSheet = ParseAtlasXML(xmlFilePath, texture.width, texture.height);
-                
-                // 3. 设置TextureImporter
-                TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-                if (importer != null)
-                {
-                    importer.textureType = TextureImporterType.Sprite;
-                    importer.spriteImportMode = SpriteImportMode.Multiple;
-                    importer.spritesheet = spriteSheet.ToArray();
-                    importer.mipmapEnabled = false;
-                    importer.filterMode = FilterMode.Bilinear;
-                    importer.textureCompression = TextureImporterCompression.Uncompressed;
-                    
-                    AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-                    Debug.Log($"成功切割图集: {assetPath}, 共 {spriteSheet.Count} 个sprite");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"切割图集时出错: {e.Message}\n{e.StackTrace}");
-            }
-        }
+        // private void SliceTextureAtlas(Texture2D texture, string xmlFilePath, string texturePath)
+        // {
+        //     try
+        //     {
+        //         // 1. 保存PNG到Assets目录
+        //         string assetPath = SaveTextureAsAsset(texture, texturePath);
+        //         if (string.IsNullOrEmpty(assetPath))
+        //         {
+        //             Debug.LogError("保存纹理失败");
+        //             return;
+        //         }
+        //
+        //         // 2. 解析XML获取切割信息
+        //         List<SpriteMetaData> spriteSheet = ParseAtlasXML(xmlFilePath, texture.width, texture.height);
+        //         
+        //         // 3. 设置TextureImporter
+        //         TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+        //         if (importer != null)
+        //         {
+        //             importer.textureType = TextureImporterType.Sprite;
+        //             importer.spriteImportMode = SpriteImportMode.Multiple;
+        //             importer.spritesheet = spriteSheet.ToArray();
+        //             importer.mipmapEnabled = false;
+        //             importer.filterMode = FilterMode.Bilinear;
+        //             importer.textureCompression = TextureImporterCompression.Uncompressed;
+        //             
+        //             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+        //             Debug.Log($"成功切割图集: {assetPath}, 共 {spriteSheet.Count} 个sprite");
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Debug.LogError($"切割图集时出错: {e.Message}\n{e.StackTrace}");
+        //     }
+        // }
         
         /// <summary>
         /// 保存纹理为PNG资源

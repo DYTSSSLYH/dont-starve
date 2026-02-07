@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using DYT.Bridges;
@@ -15,52 +14,24 @@ namespace DYT
 {
     public class GameLaunch : MonoBehaviour
     {
-        // 说明：
-        // - 把需要“Lua 调 C#”的类型放进 LuaCallCSharp 列表
-        // - 把需要“C# 调 Lua”的委托/接口签名放进 CSharpCallLua 列表
-        // - 修改后执行菜单 XLua/Generate Code
-        
-        // [LuaCallCSharp]
-        // public static List<Type> LuaCallCSharp = new List<Type>
-        // {
-        //     // 你在 Lua 里直接访问到的类型
-        //     typeof(GameLaunch),               // Lua: CS.DYT.GameLaunch.KleiloadText(...)
-        //     typeof(TheSimBridge),             // Lua: TheSim:Method(...)
-        //     typeof(EntityBridge),   // 新增：允许 Lua 调用 entity:SetCanSleep(...)
-        //     typeof(TheSystemServiceBridge),   // Lua: TheSystemService:SetStalling(...)
-        //     typeof(TheInputProxyBridge),      // Lua: TheInputProxy:...
-        //
-        //     // 委托类型：Lua 将直接调用该 C# 委托（如 walltime）
-        //     typeof(Func<double>),
-        // };
-        //
-        // [CSharpCallLua]
-        // public static List<Type> CSharpCallLua = new List<Type>
-        // {
-        //     // 仅当你从 Lua 传函数进 C# 并由 C# 回调时才需要。
-        //     // 示例：如果 TheSimBridge 有如下签名：
-        //     // public delegate void PersistentStringCallback(bool success, string data);
-        //     // public delegate void SimpleCallback(bool success);
-        //     // 则把这些委托类型加入列表：
-        //     typeof(DYT.Bridges.PersistentStringCallback),
-        //     typeof(SimpleCallback),
-        //
-        //     // 如果你用系统委托来收 Lua 回调（例如 Action<bool,string>），也需要列出来：
-        //     // typeof(System.Action<bool, string>),
-        //     // typeof(System.Action<bool>),
-        // };
-        
         [Header("UI 可选：拖一个 Slider 进来显示进度")]
         [SerializeField] Slider slider;
         
         public TheSimBridge theSimBridge;
 
+        public RectTransform canvas;
+
         public string RES_ZIP = "dont_starve_copy";          // StreamingAssets 里的资源包
         static string FlagFile => $"{Application.persistentDataPath}/.unpacked";
 
+        public static GameLaunch Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+        
         /* 公开事件：解压完成 / 启动完成 */
-        public static event Action onUnpackDone;   // 可在这里切 UI
-        public static event Action onLuaStartDone; // Lua 已 ready
 
         /* 单例供外部取 LuaEnv */
         public static LuaEnv LUA_ENV;
@@ -331,7 +302,6 @@ namespace DYT
             LUA_ENV.DoString("require 'main'");
             LUA_ENV.DoString("Start()");
 
-            onLuaStartDone?.Invoke();
             Debug.Log(">>> Lua 虚拟机启动完成");
         }
     }

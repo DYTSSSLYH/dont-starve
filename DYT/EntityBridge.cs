@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using DYT.Bridges;
-using DYT.Widgets;
+using DYT.Consts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using XLua;
 
 namespace DYT
@@ -65,19 +66,44 @@ namespace DYT
         
         public void AddUITransform()
         {
-            if (_gameObject.GetComponent<RectTransform>() == null)
-            {
-                _gameObject.AddComponent<RectTransform>();
-            }
+            LuaTable ents = GameLaunch.LUA_ENV.Global.Get<LuaTable>("Ents");
+            LuaTable inst = ents.Get<int, LuaTable>(GetGUID());
+            
+            _gameObject.transform.SetParent(GameLaunch.Instance.canvas);
+            RectTransform rectTransform = _gameObject.AddComponent<RectTransform>();
+            rectTransform.anchoredPosition = Vector2.zero;
+            rectTransform.sizeDelta = new Vector2(Const.RESOLUTION_X, Const.RESOLUTION_Y);
+            
+            UITransformBridge rectTransformBridge = new UITransformBridge(rectTransform, inst);
+            
+            inst.Set("UITransform", rectTransformBridge);
         }
         
         public void AddTextWidget()
         {
             TextMeshProUGUI textMeshProUGUI = _gameObject.AddComponent<TextMeshProUGUI>();
             TextWidgetBridge textWidgetBridge = new TextWidgetBridge(textMeshProUGUI);
+            
             LuaTable ents = GameLaunch.LUA_ENV.Global.Get<LuaTable>("Ents");
             LuaTable entityScript = ents.Get<int, LuaTable>(GetGUID());
+            
             entityScript.Set("TextWidget", textWidgetBridge);
+        }
+        
+        public void Hide(bool hide)
+        {
+            _gameObject.SetActive(hide);
+        }
+        
+        public void AddImageWidget()
+        {
+            Image image = _gameObject.AddComponent<Image>();
+            ImageWidgetBridge imageWidgetBridge = new ImageWidgetBridge(image);
+            
+            LuaTable ents = GameLaunch.LUA_ENV.Global.Get<LuaTable>("Ents");
+            LuaTable inst = ents.Get<int, LuaTable>(GetGUID());
+            
+            inst.Set("ImageWidget", imageWidgetBridge);
         }
 
         public SplatManagerBridge AddSplatManager()
@@ -123,6 +149,24 @@ namespace DYT
         public void CallPrefabConstructionComplete()
         {
             Debug.LogWarning("EntityBridge.cs -> CallPrefabConstructionComplete()");
+        }
+
+        public void SetClickable(bool val)
+        {
+            LuaTable ents = GameLaunch.LUA_ENV.Global.Get<LuaTable>("Ents");
+            LuaTable inst = ents.Get<int, LuaTable>(GetGUID());
+            
+            LuaTable widget = inst.Get<LuaTable>("widget");
+            string widgetName = widget.Get<string>("name");
+            
+            Debug.LogWarning(
+                $"EntityBridge.cs -> SetClickable() -> widgetName:【{widgetName}】, val:【{val}】"
+            );
+        }
+
+        public void SetParent(EntityBridge entityBridge)
+        {
+            _gameObject.transform.SetParent(entityBridge._gameObject.transform);
         }
         
         public class SplatManagerBridge { }

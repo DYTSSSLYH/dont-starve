@@ -1,60 +1,60 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace DYT.Map.tasks
-{
-    public class MaxwellTasks
-    {
-        static MaxwellTasks()
-        {
-            Tasks.AddTask("MaxPuzzle1", new Task
-            {
-                locks = { "PIGKING" },
-                keys_given = { "WOOD" },
-                room_choices=new Dictionary<string, int>{
-                    ["MaxPuzzle1"] = 1,
-                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
-                },
-                room_bg = Constant.GROUND.MARSH,
-                background_room = "BGMarsh",
-                colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
-            });
-            Tasks.AddTask("MaxPuzzle2", new Task
-            {
-                locks = { "PIGKING" },
-                keys_given = { "WOOD" },
-                room_choices=new Dictionary<string, int>{
-                    ["MaxPuzzle2"] = 1,
-                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
-                },
-                room_bg = Constant.GROUND.MARSH,
-                background_room = "BGMarsh",
-                colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
-            });
-            Tasks.AddTask("MaxPuzzle3", new Task
-            {
-                locks = { "PIGKING" },
-                keys_given = { "WOOD" },
-                room_choices=new Dictionary<string, int>{
-                    ["MaxPuzzle3"] = 1,
-                    ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
-                },
-                room_bg = Constant.GROUND.MARSH,
-                background_room = "BGMarsh",
-                colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
-            });
-
-            Tasks.AddTask("MaxHome", new Task
-            {
-                locks = { "NONE" },
-                keys_given = { "NONE" },
-                room_choices=new Dictionary<string, int>{
-                    ["MaxHome"] = 1,
-                },
-                room_bg = Constant.GROUND.IMPASSABLE,
-                background_room = "BGImpassable",
-                colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
-            });
-        }
-    }
-}
+﻿// using System.Collections.Generic;
+// using UnityEngine;
+//
+// namespace DYT.Map.tasks
+// {
+//     public class MaxwellTasks
+//     {
+//         static MaxwellTasks()
+//         {
+//             Tasks.AddTask("MaxPuzzle1", new Task
+//             {
+//                 locks = { "PIGKING" },
+//                 keys_given = { "WOOD" },
+//                 room_choices=new Dictionary<string, int>{
+//                     ["MaxPuzzle1"] = 1,
+//                     ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
+//                 },
+//                 room_bg = Constant.GROUND.MARSH,
+//                 background_room = "BGMarsh",
+//                 colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
+//             });
+//             Tasks.AddTask("MaxPuzzle2", new Task
+//             {
+//                 locks = { "PIGKING" },
+//                 keys_given = { "WOOD" },
+//                 room_choices=new Dictionary<string, int>{
+//                     ["MaxPuzzle2"] = 1,
+//                     ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
+//                 },
+//                 room_bg = Constant.GROUND.MARSH,
+//                 background_room = "BGMarsh",
+//                 colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
+//             });
+//             Tasks.AddTask("MaxPuzzle3", new Task
+//             {
+//                 locks = { "PIGKING" },
+//                 keys_given = { "WOOD" },
+//                 room_choices=new Dictionary<string, int>{
+//                     ["MaxPuzzle3"] = 1,
+//                     ["SpiderMarsh"] = 2 + Random.Range(0, Tasks.SIZE_VARIATION),
+//                 },
+//                 room_bg = Constant.GROUND.MARSH,
+//                 background_room = "BGMarsh",
+//                 colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
+//             });
+//
+//             Tasks.AddTask("MaxHome", new Task
+//             {
+//                 locks = { "NONE" },
+//                 keys_given = { "NONE" },
+//                 room_choices=new Dictionary<string, int>{
+//                     ["MaxHome"] = 1,
+//                 },
+//                 room_bg = Constant.GROUND.IMPASSABLE,
+//                 background_room = "BGImpassable",
+//                 colour = { r = 0.05f, g = 0.05f, b = 0.05f, a = 1 }
+//             });
+//         }
+//     }
+// }
